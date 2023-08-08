@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RefactoringLife4</string>
+    <string name="tv_register_title">Register</string>
+    <string name="et_register_name">Full name</string>
+    <string name="et_register_email">E-mail address</string>
+    <string name="et_register_password">Create password</string>
 </resources>
