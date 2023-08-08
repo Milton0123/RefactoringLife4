@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "861431429344",
+    "project_id": "final-refactory-life",
+    "storage_bucket": "final-refactory-life.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861431429344:android:29a7575ee2cced257a3885",
+        "android_client_info": {
+          "package_name": "com.example.refactoringlife4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861431429344-c7nuch3p8d7mcm2jn78dhr7704nck5d0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.refactoringlife4",
+            "certificate_hash": "5cc3abf0c570560b4b9b67b7dae7d3c5988d18a4"
+          }
+        },
+        {
+          "client_id": "861431429344-1g43f13hl1m4al9iln2t4u3rm8bd428t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClxQRopeSZaVIsqfTmOr_IGEHaUlW3RXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861431429344-1g43f13hl1m4al9iln2t4u3rm8bd428t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
