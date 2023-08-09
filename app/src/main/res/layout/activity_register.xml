@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="50dp"
-        android:background="@drawable/bt_black_register"
+        android:background="@drawable/bt_black_login"
         android:contentDescription="@string/tv_register_title"
         android:text="@string/tv_register_title"
         android:textColor="@color/white"
