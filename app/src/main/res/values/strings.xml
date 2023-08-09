@@ -4,4 +4,7 @@
     <string name="et_register_name">Full name</string>
     <string name="et_register_email">E-mail address</string>
     <string name="et_register_password">Create password</string>
+    <string name="enter">Enter</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email address</string>
 </resources>
