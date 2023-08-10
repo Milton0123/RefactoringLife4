@@ -15,15 +15,15 @@ import com.google.firebase.auth.GoogleAuthProvider
 class MainActivity : AppCompatActivity() {
 
     private val GOOGLE_SING_IN = 100
-    val screenSplash = installSplashScreen()
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+        val screenSplash = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        screenSplash.setKeepOnScreenCondition { true }
         setup()
+        screenSplash.setKeepOnScreenCondition { false }
     }
 
     private fun setup() {
