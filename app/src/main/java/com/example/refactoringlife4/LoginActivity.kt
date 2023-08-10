@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
         setup()
         screenSplash.setKeepOnScreenCondition { false }
     }
-    
+
     private fun setup() {
 
         binding.btLoginGoogle.setOnClickListener {
