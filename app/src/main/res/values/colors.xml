@@ -10,4 +10,5 @@
     <color name="purple">#3F0CAC</color>
     <color name="orange">#E97F01</color>
     <color name="red_opaque">#962E2E</color>
+    <color name="background_loading">#41000000</color>
 </resources>
