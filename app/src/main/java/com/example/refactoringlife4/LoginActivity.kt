@@ -26,6 +26,11 @@ class LoginActivity : AppCompatActivity() {
         screenSplash.setKeepOnScreenCondition { false }
     }
     private fun setup() {
+        binding.btRegister.setOnClickListener {
+            val intent=Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+
+        }
 
         binding.btLoginGoogle.setOnClickListener {
             val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
