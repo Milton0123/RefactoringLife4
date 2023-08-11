@@ -8,7 +8,7 @@
     </item>
     <item android:state_enabled="false">
         <shape>
-            <solid android:color="@color/teal_200" />
+            <solid android:color="@color/background_register_btn_invalid" />
             <corners android:radius="6dp" />
         </shape>
     </item>
