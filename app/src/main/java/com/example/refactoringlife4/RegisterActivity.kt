@@ -29,6 +29,7 @@ class RegisterActivity : AppCompatActivity() {
             val email: String = binding.etRegisterEmail.text.toString()
             val userName: String = binding.etRegisterName.text.toString()
             val password: String = binding.etRegisterPassword.text.toString()
+
             if (binding.etRegisterEmail.text.isNotEmpty() && binding.etRegisterName.text.isNotEmpty()
                 && binding.etRegisterPassword.text.isNotEmpty()
             ) {
@@ -58,13 +59,6 @@ class RegisterActivity : AppCompatActivity() {
                                 if (errorCode == "ERROR_EMAIL_ALREADY_IN_USE") {
 
                                     Toast.makeText(this, "email ya resgistrado", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                            } catch (invalidCredentialsException: FirebaseAuthInvalidCredentialsException) {
-
-                                val errorCode = invalidCredentialsException.errorCode
-                                if (errorCode == "ERROR_INVALID_EMAIL") {
-                                    Toast.makeText(this, "email invalido", Toast.LENGTH_SHORT)
                                         .show()
                                 }
                             } catch (networkException: FirebaseNetworkException) {
