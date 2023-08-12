@@ -1,4 +1,5 @@
 package com.example.refactoringlife4
+
 import androidx.lifecycle.ViewModelProvider
 import android.app.Dialog
 import android.content.Intent
@@ -30,6 +31,11 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun onClick() {
+
+        binding.ivRegisterBack.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+
         binding.btRegister.setOnClickListener {
             val email = binding.etRegisterEmail.text.toString()
             val userName = binding.etRegisterName.text.toString()
