@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityLoginBinding
+import com.example.refactoringlife4.ui.Registrer.presenter.RegisterActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
