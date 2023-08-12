@@ -9,6 +9,20 @@ class RegisterViewModel : ViewModel() {
     private val _isRegistrationValid = MutableLiveData<Boolean>()
     val isRegistrationValid: LiveData<Boolean> = _isRegistrationValid
 
+    private val responseData = MutableLiveData<String>()
+    val responseLiveData: LiveData<String> = responseData
+
+    fun status(status: FireBaseResponse.Status) {
+        val responseText = when (status) {
+            FireBaseResponse.Status.SUCCESS -> "SUCCESS"
+            FireBaseResponse.Status.ERROR_EMAIL_EXIST -> "ERROR EMAIL EXIST"
+            FireBaseResponse.Status.ERROR -> "ERROR"
+            else -> "ERROR"
+        }
+        responseData.value = responseText
+
+    }
+
     fun validateFields(name: String, email: String, password: String) {
         val isNameValid = validateName(name)
         val isEmailValid = validateEmail(email)
@@ -18,7 +32,9 @@ class RegisterViewModel : ViewModel() {
 
     private fun validateName(name: String): Boolean {
         val nameWords = name.split("\\s+".toRegex())
-        return name.isNotEmpty() && name.length in 3..30 && nameWords.size <= 2 && !name.contains("\\s{2,}".toRegex())
+        return name.isNotEmpty() && name.length in 3..30 && nameWords.size <= 2 && !name.contains(
+            "\\s{2,}".toRegex()
+        )
     }
 
     private fun validateEmail(email: String): Boolean {
@@ -28,5 +44,7 @@ class RegisterViewModel : ViewModel() {
 
     private fun validatePassword(password: String): Boolean {
         return password.isNotEmpty() && password.length in 6..30
+
     }
+
 }

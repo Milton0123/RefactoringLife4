@@ -1,7 +1,10 @@
 package com.example.refactoringlife4.ui.Registrer.presenter
 
+import androidx.lifecycle.ViewModelProvider
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+<<<<<<< HEAD:app/src/main/java/com/example/refactoringlife4/ui/Registrer/presenter/RegisterActivity.kt
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,16 +14,75 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.refactoringlife4.RegisterViewModel
 import com.example.refactoringlife4.databinding.ActivityRegisterBinding
 import com.example.refactoringlife4.ui.Login.presenter.LoginActivity
+=======
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.core.widget.addTextChangedListener
+import com.example.refactoringlife4.databinding.ActivityRegisterBinding
+import com.example.refactoringlife4.databinding.GenericLoadingBinding
+import kotlinx.coroutines.launch
+
+>>>>>>> 138b3a54ca023dacc4ed3871abbbddfde37988dc:app/src/main/java/com/example/refactoringlife4/RegisterActivity.kt
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
+    private var loadingDialog: Dialog? = null
     private lateinit var viewModel: RegisterViewModel
+    val fireBaseResponse = FirebaseService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        onClick()
+        observer()
+
+
+    }
+
+    fun onClick() {
+
+        binding.ivRegisterBack.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
+
+        binding.btRegister.setOnClickListener {
+            val email = binding.etRegisterEmail.text.toString()
+            val userName = binding.etRegisterName.text.toString()
+            val password = binding.etRegisterPassword.text.toString()
+
+            lifecycleScope.launch {
+                var responseStatus = fireBaseResponse.register(email, userName, password)
+                viewModel.status(responseStatus)
+            }
+
+        }
+
+    }
+
+
+    fun observer() {
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        viewModel.responseLiveData.observe(this) {
+            //en esta parte en base a las respuestas que se obtengan se deben de mostrar las respuestas
+            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showLoadingDialog() {
+        if (loadingDialog == null) {
+            val dialogBinding = GenericLoadingBinding.inflate(layoutInflater)
+            loadingDialog = Dialog(this)
+            loadingDialog?.setContentView(dialogBinding.root)
+            loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            loadingDialog?.setCancelable(false)
+        }
+        loadingDialog?.show()
+    }
+
+    private fun hideLoadingDialog() {
+        loadingDialog?.dismiss()
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
         goToBack()
