@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import android.widget.Toast
 
 class RegisterViewModel : ViewModel() {
     private val _isRegistrationValid = MutableLiveData<Boolean>()
@@ -16,7 +15,8 @@ class RegisterViewModel : ViewModel() {
     fun status(status: FireBaseResponse.Status) {
         val responseText = when (status) {
             FireBaseResponse.Status.SUCCESS -> "SUCCESS"
-            FireBaseResponse.Status.ERROR_EMAIL -> "ERROR EMAIL EXIST"
+            FireBaseResponse.Status.ERROR_EMAIL_EXIST -> "ERROR EMAIL EXIST"
+            FireBaseResponse.Status.ERROR -> "ERROR"
             else -> "ERROR"
         }
         responseData.value = responseText
