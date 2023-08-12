@@ -1,10 +1,14 @@
 package com.example.refactoringlife4
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.example.refactoringlife4.databinding.ActivityRegisterBinding
+import com.example.refactoringlife4.databinding.GenericLoadingBinding
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -15,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private var db = FirebaseFirestore.getInstance()
+    private var loadingDialog: Dialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +55,7 @@ class RegisterActivity : AppCompatActivity() {
                                         "type" to "fullAccess"
                                     )
                                 )
-
+                            showLoadingDialog()
                         } else {
                             try {
                                 throw it.exception!!
@@ -59,6 +64,13 @@ class RegisterActivity : AppCompatActivity() {
                                 if (errorCode == "ERROR_EMAIL_ALREADY_IN_USE") {
 
                                     Toast.makeText(this, "email ya resgistrado", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            } catch (invalidCredentialsException: FirebaseAuthInvalidCredentialsException) {
+
+                                val errorCode = invalidCredentialsException.errorCode
+                                if (errorCode == "ERROR_INVALID_EMAIL") {
+                                    Toast.makeText(this, "email invalido", Toast.LENGTH_SHORT)
                                         .show()
                                 }
                             } catch (networkException: FirebaseNetworkException) {
@@ -72,5 +84,30 @@ class RegisterActivity : AppCompatActivity() {
                     }
             }
         }
+
+    }
+//    fun showLoadingLayout() {
+//        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//        binding.inLoading.root.visibility = View.VISIBLE
+//    }
+//
+//    fun hideLoadingLayout() {
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+//        binding.inLoading.root.visibility = View.GONE
+//    }
+
+    private fun showLoadingDialog() {
+        if (loadingDialog == null) {
+            val dialogBinding = GenericLoadingBinding.inflate(layoutInflater)
+            loadingDialog = Dialog(this)
+            loadingDialog?.setContentView(dialogBinding.root)
+            loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            loadingDialog?.setCancelable(false)
+        }
+        loadingDialog?.show()
+    }
+
+    private fun hideLoadingDialog() {
+        loadingDialog?.dismiss()
     }
 }
