@@ -44,7 +44,6 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-
     fun observer() {
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
         viewModel.responseLiveData.observe(this) {
