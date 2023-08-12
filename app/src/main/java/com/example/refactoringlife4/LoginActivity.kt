@@ -22,22 +22,17 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setup()
-        goToRegister()
 
         screenSplash.setKeepOnScreenCondition { false }
     }
 
-    private fun goToRegister() {
-        binding.btRegister.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
-
     private fun setup() {
         binding.btLoginFireStore.setOnClickListener {
-           goLoginEmail()
+            goLoginEmail()
+        }
+
+        binding.btRegister.setOnClickListener {
+            goRegisterEmail()
         }
 
         binding.btLoginGoogle.setOnClickListener {
@@ -51,7 +46,12 @@ class LoginActivity : AppCompatActivity() {
             startActivityForResult(googleClient.signInIntent, GOOGLE_SING_IN)
         }
     }
-    private fun goLoginEmail(){
+
+    private fun goRegisterEmail() {
+        startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    private fun goLoginEmail() {
         startActivity(Intent(this, LoginMailActivity::class.java))
     }
 
