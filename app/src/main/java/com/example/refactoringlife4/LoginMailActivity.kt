@@ -21,12 +21,12 @@ class LoginMailActivity : AppCompatActivity() {
         validateLoginFirebase()
     }
     private fun observer(){
-        viewModel.emailData.observe(this){
+        viewModel.userData.observe(this){
             binding.bnEnterLogin.isEnabled = it
             if(it){binding.bnEnterLogin.setBackgroundResource(R.color.black)}
             if(!it){binding.bnEnterLogin.setBackgroundResource(R.color.gray_off)}
         }
-        viewModel.passData.observe(this){
+        viewModel.userData.observe(this){
             binding.bnEnterLogin.isEnabled = it
             if(it){binding.bnEnterLogin.setBackgroundResource(R.color.black)}
             if(!it){binding.bnEnterLogin.setBackgroundResource(R.color.gray_off)}

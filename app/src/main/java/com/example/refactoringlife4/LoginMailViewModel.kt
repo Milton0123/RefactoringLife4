@@ -1,17 +1,28 @@
 package com.example.refactoringlife4
 
+import android.util.Patterns
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class LoginMailViewModel() : ViewModel() {
-    val passData = MutableLiveData<Boolean>()
-    val emailData = MutableLiveData<Boolean>()
+    private val userData = MutableLiveData<AlertErrorField>()
 
     fun checkLoginEmail(email: String) {
-        emailData.postValue(Utils.checkEmail(email))
+        userData.postValue(checkEmail(email))
     }
 
     fun checkLoginPass(pass: String) {
-        passData.postValue(Utils.checkPassword(pass))
+        userData.postValue(Utils.checkPassword(pass))
+    }
+
+    fun checkEmail(email : String):Boolean{
+        return if(Patterns.EMAIL_ADDRESS.matcher(email).matches() && !email.contains( " " )){
+            userData.postValue(AlertErrorField.SUCCESS)
+            true
+        }else{
+            userData.postValue(AlertErrorField.ERROR_EMAIL)
+            false
+        }
+
     }
 }
