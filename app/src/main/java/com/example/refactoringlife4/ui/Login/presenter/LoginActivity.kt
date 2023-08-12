@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityLoginBinding
 import com.example.refactoringlife4.ui.Registrer.presenter.RegisterActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -25,7 +24,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         setup()
         goToRegister()
-
         screenSplash.setKeepOnScreenCondition { false }
     }
 
