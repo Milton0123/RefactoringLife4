@@ -30,21 +30,6 @@ class RegisterViewModel : ViewModel() {
         _isRegistrationValid.value = isNameValid && isEmailValid && isPasswordValid
     }
 
-
-    private fun String.isValidName(): Boolean {
-        val nameWords = split("\\s+".toRegex())
-        return isNotEmpty() && length in 3..30 && nameWords.size <= 2 && !contains("\\s{2,}".toRegex())
-    }
-
-    private fun String.isValidEmail(): Boolean {
-        return isNotEmpty() && length <= 30 && Patterns.EMAIL_ADDRESS.matcher(this).matches()
-    }
-
-    private fun String.isValidPassword(): Boolean {
-        return isNotEmpty() && length in 6..30
-
-    }
-
     private fun validateName(name: String): Boolean {
         val nameWords = name.split("\\s+".toRegex())
         return name.isNotEmpty() && name.length in 3..30 && nameWords.size <= 2 && !name.contains(
