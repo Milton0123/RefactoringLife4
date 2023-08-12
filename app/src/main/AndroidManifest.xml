@@ -16,13 +16,16 @@
         android:theme="@style/Theme.RefactoringLife4"
         tools:targetApi="31">
         <activity
-            android:name=".LoginMailActivity"
+            android:name=".ui.User.Presenter.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.LoginMail.presenter.LoginMailActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.Registrer.presenter.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.Login.presenter.LoginActivity"
             android:exported="true"
             android:theme="@style/SplashScreen">
             <intent-filter>

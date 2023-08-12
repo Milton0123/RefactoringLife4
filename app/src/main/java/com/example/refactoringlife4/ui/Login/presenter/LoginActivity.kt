@@ -1,10 +1,11 @@
-package com.example.refactoringlife4
+package com.example.refactoringlife4.ui.Login.presenter
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
