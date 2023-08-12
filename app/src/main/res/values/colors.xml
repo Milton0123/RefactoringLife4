@@ -11,4 +11,5 @@
     <color name="orange">#E97F01</color>
     <color name="red_opaque">#962E2E</color>
     <color name="background_loading">#41000000</color>
+    <color name="background_register_btn_invalid">#9AD1E2</color>
 </resources>

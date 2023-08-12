@@ -23,9 +23,19 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setup()
+        goToRegister()
 
         screenSplash.setKeepOnScreenCondition { false }
     }
+
+    private fun goToRegister() {
+        binding.btRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
     private fun setup() {
 
         binding.btLoginGoogle.setOnClickListener {
