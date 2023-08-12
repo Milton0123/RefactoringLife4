@@ -12,7 +12,7 @@ data class FireBaseResponse<out T>(val status: Status, val data: T?, val message
         }
 
         fun <T> error(data: T? = null, message: String = ""): FireBaseResponse<T> {
-            return FireBaseResponse(Status.ERROR, data, message)
+            return FireBaseResponse(Status.ERROR_EMAIL, data, message)
         }
 
     }
@@ -22,6 +22,6 @@ data class FireBaseResponse<out T>(val status: Status, val data: T?, val message
     }
 
     enum class Status {
-        SUCCESS, ERROR
+        SUCCESS, ERROR_EMAIL, ERROR_PASSWORD, ERROR_USER
     }
 }

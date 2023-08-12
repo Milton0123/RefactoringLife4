@@ -5,12 +5,14 @@ import android.text.TextWatcher
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.app.Dialog
+import android.bluetooth.BluetoothAdapter.ERROR
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.example.refactoringlife4.databinding.ActivityRegisterBinding
 import com.example.refactoringlife4.databinding.GenericLoadingBinding
 import com.google.firebase.FirebaseNetworkException
@@ -19,88 +21,49 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
-    private var db = FirebaseFirestore.getInstance()
     private var loadingDialog: Dialog? = null
     private lateinit var viewModel: RegisterViewModel
+    val fireBaseResponse = FirebaseService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        register()
+        onClick()
+        observer()
+
+
     }
 
-    fun register() {
-
+    fun onClick() {
         binding.btRegister.setOnClickListener {
-            val email: String = binding.etRegisterEmail.text.toString()
-            val userName: String = binding.etRegisterName.text.toString()
-            val password: String = binding.etRegisterPassword.text.toString()
+            val email = binding.etRegisterEmail.text.toString()
+            val userName = binding.etRegisterName.text.toString()
+            val password = binding.etRegisterPassword.text.toString()
 
-            if (binding.etRegisterEmail.text.isNotEmpty() && binding.etRegisterName.text.isNotEmpty()
-                && binding.etRegisterPassword.text.isNotEmpty()
-            ) {
-
-                FirebaseAuth.getInstance()
-                    .createUserWithEmailAndPassword(
-                        email, password
-                    )
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            Toast.makeText(this, "succes", Toast.LENGTH_SHORT).show()
-                            db.collection("Users").document(email)
-                                .set(
-                                    hashMapOf(
-                                        "Email" to email,
-                                        "Name" to userName,
-                                        "pass" to password,
-                                        "type" to "fullAccess"
-                                    )
-                                )
-                            showLoadingDialog()
-                        } else {
-                            try {
-                                throw it.exception!!
-                            } catch (userCollisionException: FirebaseAuthUserCollisionException) {
-                                val errorCode = userCollisionException.errorCode
-                                if (errorCode == "ERROR_EMAIL_ALREADY_IN_USE") {
-
-                                    Toast.makeText(this, "email ya resgistrado", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                            } catch (invalidCredentialsException: FirebaseAuthInvalidCredentialsException) {
-
-                                val errorCode = invalidCredentialsException.errorCode
-                                if (errorCode == "ERROR_INVALID_EMAIL") {
-                                    Toast.makeText(this, "email invalido", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                            } catch (networkException: FirebaseNetworkException) {
-
-                                Toast.makeText(this, "Error de conexion", Toast.LENGTH_SHORT).show()
-                            } catch (e: Exception) {
-                                Toast.makeText(this, "Error generico", Toast.LENGTH_SHORT).show()
-                            }
-
-                        }
-                    }
+            lifecycleScope.launch {
+                var responseStatus = fireBaseResponse.register(email, userName, password)
+                viewModel.status(responseStatus)
             }
+
         }
 
     }
-//    fun showLoadingLayout() {
-//        window.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-//        binding.inLoading.root.visibility = View.VISIBLE
-//    }
-//
-//    fun hideLoadingLayout() {
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-//        binding.inLoading.root.visibility = View.GONE
-//    }
+
+
+    fun observer() {
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        viewModel.responseLiveData.observe(this) {
+            //en esta parte en base a las respuestas que se obtengan se deben de mostrar las respuestas
+            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun showLoadingDialog() {
         if (loadingDialog == null) {
