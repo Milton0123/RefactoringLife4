@@ -12,7 +12,6 @@ import com.example.refactoringlife4.RegisterViewModel
 import com.example.refactoringlife4.databinding.ActivityRegisterBinding
 import com.example.refactoringlife4.ui.Login.presenter.LoginActivity
 
-
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var viewModel: RegisterViewModel
