@@ -4,9 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class LoginViewModel : ViewModel() {
+class LoginMailViewModel : ViewModel() {
     private val _isLoginValid = MutableLiveData<Boolean>()
     val isLoginValid: LiveData<Boolean> = _isLoginValid
+    val checkUser = MutableLiveData<Boolean>()
+
+    fun checkUserValidation(email: String, pass : String){
+        checkUser.postValue(Utils.checkUser(email,pass))
+    }
+
 
     private val responseData = MutableLiveData<String>()
     val responseLiveData: LiveData<String> = responseData
