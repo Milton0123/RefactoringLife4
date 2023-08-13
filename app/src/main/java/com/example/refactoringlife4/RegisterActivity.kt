@@ -42,7 +42,7 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.etRegisterPassword.text.toString()
 
             lifecycleScope.launch {
-                var responseStatus = fireBaseResponse.register(email, userName, password)
+                val responseStatus = fireBaseResponse.register(email, userName, password)
                 viewModel.status(responseStatus)
             }
 

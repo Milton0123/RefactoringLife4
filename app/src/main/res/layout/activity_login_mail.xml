@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginMailActivity">
+
     <ImageView
         android:id="@+id/iv_back_login"
         android:layout_width="39dp"
@@ -15,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_back_login" />
+
     <TextView
         android:id="@+id/tv_login"
         android:layout_width="wrap_content"
@@ -22,12 +24,12 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="320dp"
         android:layout_marginBottom="500dp"
+        android:fontFamily="@font/man_rope_regular"
         android:padding="11dp"
         android:text="@string/login"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="35sp"
-        android:fontFamily="@font/man_rope_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,38 +43,44 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/border_login_mail_password"
+        android:hint="@string/email_address"
+        android:maxLength="30"
         android:maxLines="1"
         android:padding="12dp"
-        android:hint="@string/email_address"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_login" />
+
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/border_login_mail_password"
+        android:hint="@string/password"
+        android:maxLength="30"
         android:maxLines="1"
         android:padding="12dp"
-        android:hint="@string/password"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_email" />
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bn_enter_login"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/black"
+        android:layout_marginEnd="20dp"
+        android:background="@color/background_register_btn_invalid"
+        android:enabled="false"
         android:text="@string/enter"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
