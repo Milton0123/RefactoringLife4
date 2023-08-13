@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 class LoginMailActivity : AppCompatActivity() {
-    val fireBaseResponse = FirebaseService()
+    private val fireBaseResponse = FirebaseService()
     private lateinit var binding: ActivityLoginMailBinding
     private lateinit var viewModel: LoginMailViewModel
 
@@ -19,9 +19,9 @@ class LoginMailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginMailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        action()
         observer()
         onClick()
-        action()
     }
 
     private fun action() {
@@ -40,21 +40,25 @@ class LoginMailActivity : AppCompatActivity() {
                 binding.bnEnterLogin.setBackgroundResource(R.color.black)
             }
             if (!it) {
-                binding.bnEnterLogin.setBackgroundResource(R.color.gray_off)
+                binding.bnEnterLogin.setBackgroundResource(R.color.background_register_btn_invalid)
             }
         }
     }
 
 
     private fun validateLoginFirebase() {
-        binding.etEmail.doAfterTextChanged {
-            val pass = binding.etPassword.toString()
-            viewModel.checkUserValidation(it.toString(),pass)
+
+        binding.etEmail.doAfterTextChanged { email ->
+            binding.etPassword.doAfterTextChanged { pass ->
+                viewModel.checkUserValidation(email.toString(), pass.toString())
+            }
         }
-        binding.etPassword.doAfterTextChanged {
-            val email = binding.etEmail.toString()
-            viewModel.checkUserValidation(email,it.toString())
+        binding.etPassword.doAfterTextChanged { pass ->
+            binding.etEmail.doAfterTextChanged { email ->
+                viewModel.checkUserValidation(email.toString(), pass.toString())
+            }
         }
+
 
     }
 
@@ -68,7 +72,7 @@ class LoginMailActivity : AppCompatActivity() {
             val password = binding.etPassword.text.toString()
 
             lifecycleScope.launch {
-                var responseStatus = fireBaseResponse.login(email, password)
+                val responseStatus = fireBaseResponse.login(email, password)
                 viewModel.status(responseStatus)
             }
         }
