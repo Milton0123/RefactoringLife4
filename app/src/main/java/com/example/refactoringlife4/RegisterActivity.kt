@@ -17,7 +17,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private var loadingDialog: Dialog? = null
     private lateinit var viewModel: RegisterViewModel
-    val fireBaseResponse = FirebaseService()
+    val fireBaseResponse = UserFirebaseService()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +43,9 @@ class RegisterActivity : AppCompatActivity() {
 
             lifecycleScope.launch {
                 val responseStatus = fireBaseResponse.register(email, userName, password)
-                viewModel.status(responseStatus)
+//                viewModel.status(responseStatus)
             }
-
+            showLoadingDialog()
         }
 
     }

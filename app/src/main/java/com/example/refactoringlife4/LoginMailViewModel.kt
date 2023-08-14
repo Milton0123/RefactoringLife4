@@ -3,29 +3,34 @@ package com.example.refactoringlife4
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginMailViewModel : ViewModel() {
-    private val _isLoginValid = MutableLiveData<Boolean>()
-    val isLoginValid: LiveData<Boolean> = _isLoginValid
-    val checkUser = MutableLiveData<Boolean>()
+    private val _data = MutableLiveData<UserEvent>()
+    val data: LiveData<UserEvent> = _data
+    val validFields = MutableLiveData<Boolean>()
+    val userfirebaseService = UserFirebaseService()
 
-    fun checkUserValidation(email: String, pass : String){
-        checkUser.postValue(Utils.checkUser(email,pass))
+    fun checkAllFields(email: String, pass: String) {
+        validFields.postValue(Utils.checkUser(email, pass))
     }
 
+    fun loginUser(password: String, email: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = userfirebaseService.login(email, password)
 
-    private val responseData = MutableLiveData<String>()
-    val responseLiveData: LiveData<String> = responseData
-
-    fun status(status: FireBaseResponse.Status) {
-        val responseText = when (status) {
-            FireBaseResponse.Status.SUCCESS -> "SUCCESS"
-            FireBaseResponse.Status.ERROR_PASSWORD -> "PASSWORD OR MAIL INCORRECT"
-            FireBaseResponse.Status.EMAIL_DONT_EXIST -> "ERROR EMAIL DONT EXIST"
-            FireBaseResponse.Status.ERROR -> "ERROR"
-            else -> "ERROR"
+            if (response.isSuccessful()) {
+                _data.postValue(UserEvent.ShowSuccessView)
+            } else {
+                _data.postValue(
+                    (UserEvent.ShowModalError(
+                        "modal", "descripcion",
+                        "cancel", "ok"
+                    ))//cambiar este if x when con todos los eventos posibles
+                )
+            }
         }
-        responseData.value = responseText
-
     }
 }

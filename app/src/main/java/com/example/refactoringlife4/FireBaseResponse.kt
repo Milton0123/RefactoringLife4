@@ -11,22 +11,9 @@ data class FireBaseResponse<out T>(val status: Status, val data: T?, val message
             return FireBaseResponse(Status.SUCCESS, data, message)
         }
 
-        fun <T> error(data: T? = null, message: String = ""): FireBaseResponse<T> {
-            return FireBaseResponse(Status.ERROR_EMAIL_EXIST, data, message)
+        fun <T> error(data: T? = null, message: String = "",status:Status): FireBaseResponse<T> {
+            return FireBaseResponse(status, data, message)
         }
-
-        fun <T> errorExist(data: T? = null, message: String = ""): FireBaseResponse<T> {
-            return FireBaseResponse(Status.ERROR_EMAIL_EXIST, data, message)
-        }
-
-        fun <T> errorPassword(data: T? = null, message: String = ""): FireBaseResponse<T> {
-            return FireBaseResponse(Status.ERROR_EMAIL_EXIST, data, message)
-        }
-
-        fun <T> errorDontExist(data: T? = null, message: String = ""): FireBaseResponse<T> {
-            return FireBaseResponse(Status.ERROR_EMAIL_EXIST, data, message)
-        }
-
     }
 
     fun isSuccessful(): Boolean {

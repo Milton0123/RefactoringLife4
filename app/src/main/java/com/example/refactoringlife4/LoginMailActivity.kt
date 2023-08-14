@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 class LoginMailActivity : AppCompatActivity() {
-    private val fireBaseResponse = FirebaseService()
+    private val fireBaseResponse = UserFirebaseService()
     private lateinit var binding: ActivityLoginMailBinding
     private lateinit var viewModel: LoginMailViewModel
 
@@ -19,62 +19,58 @@ class LoginMailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginMailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        action()
+        validateFields()
+        initViewModel()
         observer()
         onClick()
+
     }
 
-    private fun action() {
-        validateLoginFirebase()
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(LoginMailViewModel::class.java)
     }
 
     private fun observer() {
-        viewModel = ViewModelProvider(this).get(LoginMailViewModel::class.java)
-        viewModel.responseLiveData.observe(this) {
-            //en esta parte en base a las respuestas que se obtengan se deben de mostrar las respuestas
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+
+        viewModel.data.observe(this) {
+            when (it) {
+                is UserEvent.ShowSuccessView -> {
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                }
+                is UserEvent.ShowModalError -> {
+                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-        viewModel.checkUser.observe(this) {
-            binding.bnEnterLogin.isEnabled = it
-            if (it) {
-                binding.bnEnterLogin.setBackgroundResource(R.color.black)
-            }
-            if (!it) {
-                binding.bnEnterLogin.setBackgroundResource(R.color.background_register_btn_invalid)
-            }
+        viewModel.validFields.observe(this) {
+            binding.btEnterLogin.isEnabled = it
         }
     }
 
 
-    private fun validateLoginFirebase() {
-
+    private fun validateFields() {
         binding.etEmail.doAfterTextChanged { email ->
-            binding.etPassword.doAfterTextChanged { pass ->
-                viewModel.checkUserValidation(email.toString(), pass.toString())
-            }
+            viewModel.checkAllFields(
+                email.toString(),
+                binding.etPassword.text.toString()
+            )
         }
         binding.etPassword.doAfterTextChanged { pass ->
-            binding.etEmail.doAfterTextChanged { email ->
-                viewModel.checkUserValidation(email.toString(), pass.toString())
-            }
+            viewModel.checkAllFields(
+                binding.etEmail.text.toString(),
+                pass.toString()
+            )
         }
-
-
     }
 
     private fun onClick() {
         binding.ivBackLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
 
-        binding.bnEnterLogin.setOnClickListener {
-            val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-
-            lifecycleScope.launch {
-                val responseStatus = fireBaseResponse.login(email, password)
-                viewModel.status(responseStatus)
-            }
+        binding.btEnterLogin.setOnClickListener {
+            viewModel.loginUser(binding.etPassword.text.toString(), binding.etEmail.text.toString())
         }
     }
 }
