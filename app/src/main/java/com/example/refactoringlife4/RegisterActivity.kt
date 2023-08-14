@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.databinding.ActivityRegisterBinding
 import com.example.refactoringlife4.databinding.GenericLoadingBinding
 import kotlinx.coroutines.launch
@@ -23,64 +24,41 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        onClick()
+        setupTextObserver()
+        initViewModel()
         observer()
+        onClick()
+    }
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+    }
+    private fun observer() {
 
-
+        viewModel.data.observe(this) {
+            when (it) {
+                is UserEvent.ShowSuccessView -> {
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                }
+                is UserEvent.ShowModalError -> {
+                    Toast.makeText(this, it.description, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        viewModel.validFields.observe(this){
+            binding.btRegister.isEnabled = it
+        }
     }
 
     fun onClick() {
 
         binding.ivRegisterBack.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            goToBack()
         }
 
         binding.btRegister.setOnClickListener {
-            val email = binding.etRegisterEmail.text.toString()
-            val userName = binding.etRegisterName.text.toString()
-            val password = binding.etRegisterPassword.text.toString()
-
-            lifecycleScope.launch {
-                val responseStatus = fireBaseResponse.register(email, userName, password)
-//                viewModel.status(responseStatus)
-            }
-            showLoadingDialog()
+          viewModel.registerUser(binding.etRegisterEmail.text.toString(), binding.etRegisterName.text.toString(), binding.etRegisterPassword.text.toString())
         }
 
-    }
-
-
-    fun observer() {
-        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-        viewModel.responseLiveData.observe(this) {
-            //en esta parte en base a las respuestas que se obtengan se deben de mostrar las respuestas
-            Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun showLoadingDialog() {
-        if (loadingDialog == null) {
-            val dialogBinding = GenericLoadingBinding.inflate(layoutInflater)
-            loadingDialog = Dialog(this)
-            loadingDialog?.setContentView(dialogBinding.root)
-            loadingDialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-            loadingDialog?.setCancelable(false)
-        }
-        loadingDialog?.show()
-    }
-
-    private fun hideLoadingDialog() {
-        loadingDialog?.dismiss()
-        viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
-
-        goToBack()
-        setupTextObserver()
-        setupRegisterButton()
-
-        viewModel.isRegistrationValid.observe(this) { isValid ->
-            binding.btRegister.isEnabled = isValid
-        }
     }
 
     private fun goToBack() {
@@ -92,39 +70,29 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun setupTextObserver() {
-        binding.etRegisterName.addTextChangedListener {
+        binding.etRegisterName.doAfterTextChanged {
             viewModel.validateFields(
-                it.toString().trim(),
                 binding.etRegisterEmail.text.toString().trim(),
-                binding.etRegisterPassword.text.toString().trim()
-            )
-        }
-
-        binding.etRegisterEmail.addTextChangedListener {
-            viewModel.validateFields(
-                binding.etRegisterName.text.toString().trim(),
-                it.toString().trim(),
-                binding.etRegisterPassword.text.toString().trim()
-            )
-        }
-
-        binding.etRegisterPassword.addTextChangedListener {
-            viewModel.validateFields(
-                binding.etRegisterName.text.toString().trim(),
-                binding.etRegisterEmail.text.toString().trim(),
+                binding.etRegisterPassword.text.toString().trim(),
                 it.toString().trim()
             )
         }
-    }
 
-    private fun setupRegisterButton() {
-        binding.btRegister.isEnabled = false
-        binding.btRegister.setOnClickListener {
-            val name = binding.etRegisterName.text.toString().trim()
-            val email = binding.etRegisterEmail.text.toString().trim()
-            val password = binding.etRegisterPassword.text.toString().trim()
+        binding.etRegisterEmail.doAfterTextChanged {
+            viewModel.validateFields(
+                it.toString().trim(),
+                binding.etRegisterPassword.text.toString().trim(),
+                binding.etRegisterName.text.toString().trim()
+            )
+        }
 
-            viewModel.validateFields(name, email, password)
+        binding.etRegisterPassword.doAfterTextChanged {
+            viewModel.validateFields(
+                it.toString().trim(),
+                binding.etRegisterEmail.text.toString().trim(),
+                binding.etRegisterName.text.toString().trim()
+            )
         }
     }
+
 }

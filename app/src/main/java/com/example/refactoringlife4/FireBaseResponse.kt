@@ -21,6 +21,6 @@ data class FireBaseResponse<out T>(val status: Status, val data: T?, val message
     }
 
     enum class Status {
-        SUCCESS, ERROR, ERROR_EMAIL_EXIST, ERROR_PASSWORD, EMAIL_DONT_EXIST
+        SUCCESS, ERROR, ERROR_EMAIL_EXIST, ERROR_PASSWORD, EMAIL_DONT_EXIST, ERROR_LOST_CONNECTION
     }
 }

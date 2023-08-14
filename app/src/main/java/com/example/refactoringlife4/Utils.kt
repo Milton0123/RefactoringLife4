@@ -3,16 +3,12 @@ package com.example.refactoringlife4
 import android.util.Patterns
 
 object Utils {
-    private fun checkEmail(email: String): Boolean {
-        return email.isNotEmpty() && email.length <= 30 && Patterns.EMAIL_ADDRESS.matcher(email)
-            .matches()
+    fun checkUserLogin(email: String, pass: String): Boolean {
+        return email.verifyEmail() && pass.verifyPassword()
     }
 
-    private fun checkPass(pass: String): Boolean {
-        return pass.length in 1..16 && pass.all { it.isLetterOrDigit() } && !pass.contains(" ")
+    fun checkUserRegister(email: String, pass: String, name: String): Boolean {
+        return email.verifyEmail() && pass.verifyPassword() && name.verifyName()
     }
 
-    fun checkUser(email: String, pass: String): Boolean {
-        return checkEmail(email) && checkPass(pass)
-    }
 }

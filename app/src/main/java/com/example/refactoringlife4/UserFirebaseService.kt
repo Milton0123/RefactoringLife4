@@ -65,7 +65,7 @@ class UserFirebaseService {
                                         userName,
                                         password, email, "denied"
                                     ), "connection lost",
-                                    FireBaseResponse.Status.ERROR
+                                    FireBaseResponse.Status.ERROR_LOST_CONNECTION
                                 )
                             )
                         } catch (e: Exception) {
@@ -138,7 +138,7 @@ class UserFirebaseService {
                                         "",
                                         password, email, "denied"
                                     ), "ERROR",
-                                    FireBaseResponse.Status.ERROR
+                                    FireBaseResponse.Status.ERROR_LOST_CONNECTION
                                 )
                             )
                         } catch (e: Exception) {

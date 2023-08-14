@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 
 class LoginMailActivity : AppCompatActivity() {
-    private val fireBaseResponse = UserFirebaseService()
     private lateinit var binding: ActivityLoginMailBinding
     private lateinit var viewModel: LoginMailViewModel
 
@@ -38,7 +37,7 @@ class LoginMailActivity : AppCompatActivity() {
                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
                 }
                 is UserEvent.ShowModalError -> {
-                    Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, it.description, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -51,14 +50,14 @@ class LoginMailActivity : AppCompatActivity() {
     private fun validateFields() {
         binding.etEmail.doAfterTextChanged { email ->
             viewModel.checkAllFields(
-                email.toString(),
-                binding.etPassword.text.toString()
+                email.toString().trim(),
+                binding.etPassword.text.toString().trim()
             )
         }
         binding.etPassword.doAfterTextChanged { pass ->
             viewModel.checkAllFields(
-                binding.etEmail.text.toString(),
-                pass.toString()
+                binding.etEmail.text.toString().trim(),
+                pass.toString().trim()
             )
         }
     }
