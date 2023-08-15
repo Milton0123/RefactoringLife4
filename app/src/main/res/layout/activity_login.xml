@@ -93,8 +93,8 @@
         android:text="@string/login_bt_register"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="16sp"android:elevation="10dp"
-
+        android:textSize="16sp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bt_guest"
         app:layout_constraintEnd_toStartOf="@+id/gl_90"
         app:layout_constraintStart_toStartOf="@+id/gl_10" />
@@ -128,7 +128,6 @@
         android:textAlignment="center"
         android:textColor="@color/purple"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/gl_90"
         app:layout_constraintStart_toStartOf="@+id/gl_10" />
