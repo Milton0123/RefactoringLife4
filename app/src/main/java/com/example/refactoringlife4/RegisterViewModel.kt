@@ -4,47 +4,49 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class RegisterViewModel : ViewModel() {
-    private val _isRegistrationValid = MutableLiveData<Boolean>()
-    val isRegistrationValid: LiveData<Boolean> = _isRegistrationValid
+    val validFields = MutableLiveData<Boolean>()
+    private val _data = MutableLiveData<UserEvent>()
+    val data: LiveData<UserEvent> = _data
+    private val userFirebaseService = UserFirebaseService()
 
-    private val responseData = MutableLiveData<String>()
-    val responseLiveData: LiveData<String> = responseData
-
-    fun status(status: FireBaseResponse.Status) {
-        val responseText = when (status) {
-            FireBaseResponse.Status.SUCCESS -> "SUCCESS"
-            FireBaseResponse.Status.ERROR_EMAIL_EXIST -> "ERROR EMAIL EXIST"
-            FireBaseResponse.Status.ERROR -> "ERROR"
-            else -> "ERROR"
+    fun registerUser(email: String,username: String, password: String  ){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = userFirebaseService.register(email, username, password)
+        when (response.status){
+            FireBaseResponse.Status.SUCCESS-> {
+                _data.postValue(UserEvent.ShowSuccessView)
+            }
+            FireBaseResponse.Status.ERROR_EMAIL_EXIST-> {
+                _data.postValue(UserEvent.ShowModalError(
+                    "Error", "Email exist",
+                    "Cancel", "Go to login"
+                ))
+            }
+            FireBaseResponse.Status.ERROR_LOST_CONNECTION-> {
+                _data.postValue(UserEvent.ShowModalError(
+                    "Error", "Lost connection",
+                    "Cancel", "Ok"
+                ))
+            }else->{
+            _data.postValue(
+                (UserEvent.ShowModalError(
+                    "Error", "Generic Error",
+                    "Cancel", "Ok"
+                ))
+            )
         }
-        responseData.value = responseText
+
+        }
+        }
 
     }
-
-    fun validateFields(name: String, email: String, password: String) {
-        val isNameValid = validateName(name)
-        val isEmailValid = validateEmail(email)
-        val isPasswordValid = validatePassword(password)
-        _isRegistrationValid.value = isNameValid && isEmailValid && isPasswordValid
-    }
-
-    private fun validateName(name: String): Boolean {
-        val nameWords = name.split("\\s+".toRegex())
-        return name.isNotEmpty() && name.length in 3..30 && nameWords.size <= 2 && !name.contains(
-            "\\s{2,}".toRegex()
-        )
-    }
-
-    private fun validateEmail(email: String): Boolean {
-        return email.isNotEmpty() && email.length <= 30 && Patterns.EMAIL_ADDRESS.matcher(email)
-            .matches()
-    }
-
-    private fun validatePassword(password: String): Boolean {
-        return password.isNotEmpty() && password.length in 6..30
-
+    fun validateFields(email: String,password: String,name: String) {
+       validFields.postValue(Utils.checkUserRegister(email, password, name))
     }
 
 }

@@ -13,4 +13,5 @@
     <color name="background_loading">#41000000</color>
     <color name="gray_off">#F53E3E3E</color>
     <color name="background_register_btn_invalid">#9AD1E2</color>
+    <color name="black_lite">#B8B8B8</color>
 </resources>
