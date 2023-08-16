@@ -35,10 +35,10 @@ class LoginFireStoreActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             when (it) {
                 is LoginViewModelEvent.ShowSuccessView -> {
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is LoginViewModelEvent.ShowModalError -> {
-                    Toast.makeText(this, it.description, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, it.modalDialog.description, Toast.LENGTH_SHORT).show()
                 }
             }
         }

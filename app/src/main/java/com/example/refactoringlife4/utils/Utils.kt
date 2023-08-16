@@ -8,5 +8,4 @@ object Utils {
     fun checkUserRegister(email: String, pass: String, name: String): Boolean {
         return email.verifyEmail() && pass.verifyPassword() && name.verifyName()
     }
-
 }
