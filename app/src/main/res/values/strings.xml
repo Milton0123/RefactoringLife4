@@ -10,5 +10,7 @@
     <string name="login_bt_register">Registrar</string>
     <string name="login_bt_login_google">Iniciar sesión con Google</string>
     <string name="login_bt_Quest">Invitado</string>
+    <string name="quieres_registrarte">quieres registrarte!</string>
+    <string name="no_estas_registrado">No estas registrado</string>
 
 </resources>
