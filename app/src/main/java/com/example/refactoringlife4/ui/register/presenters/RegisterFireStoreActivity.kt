@@ -91,8 +91,8 @@ class RegisterFireStoreActivity : AppCompatActivity() {
 
         binding.etRegisterPassword.doAfterTextChanged {
             viewModel.validateFields(
-                it.toString().trim(),
                 binding.etRegisterEmail.text.toString().trim(),
+                it.toString().trim(),
                 binding.etRegisterName.text.toString().trim()
             )
         }
