@@ -48,16 +48,18 @@
         android:background="@drawable/border_radius_white"
         android:drawableStart="@drawable/google"
         android:fontFamily="@font/man_rope_regular"
-        android:paddingStart="8dp"
+        android:paddingStart="26dp"
         android:paddingTop="16dp"
-        android:paddingEnd="16dp"
+        android:paddingEnd="26dp"
         android:paddingBottom="16dp"
         android:text="@string/login_bt_login_google"
         android:textAlignment="center"
         android:textSize="16sp"
+        android:elevation="10dp"
         app:layout_constraintEnd_toStartOf="@+id/gl_90"
         app:layout_constraintStart_toStartOf="@+id/gl_10"
-        app:layout_constraintTop_toTopOf="@+id/gl_52"
+        app:layout_constraintBottom_toTopOf="@+id/bt_login_fire_store"
+        android:layout_marginBottom="16dp"
         tools:ignore="RtlSymmetry" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -73,6 +75,7 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bt_register"
         app:layout_constraintEnd_toStartOf="@+id/gl_90"
         app:layout_constraintHorizontal_bias="0.0"
@@ -91,6 +94,7 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/bt_guest"
         app:layout_constraintEnd_toStartOf="@+id/gl_90"
         app:layout_constraintStart_toStartOf="@+id/gl_10" />
@@ -108,6 +112,7 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="16sp"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toStartOf="@+id/gl_90"
         app:layout_constraintHorizontal_bias="0.0"
@@ -123,7 +128,6 @@
         android:textAlignment="center"
         android:textColor="@color/purple"
         android:textSize="16sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/gl_90"
         app:layout_constraintStart_toStartOf="@+id/gl_10" />

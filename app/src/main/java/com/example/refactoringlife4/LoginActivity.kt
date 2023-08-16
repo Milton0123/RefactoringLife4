@@ -25,7 +25,15 @@ class LoginActivity : AppCompatActivity() {
 
         screenSplash.setKeepOnScreenCondition { false }
     }
+
     private fun setup() {
+        binding.btLoginFireStore.setOnClickListener {
+            goLoginEmail()
+        }
+
+        binding.btRegister.setOnClickListener {
+            goRegisterEmail()
+        }
 
         binding.btLoginGoogle.setOnClickListener {
             val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -37,6 +45,14 @@ class LoginActivity : AppCompatActivity() {
             googleClient.signOut()
             startActivityForResult(googleClient.signInIntent, GOOGLE_SING_IN)
         }
+    }
+
+    private fun goRegisterEmail() {
+        startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    private fun goLoginEmail() {
+        startActivity(Intent(this, LoginMailActivity::class.java))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

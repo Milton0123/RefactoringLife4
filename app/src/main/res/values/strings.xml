@@ -6,9 +6,14 @@
     <string name="et_register_password">Create password</string>
 
     <string name="login_bt_login">Iniciar sesión</string>
-    <string name="login_tv_alert_Technical">Si tu cuenta no fue asociada al sistema, comunicate con  <p>SOPORTE TECNICO</p></string>
+    <string name="login_tv_alert_Technical">Si tu cuenta no fue asociada al sistema, comunicate con <b>Soporte Técnico</b></string>
     <string name="login_bt_register">Registrar</string>
     <string name="login_bt_login_google">Iniciar sesión con Google</string>
     <string name="login_bt_Quest">Invitado</string>
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="enter">Enter</string>
+    <string name="login">LOGIN</string>
+    <string name="arrow_back">arrow back</string>
 
 </resources>
