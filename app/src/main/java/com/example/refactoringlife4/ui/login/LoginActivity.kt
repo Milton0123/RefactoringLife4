@@ -1,11 +1,14 @@
-package com.example.refactoringlife4
+package com.example.refactoringlife4.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityLoginBinding
+import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
+import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -48,11 +51,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goRegisterEmail() {
-        startActivity(Intent(this, RegisterActivity::class.java))
+        startActivity(Intent(this, RegisterFireStoreActivity::class.java))
     }
 
     private fun goLoginEmail() {
-        startActivity(Intent(this, LoginMailActivity::class.java))
+        startActivity(Intent(this, LoginFireStoreActivity::class.java))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

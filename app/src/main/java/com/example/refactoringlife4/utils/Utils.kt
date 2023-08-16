@@ -1,6 +1,4 @@
-package com.example.refactoringlife4
-
-import android.util.Patterns
+package com.example.refactoringlife4.utils
 
 object Utils {
     fun checkUserLogin(email: String, pass: String): Boolean {
