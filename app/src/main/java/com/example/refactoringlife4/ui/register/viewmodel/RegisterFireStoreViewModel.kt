@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.refactoringlife4.model.dto.Result
-import com.example.refactoringlife4.model.usesCases.RegisterUseCase
+import com.example.refactoringlife4.model.usesCases.UserUsesCase
 import com.example.refactoringlife4.utils.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegisterFireStoreViewModel(private val registerUseCase: RegisterUseCase = RegisterUseCase()) :
+class RegisterFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesCase()) :
     ViewModel() {
 
     val validFields = MutableLiveData<Boolean>()
@@ -19,7 +19,7 @@ class RegisterFireStoreViewModel(private val registerUseCase: RegisterUseCase = 
 
     fun registerUser(email: String, username: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = registerUseCase.invoke(email, username, password)
+            val response = userUsesCase.register.invoke(email, username, password)
             when (response.status) {
                 Result.Status.SUCCESS -> {
                     _data.postValue(RegisterViewModelEvent.ShowSuccessView)
