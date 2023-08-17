@@ -74,6 +74,3 @@ class LoginFireStoreActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
