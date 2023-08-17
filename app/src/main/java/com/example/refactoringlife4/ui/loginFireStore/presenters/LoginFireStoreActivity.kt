@@ -1,43 +1,44 @@
-package com.example.refactoringlife4
+package com.example.refactoringlife4.ui.loginFireStore.presenters
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.doAfterTextChanged
-import com.example.refactoringlife4.databinding.ActivityLoginMailBinding
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
+import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
+import com.example.refactoringlife4.ui.login.LoginActivity
+import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModel
+import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
+import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelFactory
 
-class LoginMailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginMailBinding
-    private lateinit var viewModel: LoginMailViewModel
+class LoginFireStoreActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityLoginFireStoreBinding
+    private lateinit var viewModel: LoginFireStoreViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginMailBinding.inflate(layoutInflater)
+        binding = ActivityLoginFireStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
         validateFields()
-        initViewModel()
+        getViewModel()
         observer()
         onClick()
 
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(LoginMailViewModel::class.java)
+    private fun getViewModel() {
+        viewModel = LoginFireStoreViewModelFactory().create(LoginFireStoreViewModel::class.java)
     }
 
     private fun observer() {
 
         viewModel.data.observe(this) {
             when (it) {
-                is UserEvent.ShowSuccessView -> {
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                is LoginFireStoreViewModelEvent.ShowSuccessView -> {
+                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                 }
-                is UserEvent.ShowModalError -> {
-                    Toast.makeText(this, it.description, Toast.LENGTH_SHORT).show()
+                is LoginFireStoreViewModelEvent.ShowModalError -> {
+                    Toast.makeText(this, it.modalDialog.description, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -73,6 +74,3 @@ class LoginMailActivity : AppCompatActivity() {
         }
     }
 }
-
-
-
