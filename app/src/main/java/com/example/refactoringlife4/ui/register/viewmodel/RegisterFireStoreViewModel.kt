@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.refactoringlife4.model.dto.Result
-import com.example.refactoringlife4.model.repository.UserRepository
+import com.example.refactoringlife4.model.usesCases.RegisterUseCase
 import com.example.refactoringlife4.utils.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegisterFireStoreViewModel(private val userRepository: UserRepository = UserRepository()) :
+class RegisterFireStoreViewModel(private val registerUseCase: RegisterUseCase = RegisterUseCase()) :
     ViewModel() {
 
     val validFields = MutableLiveData<Boolean>()
@@ -19,33 +19,36 @@ class RegisterFireStoreViewModel(private val userRepository: UserRepository = Us
 
     fun registerUser(email: String, username: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = userRepository.userRegister(email, username, password)
+            val response = registerUseCase.invoke(email, username, password)
             when (response.status) {
                 Result.Status.SUCCESS -> {
                     _data.postValue(RegisterViewModelEvent.ShowSuccessView)
                 }
                 Result.Status.ERROR_EMAIL_EXIST -> {
                     _data.postValue(
-                        RegisterViewModelEvent.ShowModalError(
-                            "Error", "Lost connection",
-                            "Cancel", "Ok"
-                        )
+                        response.modalDialog?.let {
+                            RegisterViewModelEvent.ShowModalError(
+                                it
+                            )
+                        }
                     )
                 }
                 Result.Status.ERROR_LOST_CONNECTION -> {
                     _data.postValue(
-                        RegisterViewModelEvent.ShowModalError(
-                            "Error", "Lost connection",
-                            "Cancel", "Ok"
-                        )
+                        response.modalDialog?.let {
+                            RegisterViewModelEvent.ShowModalError(
+                                it
+                            )
+                        }
                     )
                 }
                 else -> {
                     _data.postValue(
-                        (RegisterViewModelEvent.ShowModalError(
-                            "Error", "Generic Error",
-                            "Cancel", "Ok"
-                        ))
+                        response.modalDialog?.let {
+                            RegisterViewModelEvent.ShowModalError(
+                                it
+                            )
+                        }
                     )
                 }
 

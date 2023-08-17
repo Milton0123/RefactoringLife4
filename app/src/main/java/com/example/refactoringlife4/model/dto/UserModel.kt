@@ -1,6 +1,6 @@
 package com.example.refactoringlife4.model.dto
 
-data class LoginModel(
+data class UserModel(
     val status: Result.Status,
     val modalDialog: ModalDialog?
 ) {

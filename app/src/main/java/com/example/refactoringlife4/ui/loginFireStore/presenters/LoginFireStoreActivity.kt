@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.doAfterTextChanged
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModel
-import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginViewModelEvent
+import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
+import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelFactory
 
 class LoginFireStoreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginFireStoreBinding
@@ -20,24 +20,24 @@ class LoginFireStoreActivity : AppCompatActivity() {
         binding = ActivityLoginFireStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
         validateFields()
-        initViewModel()
+        getViewModel()
         observer()
         onClick()
 
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(LoginFireStoreViewModel::class.java)
+    private fun getViewModel() {
+        viewModel = LoginFireStoreViewModelFactory().create(LoginFireStoreViewModel::class.java)
     }
 
     private fun observer() {
 
         viewModel.data.observe(this) {
             when (it) {
-                is LoginViewModelEvent.ShowSuccessView -> {
+                is LoginFireStoreViewModelEvent.ShowSuccessView -> {
                     Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                 }
-                is LoginViewModelEvent.ShowModalError -> {
+                is LoginFireStoreViewModelEvent.ShowModalError -> {
                     Toast.makeText(this, it.modalDialog.description, Toast.LENGTH_SHORT).show()
                 }
             }

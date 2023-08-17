@@ -1,7 +1,5 @@
 package com.example.refactoringlife4.ui.register.presenters
 
-import androidx.lifecycle.ViewModelProvider
-import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,10 +8,12 @@ import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModel
 import com.example.refactoringlife4.databinding.ActivityRegisterFireStoreBinding
-import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginViewModelEvent
+import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModelFactory
+import com.example.refactoringlife4.ui.register.viewmodel.RegisterViewModelEvent
 
 
 class RegisterFireStoreActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityRegisterFireStoreBinding
     private lateinit var viewModel: RegisterFireStoreViewModel
 
@@ -22,24 +22,24 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         binding = ActivityRegisterFireStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupTextObserver()
-        initViewModel()
+        getViewModel()
         observer()
         onClick()
     }
 
-    private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(RegisterFireStoreViewModel::class.java)
+    private fun getViewModel() {
+        viewModel = RegisterFireStoreViewModelFactory().create(RegisterFireStoreViewModel::class.java)
     }
 
     private fun observer() {
 
         viewModel.data.observe(this) {
             when (it) {
-                is LoginViewModelEvent.ShowSuccessView -> {
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                is RegisterViewModelEvent.ShowSuccessView -> {
+                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
                 }
-                is LoginViewModelEvent.ShowModalError -> {
-                    Toast.makeText(this, it.description, Toast.LENGTH_SHORT).show()
+                is RegisterViewModelEvent.ShowModalError -> {
+                    Toast.makeText(this, it.modalDialog.description, Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -48,7 +48,7 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         }
     }
 
-    fun onClick() {
+    private fun onClick() {
 
         binding.ivRegisterBack.setOnClickListener {
             goToBack()

@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.refactoringlife4.model.dto.Result
-import com.example.refactoringlife4.model.repository.UserRepository
-import com.example.refactoringlife4.model.usesCases.LoginUseCase
 import com.example.refactoringlife4.model.usesCases.UserUsesCase
 import com.example.refactoringlife4.utils.Utils
 import kotlinx.coroutines.CoroutineScope
@@ -15,8 +13,8 @@ import kotlinx.coroutines.launch
 class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesCase()) :
     ViewModel() {
 
-    private val _data = MutableLiveData<LoginViewModelEvent>()
-    val data: LiveData<LoginViewModelEvent> = _data
+    private val _data = MutableLiveData<LoginFireStoreViewModelEvent>()
+    val data: LiveData<LoginFireStoreViewModelEvent> = _data
     val validFields = MutableLiveData<Boolean>()
 
     fun checkAllFields(email: String, pass: String) {
@@ -29,12 +27,12 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
 
             when (response.status) {
                 Result.Status.SUCCESS -> {
-                    _data.postValue(LoginViewModelEvent.ShowSuccessView)
+                    _data.postValue(LoginFireStoreViewModelEvent.ShowSuccessView)
                 }
                 Result.Status.ERROR_PASSWORD -> {
                     _data.postValue(
                         response.modalDialog?.let {
-                            LoginViewModelEvent.ShowModalError(
+                            LoginFireStoreViewModelEvent.ShowModalError(
                                 it
                             )
                         }
@@ -43,7 +41,7 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
                 Result.Status.EMAIL_DONT_EXIST -> {
                     _data.postValue(
                         response.modalDialog?.let {
-                            LoginViewModelEvent.ShowModalError(
+                            LoginFireStoreViewModelEvent.ShowModalError(
                                 it
                             )
                         }
@@ -52,7 +50,7 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
                 Result.Status.ERROR_LOST_CONNECTION -> {
                     _data.postValue(
                         response.modalDialog?.let {
-                            LoginViewModelEvent.ShowModalError(
+                            LoginFireStoreViewModelEvent.ShowModalError(
                                 it
 
                             )
@@ -62,7 +60,7 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
                 else -> {
                     _data.postValue(
                         (response.modalDialog?.let {
-                            LoginViewModelEvent.ShowModalError(
+                            LoginFireStoreViewModelEvent.ShowModalError(
                                 it
 
                             )
