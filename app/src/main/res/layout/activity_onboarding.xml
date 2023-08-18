@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/onboard_back_dog"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:background="@drawable/icon_dog_onboarding"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="60dp"/>
+    <TextView
+        android:id="@+id/onboard_text_hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_hello"
+        android:textSize="40sp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/roboto_regular"
+        android:textStyle="bold"
+        android:textColor="@color/title_hello_orange"
+        app:layout_constraintTop_toBottomOf="@+id/onboard_back_dog"
+        app:layout_constraintStart_toStartOf="@+id/onboard_back_dog" />
+    <TextView
+        android:id="@+id/onboard_text_human"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_human"
+        android:textSize="40sp"
+        android:fontFamily="@font/roboto_regular"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/onboard_text_hello"
+        app:layout_constraintStart_toStartOf="@+id/onboard_back_dog"
+
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_question"
+        android:textSize="18sp"
+        android:fontFamily="@font/ropa_sans_regular"
+        android:textColor="@color/description_gray"
+        app:layout_constraintStart_toStartOf="@+id/onboard_back_dog"
+        app:layout_constraintTop_toBottomOf="@+id/onboard_text_human"
+        android:layout_marginTop="30dp" />
+    <ImageView
+        android:id="@+id/onboard_footprint_back"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/icon_footprint_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="20dp"/>
+    <ImageView
+        android:id="@+id/onboard_footprint"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_footprint_pet"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toTopOf="@+id/onboard_footprint_back"
+        app:layout_constraintBottom_toBottomOf="@+id/onboard_footprint_back"
+        app:layout_constraintEnd_toEndOf="@+id/onboard_footprint_back"
+        app:layout_constraintStart_toStartOf="@+id/onboard_footprint_back" />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/arrow_right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/onboard_footprint"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="40dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

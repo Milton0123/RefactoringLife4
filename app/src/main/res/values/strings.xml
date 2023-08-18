@@ -15,5 +15,8 @@
     <string name="enter">Enter</string>
     <string name="login">LOGIN</string>
     <string name="arrow_back">arrow back</string>
+    <string name="title_hello">Hola</string>
+    <string name="title_human">Humano</string>
+    <string name="welcome_question">Estas dispuesto a ver nuestros Perritos?</string>
 
 </resources>
