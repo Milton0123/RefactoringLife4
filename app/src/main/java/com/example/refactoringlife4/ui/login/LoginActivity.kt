@@ -52,12 +52,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goRegisterEmail() {
-        Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java)
+        Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java, null)
         finish()
     }
 
     private fun goLoginEmail() {
-        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java)
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java, null)
         finish()
     }
 

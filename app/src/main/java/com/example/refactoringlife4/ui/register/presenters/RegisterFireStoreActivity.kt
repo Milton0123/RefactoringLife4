@@ -59,11 +59,11 @@ class RegisterFireStoreActivity : AppCompatActivity() {
     }
 
     private fun goToLogin() {
-        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java)
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java,null)
     }
 
     private fun goToBack() {
-        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java)
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java,null)
         finish()
     }
 
