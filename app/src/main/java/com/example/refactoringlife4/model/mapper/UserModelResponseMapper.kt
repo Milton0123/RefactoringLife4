@@ -12,12 +12,12 @@ fun Result<UserModelResponse>.toUserModel(): UserModel {
 private fun UserModelResponse.toModalDialog(): UserModel.ModalDialog? {
 
     return this.modelDialog?.let {
-        Log.i("tag","fail")
+        Log.i("tag", "fail")
         UserModel.ModalDialog(
-        it.title,
-        it.description,
-        it.firstAction,
-        it.secondAction
-    )
+            it.title,
+            it.description,
+            it.firstAction,
+            it.secondAction
+        )
     }//validar estos campos
 }
