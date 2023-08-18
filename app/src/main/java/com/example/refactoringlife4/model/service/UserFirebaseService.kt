@@ -2,6 +2,7 @@ package com.example.refactoringlife4.model.service
 
 import com.example.refactoringlife4.model.dto.Result
 import com.example.refactoringlife4.model.dto.UserModelResponse
+import com.example.refactoringlife4.utils.Constant
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -54,7 +55,10 @@ class UserFirebaseService {
                                     Result.error(
                                         UserModelResponse(
                                             userName,
-                                            password, email, "denied", null
+                                            password,
+                                            email,
+                                            "denied",
+                                            Constant.ERROR_EMAIL_ALREADY_IN_USE
                                         ), "existing email",
                                         Result.Status.ERROR_EMAIL_EXIST
                                     )
@@ -65,7 +69,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         userName,
-                                        password, email, "denied", null
+                                        password, email, "denied", Constant.ERROR_LOST_CONNECTION
                                     ), "connection lost",
                                     Result.Status.ERROR_LOST_CONNECTION
                                 )
@@ -75,7 +79,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         userName,
-                                        password, email, "denied", null
+                                        password, email, "denied", Constant.ERROR
                                     ), "ERROR",
                                     Result.Status.ERROR
                                 )
@@ -99,7 +103,7 @@ class UserFirebaseService {
                             Result.success(
                                 UserModelResponse(
                                     "",
-                                    password, email, "fullAccess",null
+                                    password, email, "fullAccess", null
                                 ), "ok"
                             )
                         )
@@ -113,7 +117,7 @@ class UserFirebaseService {
                                     Result.error(
                                         UserModelResponse(
                                             "",
-                                            password, email, "denied",null
+                                            password, email, "denied", Constant.EMAIL_DONT_EXIST
                                         ), "ERROR",
                                         Result.Status.EMAIL_DONT_EXIST
                                     )
@@ -127,7 +131,7 @@ class UserFirebaseService {
                                     Result.error(
                                         UserModelResponse(
                                             "",
-                                            password, email, "denied",null
+                                            password, email, "denied", Constant.ERROR_WRONG_PASSWORD
                                         ), "ERROR",
                                         Result.Status.ERROR_PASSWORD
                                     )
@@ -138,7 +142,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         "",
-                                        password, email, "denied",null //se modifica , pasar el modalDialog
+                                        password, email, "denied", Constant.ERROR_LOST_CONNECTION
                                     ), "ERROR",
                                     Result.Status.ERROR_LOST_CONNECTION
                                 )
@@ -148,7 +152,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         "",
-                                        password, email, "denied",null
+                                        password, email, "denied", Constant.ERROR
                                     ), "ERROR",
                                     Result.Status.ERROR
                                 )

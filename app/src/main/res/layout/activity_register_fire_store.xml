@@ -106,4 +106,12 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
+    <include
+        android:id="@+id/modal_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/modal_generic_layout"
+        android:visibility="gone"
+        />
+
 </RelativeLayout>
