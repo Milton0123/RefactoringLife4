@@ -24,11 +24,11 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
     fun loginUser(password: String, email: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = userUsesCase.login.invoke(email, password)
-
             when (response.status) {
                 Result.Status.SUCCESS -> {
                     _data.postValue(LoginFireStoreViewModelEvent.ShowSuccessView)
                 }
+
                 Result.Status.ERROR_PASSWORD -> {
                     _data.postValue(
                         response.modalDialog?.let {
@@ -38,6 +38,7 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
                         }
                     )
                 }
+
                 Result.Status.EMAIL_DONT_EXIST -> {
                     _data.postValue(
                         response.modalDialog?.let {
@@ -47,16 +48,17 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
                         }
                     )
                 }
+
                 Result.Status.ERROR_LOST_CONNECTION -> {
                     _data.postValue(
                         response.modalDialog?.let {
                             LoginFireStoreViewModelEvent.ShowModalError(
                                 it
-
                             )
                         }
                     )
                 }
+
                 else -> {
                     _data.postValue(
                         (response.modalDialog?.let {
