@@ -1,7 +1,6 @@
 package com.example.refactoringlife4.ui.register.presenters
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -15,6 +14,7 @@ import com.example.refactoringlife4.model.dto.UserModel
 import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterViewModelEvent
+import com.example.refactoringlife4.utils.Utils
 
 
 class RegisterFireStoreActivity : AppCompatActivity() {
@@ -59,7 +59,16 @@ class RegisterFireStoreActivity : AppCompatActivity() {
     }
 
     private fun goToLogin() {
-        startActivity(Intent(this, LoginFireStoreActivity::class.java))
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java)
+    }
+
+    private fun goToBack() {
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        goToBack()
     }
 
     private fun hideLayout() {
@@ -129,14 +138,6 @@ class RegisterFireStoreActivity : AppCompatActivity() {
             hideModal()
         }
 
-    }
-
-    private fun goToBack() {
-        binding.ivRegisterBack.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
     }
 
     private fun setupTextObserver() {

@@ -9,6 +9,7 @@ import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityLoginBinding
 import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
 import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
+import com.example.refactoringlife4.utils.Utils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -51,11 +52,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun goRegisterEmail() {
-        startActivity(Intent(this, RegisterFireStoreActivity::class.java))
+        Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java)
+        finish()
     }
 
     private fun goLoginEmail() {
-        startActivity(Intent(this, LoginFireStoreActivity::class.java))
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java)
+        finish()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
