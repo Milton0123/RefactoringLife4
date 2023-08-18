@@ -1,6 +1,5 @@
 package com.example.refactoringlife4.ui.loginFireStore.presenters
 
-import android.content.Intent
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +15,7 @@ import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreVi
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
+import com.example.refactoringlife4.utils.Utils
 
 class LoginFireStoreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginFireStoreBinding
@@ -72,7 +72,14 @@ class LoginFireStoreActivity : AppCompatActivity() {
     }
 
     private fun goToRegister() {
-        startActivity(Intent(this, RegisterFireStoreActivity::class.java))
+        Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java)
+    }
+    private fun goToBack() {
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java)
+        finish()
+    }
+    override fun onBackPressed() {
+        goToBack()
     }
 
     private fun hideLayout() {
@@ -122,8 +129,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
 
     private fun onClick() {
         binding.ivBackLogin.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            goToBack()
         }
 
         binding.btEnterLogin.setOnClickListener {
