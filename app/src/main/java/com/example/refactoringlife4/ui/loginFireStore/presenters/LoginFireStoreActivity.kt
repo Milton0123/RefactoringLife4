@@ -72,10 +72,10 @@ class LoginFireStoreActivity : AppCompatActivity() {
     }
 
     private fun goToRegister() {
-        Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java)
+        Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java, null)
     }
     private fun goToBack() {
-        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java)
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
         finish()
     }
     override fun onBackPressed() {
