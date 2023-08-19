@@ -11,6 +11,7 @@ import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModel
 import com.example.refactoringlife4.databinding.ActivityRegisterFireStoreBinding
 import com.example.refactoringlife4.model.dto.UserModel
+import com.example.refactoringlife4.ui.congratulations.CongratulationsActivity
 import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterViewModelEvent
@@ -43,7 +44,7 @@ class RegisterFireStoreActivity : AppCompatActivity() {
             when (it) {
                 is RegisterViewModelEvent.ShowSuccessView -> {
                     //enviar a siguiente activity
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                    GoToCongratulation()
                 }
 
                 is RegisterViewModelEvent.ShowModalError -> {
@@ -58,12 +59,16 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         }
     }
 
+    private fun GoToCongratulation() {
+        Utils.startActivityWithSlideToLeft(this, CongratulationsActivity::class.java, null)
+    }
+
     private fun goToLogin() {
-        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java,null)
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java, null)
     }
 
     private fun goToBack() {
-        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java,null)
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
         finish()
     }
 
@@ -165,4 +170,6 @@ class RegisterFireStoreActivity : AppCompatActivity() {
             )
         }
     }
+
+
 }
