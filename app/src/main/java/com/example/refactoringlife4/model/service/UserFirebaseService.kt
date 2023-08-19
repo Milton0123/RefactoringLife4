@@ -1,5 +1,8 @@
-package com.example.refactoringlife4
+package com.example.refactoringlife4.model.service
 
+import com.example.refactoringlife4.model.dto.Result
+import com.example.refactoringlife4.model.dto.UserModelResponse
+import com.example.refactoringlife4.utils.Constant
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -16,7 +19,7 @@ class UserFirebaseService {
         email: String,
         userName: String,
         password: String
-    ): FireBaseResponse<UserModel> {
+    ): Result<UserModelResponse> {
         return suspendCoroutine { continuation ->
             FirebaseAuth.getInstance()
                 .createUserWithEmailAndPassword(
@@ -34,10 +37,10 @@ class UserFirebaseService {
                                 )
                             )
                         continuation.resume(
-                            FireBaseResponse.success(
-                                UserModel(
+                            Result.success(
+                                UserModelResponse(
                                     userName,
-                                    password, email, "fullAccess"
+                                    password, email, "fullAccess", null
                                 ), "ok"
                             )
                         )
@@ -49,33 +52,36 @@ class UserFirebaseService {
                             val errorCode = userCollisionException.errorCode
                             if (errorCode == "ERROR_EMAIL_ALREADY_IN_USE") {
                                 continuation.resume(
-                                    FireBaseResponse.error(
-                                        UserModel(
+                                    Result.error(
+                                        UserModelResponse(
                                             userName,
-                                            password, email, "denied"
+                                            password,
+                                            email,
+                                            "denied",
+                                            Constant.ERROR_EMAIL_ALREADY_IN_USE
                                         ), "existing email",
-                                        FireBaseResponse.Status.ERROR_EMAIL_EXIST
+                                        Result.Status.ERROR_EMAIL_EXIST
                                     )
                                 )
                             }
                         } catch (networkException: FirebaseNetworkException) {
                             continuation.resume(
-                                FireBaseResponse.error(
-                                    UserModel(
+                                Result.error(
+                                    UserModelResponse(
                                         userName,
-                                        password, email, "denied"
+                                        password, email, "denied", Constant.ERROR_LOST_CONNECTION
                                     ), "connection lost",
-                                    FireBaseResponse.Status.ERROR_LOST_CONNECTION
+                                    Result.Status.ERROR_LOST_CONNECTION
                                 )
                             )
                         } catch (e: Exception) {
                             continuation.resume(
-                                FireBaseResponse.error(
-                                    UserModel(
+                                Result.error(
+                                    UserModelResponse(
                                         userName,
-                                        password, email, "denied"
+                                        password, email, "denied", Constant.ERROR
                                     ), "ERROR",
-                                    FireBaseResponse.Status.ERROR
+                                    Result.Status.ERROR
                                 )
                             )
                         }
@@ -87,17 +93,17 @@ class UserFirebaseService {
     suspend fun login(
         email: String,
         password: String
-    ): FireBaseResponse<UserModel> {
+    ): Result<UserModelResponse> {
         return suspendCoroutine { continuation ->
             FirebaseAuth.getInstance()
                 .signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         continuation.resume(
-                            FireBaseResponse.success(
-                                UserModel(
+                            Result.success(
+                                UserModelResponse(
                                     "",
-                                    password, email, "fullAccess"
+                                    password, email, "fullAccess", null
                                 ), "ok"
                             )
                         )
@@ -108,12 +114,12 @@ class UserFirebaseService {
                             val errorCode = invalidUserException.errorCode
                             if (errorCode == "ERROR_USER_NOT_FOUND") {
                                 continuation.resume(
-                                    FireBaseResponse.error(
-                                        UserModel(
+                                    Result.error(
+                                        UserModelResponse(
                                             "",
-                                            password, email, "denied"
+                                            password, email, "denied", Constant.EMAIL_DONT_EXIST
                                         ), "ERROR",
-                                        FireBaseResponse.Status.EMAIL_DONT_EXIST
+                                        Result.Status.EMAIL_DONT_EXIST
                                     )
                                 )
                             }
@@ -122,33 +128,33 @@ class UserFirebaseService {
                                 invalidCredentialsException.errorCode
                             if (errorCode == "ERROR_WRONG_PASSWORD") {
                                 continuation.resume(
-                                    FireBaseResponse.error(
-                                        UserModel(
+                                    Result.error(
+                                        UserModelResponse(
                                             "",
-                                            password, email, "denied"
+                                            password, email, "denied", Constant.ERROR_WRONG_PASSWORD
                                         ), "ERROR",
-                                        FireBaseResponse.Status.ERROR_PASSWORD
+                                        Result.Status.ERROR_PASSWORD
                                     )
                                 )
                             }
                         } catch (invalidCredentialsException: FirebaseNetworkException) {
                             continuation.resume(
-                                FireBaseResponse.error(
-                                    UserModel(
+                                Result.error(
+                                    UserModelResponse(
                                         "",
-                                        password, email, "denied"
+                                        password, email, "denied", Constant.ERROR_LOST_CONNECTION
                                     ), "ERROR",
-                                    FireBaseResponse.Status.ERROR_LOST_CONNECTION
+                                    Result.Status.ERROR_LOST_CONNECTION
                                 )
                             )
                         } catch (e: Exception) {
                             continuation.resume(
-                                FireBaseResponse.error(
-                                    UserModel(
+                                Result.error(
+                                    UserModelResponse(
                                         "",
-                                        password, email, "denied"
+                                        password, email, "denied", Constant.ERROR
                                     ), "ERROR",
-                                    FireBaseResponse.Status.ERROR
+                                    Result.Status.ERROR
                                 )
                             )
                         }
