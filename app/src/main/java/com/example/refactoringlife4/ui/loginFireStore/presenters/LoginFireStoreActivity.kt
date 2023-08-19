@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
-import android.widget.Toast
 import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
 import com.example.refactoringlife4.model.dto.UserModel
+import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModel
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
@@ -39,8 +39,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             when (it) {
                 is LoginFireStoreViewModelEvent.ShowSuccessView -> {
-                    //enviar a siguiente activity
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                    goToOnBoarding()
                 }
 
                 is LoginFireStoreViewModelEvent.ShowModalError -> {
@@ -71,6 +70,9 @@ class LoginFireStoreActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToOnBoarding(){
+        Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, null)
+    }
     private fun goToRegister() {
         Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java, null)
     }
