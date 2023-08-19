@@ -10,6 +10,7 @@
     <string name="login_bt_register">Registrar</string>
     <string name="login_bt_login_google">Iniciar sesión con Google</string>
     <string name="login_bt_Quest">Invitado</string>
+
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
     <string name="enter">Enter</string>
@@ -19,4 +20,10 @@
     <string name="title_human">Humano</string>
     <string name="welcome_question">Estas dispuesto a ver nuestros Perritos?</string>
 
+    <string name="quieres_registrarte">quieres registrarte!</string>
+    <string name="no_estas_registrado">No estas registrado</string>
+    <string name="reintentar">REINTENTAR</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="felicitaciones">felicitaciones!</string>
+    <string name="has_finalizado_el_registro">Has finalizado el registro</string>
 </resources>
