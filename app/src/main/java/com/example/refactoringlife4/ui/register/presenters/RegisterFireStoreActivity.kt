@@ -44,6 +44,7 @@ class RegisterFireStoreActivity : AppCompatActivity() {
                 is RegisterViewModelEvent.ShowSuccessView -> {
                     //enviar a siguiente activity
                     Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                    progressBar()
                 }
 
                 is RegisterViewModelEvent.ShowModalError -> {
@@ -59,11 +60,11 @@ class RegisterFireStoreActivity : AppCompatActivity() {
     }
 
     private fun goToLogin() {
-        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java,null)
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java, null)
     }
 
     private fun goToBack() {
-        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java,null)
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
         finish()
     }
 
@@ -164,5 +165,9 @@ class RegisterFireStoreActivity : AppCompatActivity() {
                 binding.etRegisterName.text.toString().trim()
             )
         }
+    }
+
+    private fun progressBar() {
+        binding.pbLoading1.root.visibility = View.VISIBLE
     }
 }

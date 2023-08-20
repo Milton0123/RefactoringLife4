@@ -25,6 +25,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginFireStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         validateFields()
         getViewModel()
         observer()
@@ -40,6 +41,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
             when (it) {
                 is LoginFireStoreViewModelEvent.ShowSuccessView -> {
                     goToOnBoarding()
+                    progressBar()
                 }
 
                 is LoginFireStoreViewModelEvent.ShowModalError -> {
@@ -47,6 +49,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
                     showModal(it.modalDialog)
                     hideLayout()
                     modalButtons()
+                    progressBar()
                 }
             }
         }
@@ -137,12 +140,17 @@ class LoginFireStoreActivity : AppCompatActivity() {
         binding.btEnterLogin.setOnClickListener {
             hideKeyboard()
             viewModel.loginUser(binding.etPassword.text.toString(), binding.etEmail.text.toString())
+            progressBar()
         }
 
         binding.modalError.bt2Modal.setOnClickListener {
             showLayout()
             hideModal()
+
         }
 
+    }
+    private fun progressBar(){
+        binding.pbLoading.root.visibility = View.VISIBLE
     }
 }
