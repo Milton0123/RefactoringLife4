@@ -9,12 +9,17 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
 
     suspend fun userLogin(email: String, password: String): Result<UserModelResponse> {
 
-        val result = userDataSource.userLogin(email,password)
-        Log.i("loginResult",result.status.name)
-      return result
+        return userDataSource.userLogin(email, password)
     }
 
-    suspend fun userRegister(email: String, userName:String, password: String): Result<UserModelResponse> {
-        return userDataSource.userRegister(email,userName,password)
+    suspend fun userRegister(
+        email: String,
+        userName: String,
+        password: String
+    ): Result<UserModelResponse> {
+
+        val result = userDataSource.userRegister(email, userName, password)
+        Log.i("registerResult", result.status.name)
+        return result
     }
 }

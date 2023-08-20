@@ -1,15 +1,20 @@
 package com.example.refactoringlife4.ui.register.presenters
 
-import android.content.Intent
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModel
 import com.example.refactoringlife4.databinding.ActivityRegisterFireStoreBinding
+import com.example.refactoringlife4.model.dto.UserModel
+import com.example.refactoringlife4.ui.congratulations.CongratulationsActivity
+import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterViewModelEvent
+import com.example.refactoringlife4.utils.Utils
 
 
 class RegisterFireStoreActivity : AppCompatActivity() {
@@ -28,7 +33,8 @@ class RegisterFireStoreActivity : AppCompatActivity() {
     }
 
     private fun getViewModel() {
-        viewModel = RegisterFireStoreViewModelFactory().create(RegisterFireStoreViewModel::class.java)
+        viewModel =
+            RegisterFireStoreViewModelFactory().create(RegisterFireStoreViewModel::class.java)
     }
 
     private fun observer() {
@@ -36,16 +42,70 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             when (it) {
                 is RegisterViewModelEvent.ShowSuccessView -> {
-                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                    goToCongratulation()
                 }
+
                 is RegisterViewModelEvent.ShowModalError -> {
-                    Toast.makeText(this, it.modalDialog.description, Toast.LENGTH_SHORT).show()
+                    showViewError(it.modalDialog)
                 }
             }
         }
         viewModel.validFields.observe(this) {
             binding.btRegister.isEnabled = it
         }
+    }
+
+    private fun goToCongratulation() {
+        Utils.startActivityWithSlideToLeft(this, CongratulationsActivity::class.java, null)
+    }
+
+    private fun goToLogin() {
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java, null)
+    }
+
+    private fun goToBack() {
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
+        finish()
+    }
+
+    override fun onBackPressed() {
+        goToBack()
+    }
+
+    private fun showViewError(modalDialog: UserModel.ModalDialog) {
+        hideViewLoading()
+        createModal(modalDialog)
+    }
+
+    private fun hideViewModal() {
+        binding.modalError.root.visibility = View.GONE
+    }
+
+    private fun createModal(modalDialog: UserModel.ModalDialog) {
+        binding.modalError.tvMessageModal.text = modalDialog.description
+        binding.modalError.tvTitleModal.text = modalDialog.title
+        binding.modalError.bt1Modal.text = modalDialog.firstAction
+        binding.modalError.bt2Modal.text = modalDialog.secondAction
+
+        when (binding.modalError.bt1Modal.text.toString()) {
+            "" -> {
+                binding.modalError.bt1Modal.visibility = View.GONE
+            }
+
+            "Login" -> {
+                binding.modalError.bt1Modal.visibility = View.VISIBLE
+                binding.modalError.bt1Modal.setOnClickListener {
+                    goToLogin()
+                }
+            }
+        }
+        binding.modalError.root.visibility = View.VISIBLE
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 
     private fun onClick() {
@@ -55,6 +115,8 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         }
 
         binding.btRegister.setOnClickListener {
+            showViewLoading()
+            hideKeyboard()
             viewModel.registerUser(
                 binding.etRegisterEmail.text.toString(),
                 binding.etRegisterName.text.toString(),
@@ -62,14 +124,10 @@ class RegisterFireStoreActivity : AppCompatActivity() {
             )
         }
 
-    }
-
-    private fun goToBack() {
-        binding.ivRegisterBack.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+        binding.modalError.bt2Modal.setOnClickListener {
+            hideViewModal()
         }
+
     }
 
     private fun setupTextObserver() {
@@ -97,4 +155,13 @@ class RegisterFireStoreActivity : AppCompatActivity() {
             )
         }
     }
+
+    private fun showViewLoading() {
+        binding.pbLoading1.root.visibility = View.VISIBLE
+    }
+
+    private fun hideViewLoading() {
+        binding.pbLoading1.root.visibility = View.GONE
+    }
+
 }

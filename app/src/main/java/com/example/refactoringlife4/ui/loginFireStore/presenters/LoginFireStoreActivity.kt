@@ -1,15 +1,21 @@
 package com.example.refactoringlife4.ui.loginFireStore.presenters
 
-import android.content.Intent
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.core.widget.doAfterTextChanged
-import android.widget.Toast
 import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
+import com.example.refactoringlife4.model.dto.UserModel
+import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModel
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelFactory
+import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
+import com.example.refactoringlife4.utils.Utils
 
 class LoginFireStoreActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginFireStoreBinding
@@ -19,11 +25,11 @@ class LoginFireStoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginFireStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         validateFields()
         getViewModel()
         observer()
         onClick()
-
     }
 
     private fun getViewModel() {
@@ -31,14 +37,19 @@ class LoginFireStoreActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-
         viewModel.data.observe(this) {
             when (it) {
                 is LoginFireStoreViewModelEvent.ShowSuccessView -> {
-                    Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+                    goToOnBoarding()
+                    progressBar()
                 }
+
                 is LoginFireStoreViewModelEvent.ShowModalError -> {
-                    Toast.makeText(this, it.modalDialog.description, Toast.LENGTH_SHORT).show()
+                    Log.i("loginResult", it.modalDialog.toString())
+                    showModal(it.modalDialog)
+                    hideLayout()
+                    modalButtons()
+                    progressBar()
                 }
             }
         }
@@ -46,7 +57,6 @@ class LoginFireStoreActivity : AppCompatActivity() {
             binding.btEnterLogin.isEnabled = it
         }
     }
-
 
     private fun validateFields() {
         binding.etEmail.doAfterTextChanged { email ->
@@ -63,17 +73,84 @@ class LoginFireStoreActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToOnBoarding(){
+        Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, null)
+    }
+    private fun goToRegister() {
+        Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java, null)
+    }
+    private fun goToBack() {
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
+        finish()
+    }
+    override fun onBackPressed() {
+        goToBack()
+    }
+
+    private fun hideLayout() {
+        binding.etEmail.visibility = View.GONE
+        binding.etPassword.visibility = View.GONE
+        binding.btEnterLogin.visibility = View.GONE
+    }
+
+    private fun showLayout() {
+        binding.etEmail.visibility = View.VISIBLE
+        binding.etPassword.visibility = View.VISIBLE
+        binding.btEnterLogin.visibility = View.VISIBLE
+    }
+
+    private fun hideModal() {
+        binding.modalError.root.visibility = View.GONE
+    }
+
+    private fun showModal(modalDialog: UserModel.ModalDialog) {
+        binding.modalError.tvMessageModal.text = modalDialog.description
+        binding.modalError.tvTitleModal.text = modalDialog.title
+        binding.modalError.bt1Modal.text = modalDialog.firstAction
+        binding.modalError.bt2Modal.text = modalDialog.secondAction
+        binding.modalError.root.visibility = View.VISIBLE
+    }
+
+    private fun modalButtons() {
+        when (binding.modalError.bt1Modal.text.toString()) {
+            "" -> {
+                binding.modalError.bt1Modal.visibility = View.GONE
+            }
+
+            "Registrar" -> {
+                binding.modalError.bt1Modal.visibility = View.VISIBLE
+                binding.modalError.bt1Modal.setOnClickListener {
+                    goToRegister()
+                }
+            }
+        }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+
     private fun onClick() {
         binding.ivBackLogin.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            goToBack()
         }
 
         binding.btEnterLogin.setOnClickListener {
+            hideKeyboard()
             viewModel.loginUser(binding.etPassword.text.toString(), binding.etEmail.text.toString())
+            progressBar()
         }
+
+        binding.modalError.bt2Modal.setOnClickListener {
+            showLayout()
+            hideModal()
+
+        }
+
+    }
+    private fun progressBar(){
+        binding.pbLoading.root.visibility = View.VISIBLE
     }
 }
-
-
-
