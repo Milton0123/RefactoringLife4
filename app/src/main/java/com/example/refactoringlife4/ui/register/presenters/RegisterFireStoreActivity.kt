@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModel
@@ -43,7 +42,7 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             when (it) {
                 is RegisterViewModelEvent.ShowSuccessView -> {
-                    //enviar a siguiente activity
+                    progressBar()
                     GoToCongratulation()
                 }
 
@@ -171,5 +170,8 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         }
     }
 
+    private fun progressBar() {
+        binding.pbLoading1.root.visibility = View.VISIBLE
+    }
 
 }
