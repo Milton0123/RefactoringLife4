@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModel
 import com.example.refactoringlife4.databinding.ActivityRegisterFireStoreBinding
 import com.example.refactoringlife4.model.dto.UserModel
+import com.example.refactoringlife4.ui.congratulations.CongratulationsActivity
 import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterViewModelEvent
@@ -42,9 +42,8 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             when (it) {
                 is RegisterViewModelEvent.ShowSuccessView -> {
-                    //enviar a siguiente activity
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
                     progressBar()
+                    GoToCongratulation()
                 }
 
                 is RegisterViewModelEvent.ShowModalError -> {
@@ -57,6 +56,10 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         viewModel.validFields.observe(this) {
             binding.btRegister.isEnabled = it
         }
+    }
+
+    private fun GoToCongratulation() {
+        Utils.startActivityWithSlideToLeft(this, CongratulationsActivity::class.java, null)
     }
 
     private fun goToLogin() {
@@ -170,4 +173,5 @@ class RegisterFireStoreActivity : AppCompatActivity() {
     private fun progressBar() {
         binding.pbLoading1.root.visibility = View.VISIBLE
     }
+
 }
