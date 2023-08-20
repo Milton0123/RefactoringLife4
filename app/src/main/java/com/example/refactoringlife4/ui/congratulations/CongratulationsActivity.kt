@@ -17,7 +17,7 @@ class CongratulationsActivity : AppCompatActivity() {
 
     private fun goToOnboard() {
         binding.root.setOnClickListener {
-            Utils.startActivityWithSlideToRight(this, OnBoardingActivity::class.java, null)
+            Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, null)
         }
     }
 }

@@ -51,7 +51,6 @@ class RegisterFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUs
                         }
                     )
                 }
-
             }
         }
     }
@@ -59,5 +58,4 @@ class RegisterFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUs
     fun validateFields(email: String, password: String, name: String) {
         validFields.postValue(Utils.checkUserRegister(email, password, name))
     }
-
 }
