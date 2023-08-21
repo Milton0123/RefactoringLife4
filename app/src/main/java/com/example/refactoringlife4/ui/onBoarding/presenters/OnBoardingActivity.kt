@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityOnboardingBinding
+import com.example.refactoringlife4.ui.home.presenter.HomeActivity
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.utils.Utils
 
@@ -18,6 +19,13 @@ class OnBoardingActivity : AppCompatActivity() {
 
         val moveArrowAnimation = AnimationUtils.loadAnimation(this, R.anim.mov_arrow)
         binding.onboardArrow.startAnimation(moveArrowAnimation)
+        action()
+    }
+
+    private fun action(){
+        binding.onboardFootprintBack.setOnClickListener {
+            Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
+        }
     }
 
     private fun goToBack() {
