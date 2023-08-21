@@ -19,4 +19,13 @@
         <item name="android:windowSplashscreenContent">@drawable/icon_rf4</item>
         <item name="postSplashScreenTheme">@style/Theme.RefactoringLife4</item>
     </style>
+
+    <style name="Theme.RefactoringLife4.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.RefactoringLife4.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.RefactoringLife4.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
