@@ -8,11 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.refactoringlife4.databinding.FragmentTermsAndConditionBinding
 
 class TermsAndConditionFragment : Fragment() {
-
    private lateinit var binding: FragmentTermsAndConditionBinding
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -20,8 +16,6 @@ class TermsAndConditionFragment : Fragment() {
     ): View {
         binding = FragmentTermsAndConditionBinding.inflate(inflater,container, false)
 
-
         return binding.root
     }
-
 }
