@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.ui.login.LoginActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModel
 import com.example.refactoringlife4.databinding.ActivityRegisterFireStoreBinding
 import com.example.refactoringlife4.model.dto.UserModel
+import com.example.refactoringlife4.ui.congratulations.CongratulationsActivity
 import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.viewmodel.RegisterViewModelEvent
@@ -42,14 +42,11 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             when (it) {
                 is RegisterViewModelEvent.ShowSuccessView -> {
-                    //enviar a siguiente activity
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                    goToCongratulation()
                 }
 
                 is RegisterViewModelEvent.ShowModalError -> {
-                    showModal(it.modalDialog)
-                    hideLayout()
-                    modalButtons()
+                    showViewError(it.modalDialog)
                 }
             }
         }
@@ -58,12 +55,16 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         }
     }
 
+    private fun goToCongratulation() {
+        Utils.startActivityWithSlideToLeft(this, CongratulationsActivity::class.java, null)
+    }
+
     private fun goToLogin() {
-        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java,null)
+        Utils.startActivityWithSlideToLeft(this, LoginFireStoreActivity::class.java, null)
     }
 
     private fun goToBack() {
-        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java,null)
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
         finish()
     }
 
@@ -71,33 +72,21 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         goToBack()
     }
 
-    private fun hideLayout() {
-        binding.etRegisterName.visibility = View.GONE
-        binding.etRegisterEmail.visibility = View.GONE
-        binding.etRegisterPassword.visibility = View.GONE
-        binding.btRegister.visibility = View.GONE
+    private fun showViewError(modalDialog: UserModel.ModalDialog) {
+        hideViewLoading()
+        createModal(modalDialog)
     }
 
-    private fun showLayout() {
-        binding.etRegisterName.visibility = View.VISIBLE
-        binding.etRegisterEmail.visibility = View.VISIBLE
-        binding.etRegisterPassword.visibility = View.VISIBLE
-        binding.btRegister.visibility = View.VISIBLE
-    }
-
-    private fun hideModal() {
+    private fun hideViewModal() {
         binding.modalError.root.visibility = View.GONE
     }
 
-    private fun showModal(modalDialog: UserModel.ModalDialog) {
+    private fun createModal(modalDialog: UserModel.ModalDialog) {
         binding.modalError.tvMessageModal.text = modalDialog.description
         binding.modalError.tvTitleModal.text = modalDialog.title
         binding.modalError.bt1Modal.text = modalDialog.firstAction
         binding.modalError.bt2Modal.text = modalDialog.secondAction
-        binding.modalError.root.visibility = View.VISIBLE
-    }
 
-    private fun modalButtons() {
         when (binding.modalError.bt1Modal.text.toString()) {
             "" -> {
                 binding.modalError.bt1Modal.visibility = View.GONE
@@ -110,6 +99,7 @@ class RegisterFireStoreActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.modalError.root.visibility = View.VISIBLE
     }
 
     private fun hideKeyboard() {
@@ -125,6 +115,7 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         }
 
         binding.btRegister.setOnClickListener {
+            showViewLoading()
             hideKeyboard()
             viewModel.registerUser(
                 binding.etRegisterEmail.text.toString(),
@@ -134,8 +125,7 @@ class RegisterFireStoreActivity : AppCompatActivity() {
         }
 
         binding.modalError.bt2Modal.setOnClickListener {
-            showLayout()
-            hideModal()
+            hideViewModal()
         }
 
     }
@@ -165,4 +155,13 @@ class RegisterFireStoreActivity : AppCompatActivity() {
             )
         }
     }
+
+    private fun showViewLoading() {
+        binding.pbLoading1.root.visibility = View.VISIBLE
+    }
+
+    private fun hideViewLoading() {
+        binding.pbLoading1.root.visibility = View.GONE
+    }
+
 }
