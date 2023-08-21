@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
@@ -18,6 +17,7 @@ import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActi
 import com.example.refactoringlife4.utils.Utils
 
 class LoginFireStoreActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginFireStoreBinding
     private lateinit var viewModel: LoginFireStoreViewModel
 
@@ -25,7 +25,6 @@ class LoginFireStoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginFireStoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         validateFields()
         getViewModel()
         observer()
@@ -41,15 +40,10 @@ class LoginFireStoreActivity : AppCompatActivity() {
             when (it) {
                 is LoginFireStoreViewModelEvent.ShowSuccessView -> {
                     goToOnBoarding()
-                    progressBar()
                 }
 
                 is LoginFireStoreViewModelEvent.ShowModalError -> {
-                    Log.i("loginResult", it.modalDialog.toString())
-                    showModal(it.modalDialog)
-                    hideLayout()
-                    modalButtons()
-                    progressBar()
+                    showViewError(it.modalDialog)
                 }
             }
         }
@@ -73,45 +67,39 @@ class LoginFireStoreActivity : AppCompatActivity() {
         }
     }
 
-    private fun goToOnBoarding(){
+    private fun goToOnBoarding() {
         Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, null)
     }
+
     private fun goToRegister() {
         Utils.startActivityWithSlideToLeft(this, RegisterFireStoreActivity::class.java, null)
     }
+
     private fun goToBack() {
         Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
         finish()
     }
+
     override fun onBackPressed() {
         goToBack()
     }
 
-    private fun hideLayout() {
-        binding.etEmail.visibility = View.GONE
-        binding.etPassword.visibility = View.GONE
-        binding.btEnterLogin.visibility = View.GONE
-    }
-
-    private fun showLayout() {
-        binding.etEmail.visibility = View.VISIBLE
-        binding.etPassword.visibility = View.VISIBLE
-        binding.btEnterLogin.visibility = View.VISIBLE
-    }
-
-    private fun hideModal() {
+    private fun hideViewModal() {
         binding.modalError.root.visibility = View.GONE
     }
 
-    private fun showModal(modalDialog: UserModel.ModalDialog) {
+    private fun showViewError(modalDialog: UserModel.ModalDialog) {
+        hideViewLoading()
+        createModal(modalDialog)
+    }
+
+    private fun createModal(modalDialog: UserModel.ModalDialog) {
         binding.modalError.tvMessageModal.text = modalDialog.description
         binding.modalError.tvTitleModal.text = modalDialog.title
         binding.modalError.bt1Modal.text = modalDialog.firstAction
         binding.modalError.bt2Modal.text = modalDialog.secondAction
         binding.modalError.root.visibility = View.VISIBLE
-    }
 
-    private fun modalButtons() {
         when (binding.modalError.bt1Modal.text.toString()) {
             "" -> {
                 binding.modalError.bt1Modal.visibility = View.GONE
@@ -124,6 +112,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
                 }
             }
         }
+        binding.modalError.root.visibility = View.VISIBLE
     }
 
     private fun hideKeyboard() {
@@ -138,19 +127,22 @@ class LoginFireStoreActivity : AppCompatActivity() {
         }
 
         binding.btEnterLogin.setOnClickListener {
+            showViewLoading()
             hideKeyboard()
             viewModel.loginUser(binding.etPassword.text.toString(), binding.etEmail.text.toString())
-            progressBar()
         }
 
         binding.modalError.bt2Modal.setOnClickListener {
-            showLayout()
-            hideModal()
-
+            hideViewModal()
         }
 
     }
-    private fun progressBar(){
+
+    private fun showViewLoading() {
         binding.pbLoading.root.visibility = View.VISIBLE
+    }
+
+    private fun hideViewLoading() {
+        binding.pbLoading.root.visibility = View.GONE
     }
 }
