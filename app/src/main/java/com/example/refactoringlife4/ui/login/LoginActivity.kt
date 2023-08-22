@@ -8,6 +8,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityLoginBinding
 import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
+import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
 import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
 import com.example.refactoringlife4.utils.Utils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -61,6 +62,10 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
+    private fun goToOnBoarding() {
+        Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, null)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GOOGLE_SING_IN) {
@@ -74,11 +79,7 @@ class LoginActivity : AppCompatActivity() {
                         FirebaseAuth.getInstance().signInWithCredential(credential)
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
-                                    Toast.makeText(
-                                        this,
-                                        "Logeado correctamente",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    goToOnBoarding()
                                 } else {
                                     Toast.makeText(
                                         this,
