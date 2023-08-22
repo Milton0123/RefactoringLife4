@@ -16,25 +16,31 @@ class SplashActivity : AppCompatActivity() {
         finish()
         checkUserSession()
         observe()
-   }
-        fun observe(){
-            viewModel.getNameData.observe(this){
-                when(it){
-                    ""->{
-                        goToLogin()
-                    }else->{
-                        goToOnBoarding()
+    }
+
+    fun observe() {
+        viewModel.getNameData.observe(this) {
+            when (it) {
+                "" -> {
+                    goToLogin()
                 }
+                else -> {
+                    goToOnBoarding()
                 }
             }
         }
-        private fun checkUserSession() {
-            viewModel.getUserState()
-        }
-        private fun goToLogin(){
-            startActivity(Intent(this,LoginActivity::class.java))
-        }
-        private fun goToOnBoarding(){
-            startActivity(Intent(this, OnBoardingActivity::class.java))
-        }
+    }
+
+    private fun checkUserSession() {
+        viewModel.getUserState()
+    }
+
+    private fun goToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+    }
+
+    private fun goToOnBoarding() {
+        startActivity(Intent(this, OnBoardingActivity::class.java))
+    }
+
 }
