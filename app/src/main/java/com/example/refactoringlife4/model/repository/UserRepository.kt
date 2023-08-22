@@ -4,11 +4,11 @@ import android.util.Log
 import com.example.refactoringlife4.model.dataSource.UserDataSource
 import com.example.refactoringlife4.model.dto.Result
 import com.example.refactoringlife4.model.dto.UserModelResponse
-import com.example.refactoringlife4.model.response.DogsResponse
 
 class UserRepository(private val userDataSource: UserDataSource = UserDataSource()) {
 
     suspend fun userLogin(email: String, password: String): Result<UserModelResponse> {
+
         return userDataSource.userLogin(email, password)
     }
 
@@ -23,7 +23,4 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
         return result
     }
 
-    suspend fun changeUser(email: String): Result<UserModelResponse> {
-        return userDataSource.changeUser(email = email)
-    }
 }

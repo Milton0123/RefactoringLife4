@@ -1,4 +1,4 @@
-package com.example.refactoringlife4.ui.login
+package com.example.refactoringlife4.ui.login.presenters
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +20,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 class LoginActivity : AppCompatActivity() {
     private val GOOGLE_SING_IN = 100
     private lateinit var binding: ActivityLoginBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val screenSplash = installSplashScreen()
         super.onCreate(savedInstanceState)
@@ -98,7 +99,6 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 Toast.makeText(this, "No se obtuvo un correo", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 }
