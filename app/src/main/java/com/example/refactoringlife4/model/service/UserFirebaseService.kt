@@ -2,7 +2,7 @@ package com.example.refactoringlife4.model.service
 
 import com.example.refactoringlife4.model.dto.Result
 import com.example.refactoringlife4.model.dto.UserModelResponse
-import com.example.refactoringlife4.utils.Constant
+import com.example.refactoringlife4.utils.DataModal
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -58,7 +58,7 @@ class UserFirebaseService {
                                             password,
                                             email,
                                             "denied",
-                                            Constant.ERROR_EMAIL_ALREADY_IN_USE
+                                            DataModal.getEmailInUse()
                                         ), "existing email",
                                         Result.Status.ERROR_EMAIL_EXIST
                                     )
@@ -69,7 +69,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         userName,
-                                        password, email, "denied", Constant.ERROR_LOST_CONNECTION
+                                        password, email, "denied", DataModal.getFailConnection()
                                     ), "connection lost",
                                     Result.Status.ERROR_LOST_CONNECTION
                                 )
@@ -79,7 +79,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         userName,
-                                        password, email, "denied", Constant.ERROR
+                                        password, email, "denied", DataModal.getErrorGeneric()
                                     ), "ERROR",
                                     Result.Status.ERROR
                                 )
@@ -117,7 +117,7 @@ class UserFirebaseService {
                                     Result.error(
                                         UserModelResponse(
                                             "",
-                                            password, email, "denied", Constant.EMAIL_DONT_EXIST
+                                            password, email, "denied", DataModal.getEmailNotExist()
                                         ), "ERROR",
                                         Result.Status.EMAIL_DONT_EXIST
                                     )
@@ -131,7 +131,7 @@ class UserFirebaseService {
                                     Result.error(
                                         UserModelResponse(
                                             "",
-                                            password, email, "denied", Constant.ERROR_WRONG_PASSWORD
+                                            password, email, "denied", DataModal.getErrorPassword()
                                         ), "ERROR",
                                         Result.Status.ERROR_PASSWORD
                                     )
@@ -142,7 +142,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         "",
-                                        password, email, "denied", Constant.ERROR_LOST_CONNECTION
+                                        password, email, "denied", DataModal.getFailConnection()
                                     ), "ERROR",
                                     Result.Status.ERROR_LOST_CONNECTION
                                 )
@@ -152,7 +152,7 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         "",
-                                        password, email, "denied", Constant.ERROR
+                                        password, email, "denied", DataModal.getErrorGeneric()
                                     ), "ERROR",
                                     Result.Status.ERROR
                                 )

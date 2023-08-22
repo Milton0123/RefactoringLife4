@@ -17,5 +17,5 @@ private fun UserModelResponse.toModalDialog(): UserModel.ModalDialog? {
             it.firstAction,
             it.secondAction
         )
-    }//validar estos campos
+    }
 }
