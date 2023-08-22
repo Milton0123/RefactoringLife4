@@ -6,7 +6,7 @@ import android.view.animation.AnimationUtils
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityOnboardingBinding
 import com.example.refactoringlife4.ui.home.presenter.HomeActivity
-import com.example.refactoringlife4.ui.login.LoginActivity
+import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.utils.Utils
 
 

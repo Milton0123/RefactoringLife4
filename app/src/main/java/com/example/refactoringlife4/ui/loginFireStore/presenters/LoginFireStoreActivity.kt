@@ -9,7 +9,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
 import com.example.refactoringlife4.model.dto.UserModel
 import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
-import com.example.refactoringlife4.ui.login.LoginActivity
+import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModel
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelFactory

@@ -22,4 +22,5 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
         Log.i("registerResult", result.status.name)
         return result
     }
+
 }
