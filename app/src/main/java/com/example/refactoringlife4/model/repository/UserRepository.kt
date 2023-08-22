@@ -8,7 +8,6 @@ import com.example.refactoringlife4.model.dto.UserModelResponse
 class UserRepository(private val userDataSource: UserDataSource = UserDataSource()) {
 
     suspend fun userLogin(email: String, password: String): Result<UserModelResponse> {
-
         return userDataSource.userLogin(email, password)
     }
 
@@ -17,7 +16,6 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
         userName: String,
         password: String
     ): Result<UserModelResponse> {
-
         val result = userDataSource.userRegister(email, userName, password)
         Log.i("registerResult", result.status.name)
         return result
