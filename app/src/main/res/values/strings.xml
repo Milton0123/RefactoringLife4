@@ -26,4 +26,16 @@
     <string name="registrar">REGISTRAR</string>
     <string name="felicitaciones">felicitaciones!</string>
     <string name="has_finalizado_el_registro">Has finalizado el registro</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="terms_and_conditions_tv_terms_and_conditions">Lorem ipsum dolor sit amet consectetur adipiscing elit, conubia lacinia curabitur ac ligula gravida, odio nibh arcu fringilla litora congue. Condimentum ligula curabitur urna feugiat dictumst rutrum nullam orci fringilla, natoque hac eleifend nam felis pretium dapibus vehicula commodo maecenas, quis varius tellus semper cubilia dis mus eget. Libero mollis egestas volutpat dictum fusce curae commodo odio, sodales malesuada vehicula pretium cubilia felis ad ridiculus facilisis, bibendum vivamus et aenean sagittis pellentesque sapien. \n\nFusce hendrerit suspendisse mi laoreet ridiculus purus curabitur aenean integer, ornare mattis vehicula rhoncus fringilla hac diam mollis, inceptos congue natoque elementum conubia interdum commodo potenti. Sociis facilisi nunc nec morbi ultricies praesent ultrices, aliquam ligula consequat vehicula vitae. Blandit etiam nunc fringilla accumsan turpis curabitur sociis aenean bibendum, sagittis libero lectus dui arcu sem at tortor, fusce varius nulla ligula in cum elementum tempor.</string>
 </resources>
