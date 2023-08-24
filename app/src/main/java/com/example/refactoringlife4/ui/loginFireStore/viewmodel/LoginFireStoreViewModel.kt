@@ -26,7 +26,11 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
             val response = userUsesCase.login.invoke(email, password)
             when (response.status) {
                 Result.Status.SUCCESS -> {
-                    _data.postValue(LoginFireStoreViewModelEvent.ShowSuccessView)
+                    if (response.newUser) {
+                        _data.postValue(LoginFireStoreViewModelEvent.ShowOnBoarding)
+                    } else {
+                        _data.postValue(LoginFireStoreViewModelEvent.ShowHome)
+                    }
                 }
 
                 Result.Status.ERROR_PASSWORD -> {
