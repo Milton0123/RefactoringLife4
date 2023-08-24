@@ -6,7 +6,8 @@ data class UserModelResponse(
     val password: String,
     val mail: String,
     val type: String,
-    val modelDialog: ModalDialog?
+    val modelDialog: ModalDialog?,
+    val newUser: Boolean
 ) {
     data class ModalDialog(
         val title: String,

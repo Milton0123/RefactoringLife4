@@ -4,4 +4,5 @@ class UserUsesCase {
 
     val register = RegisterUseCase()
     val login = LoginUseCase()
+    val changeUser = ChangeUserUseCase()
 }
