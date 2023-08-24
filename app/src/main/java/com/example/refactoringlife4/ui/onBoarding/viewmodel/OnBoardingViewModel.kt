@@ -9,15 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class OnBoardingViewModel(private val userUsesCase: UserUsesCase = UserUsesCase()) :
-    ViewModel()  {
+    ViewModel() {
 
     private val _data = MutableLiveData<OnBoardingViewModelEvent>()
     val data: LiveData<OnBoardingViewModelEvent> = _data
 
-    fun changeUser(email: String){
+    fun changeUser(email: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = userUsesCase.changeUser.invoke(email)
-            when(response.newUser){
+            when (response.newUser) {
                 true -> _data.postValue(OnBoardingViewModelEvent.changeUser)
                 false -> _data.postValue(OnBoardingViewModelEvent.changeUser)
             }

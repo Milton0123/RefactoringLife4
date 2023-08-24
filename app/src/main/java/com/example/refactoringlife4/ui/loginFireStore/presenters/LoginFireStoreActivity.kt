@@ -42,7 +42,8 @@ class LoginFireStoreActivity : AppCompatActivity() {
                 is LoginFireStoreViewModelEvent.ShowOnBoarding -> {
                     goToOnBoarding()
                 }
-                is LoginFireStoreViewModelEvent.ShowHome->{
+
+                is LoginFireStoreViewModelEvent.ShowHome -> {
                     goToHome()
                 }
 
@@ -77,7 +78,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
         Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, extras)
     }
 
-    private fun goToHome(){
+    private fun goToHome() {
         Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
     }
 
@@ -147,6 +148,7 @@ class LoginFireStoreActivity : AppCompatActivity() {
         }
 
     }
+
     private fun showViewLoading() {
         binding.pbLoading.root.visibility = View.VISIBLE
     }

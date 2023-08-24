@@ -20,14 +20,15 @@ class LoginFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUsesC
     fun checkAllFields(email: String, pass: String) {
         validFields.postValue(Utils.checkUserLogin(email, pass))
     }
+
     fun loginUser(password: String, email: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = userUsesCase.login.invoke(email, password)
             when (response.status) {
                 Result.Status.SUCCESS -> {
-                    if (response.newUser){
+                    if (response.newUser) {
                         _data.postValue(LoginFireStoreViewModelEvent.ShowOnBoarding)
-                    }else{
+                    } else {
                         _data.postValue(LoginFireStoreViewModelEvent.ShowHome)
                     }
                 }
