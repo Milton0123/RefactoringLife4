@@ -16,7 +16,7 @@ class OnBoardingViewModel(private val userUsesCase: UserUsesCase = UserUsesCase(
 
     fun changeUser(email: String) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = userUsesCase.changeUser.invoke(email)
+            val response = userUsesCase.changeUser.invoke(email = email)
             when (response.newUser) {
                 true -> _data.postValue(OnBoardingViewModelEvent.changeUser)
                 false -> _data.postValue(OnBoardingViewModelEvent.changeUser)

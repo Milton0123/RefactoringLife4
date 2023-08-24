@@ -27,7 +27,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
         val moveArrowAnimation = AnimationUtils.loadAnimation(this, R.anim.mov_arrow)
         binding.onboardArrow.startAnimation(moveArrowAnimation)
-        action(email!!)
+        action(email = email!!)
         getViewModel()
         observer()
     }
@@ -44,7 +44,7 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private fun action(email: String) {
         binding.onboardFootprintBack.setOnClickListener {
-            viewModel.changeUser(email)
+            viewModel.changeUser( email = email)
         }
     }
 

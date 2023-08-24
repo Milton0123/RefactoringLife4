@@ -7,7 +7,7 @@ import com.example.refactoringlife4.model.repository.UserRepository
 class ChangeUserUseCase(private val userRepository: UserRepository = UserRepository()) {
 
     suspend fun invoke(email: String): UserModel {
-        val call = userRepository.changeUser(email)
+        val call = userRepository.changeUser(email = email)
         return call.toUserModel()
     }
 }

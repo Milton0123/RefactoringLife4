@@ -23,6 +23,6 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
     }
 
     suspend fun changeUser(email: String): Result<UserModelResponse> {
-        return userDataSource.changeUser(email)
+        return userDataSource.changeUser(email = email)
     }
 }

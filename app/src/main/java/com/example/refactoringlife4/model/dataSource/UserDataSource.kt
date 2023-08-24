@@ -19,6 +19,6 @@ class UserDataSource(private val userFirebaseService: UserFirebaseService = User
     }
 
     suspend fun changeUser(email: String): Result<UserModelResponse> {
-        return userFirebaseService.userUpdate(email)
+        return userFirebaseService.userUpdate(email = email)
     }
 }
