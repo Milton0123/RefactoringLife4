@@ -8,7 +8,7 @@ sealed class LoginFireStoreViewModelEvent {
         val modalDialog: UserModel.ModalDialog
     ) : LoginFireStoreViewModelEvent()
 
-    object ShowOnBoarding: LoginFireStoreViewModelEvent()
+    object ShowOnBoarding : LoginFireStoreViewModelEvent()
 
-    object ShowHome: LoginFireStoreViewModelEvent()
+    object ShowHome : LoginFireStoreViewModelEvent()
 }

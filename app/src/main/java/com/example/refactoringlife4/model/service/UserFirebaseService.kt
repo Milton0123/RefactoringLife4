@@ -106,7 +106,11 @@ class UserFirebaseService {
                                 Result.success(
                                     UserModelResponse(
                                         "",
-                                        password, email, "fullAccess", null, documentSnapshot.result.getBoolean("newUser")?: true
+                                        password,
+                                        email,
+                                        "fullAccess",
+                                        null,
+                                        documentSnapshot.result.getBoolean("newUser") ?: true
                                     ), "ok"
                                 )
                             )
@@ -115,7 +119,11 @@ class UserFirebaseService {
                                 Result.error(
                                     UserModelResponse(
                                         "",
-                                        password, email, "denied", DataModal.getErrorPassword(), documentSnapshot.result.getBoolean("newUser")?: true
+                                        password,
+                                        email,
+                                        "denied",
+                                        DataModal.getErrorPassword(),
+                                        documentSnapshot.result.getBoolean("newUser") ?: true
                                     ), "ERROR",
                                     Result.Status.ERROR_PASSWORD
                                 )
@@ -126,7 +134,11 @@ class UserFirebaseService {
                             Result.error(
                                 UserModelResponse(
                                     "",
-                                    password, email, "denied", DataModal.getEmailNotExist(), documentSnapshot.result.getBoolean("newUser")?: true
+                                    password,
+                                    email,
+                                    "denied",
+                                    DataModal.getEmailNotExist(),
+                                    documentSnapshot.result.getBoolean("newUser") ?: true
                                 ), "ERROR",
                                 Result.Status.EMAIL_DONT_EXIST
                             )
@@ -137,7 +149,11 @@ class UserFirebaseService {
                         Result.error(
                             UserModelResponse(
                                 "",
-                                password, email, "denied", DataModal.getErrorGeneric(), documentSnapshot.result.getBoolean("newUser")?: true
+                                password,
+                                email,
+                                "denied",
+                                DataModal.getErrorGeneric(),
+                                documentSnapshot.result.getBoolean("newUser") ?: true
                             ), "ERROR",
                             Result.Status.ERROR
                         )
@@ -147,19 +163,19 @@ class UserFirebaseService {
         }
     }
 
- suspend fun userUpdate(email: String): Result<UserModelResponse> {
-     return suspendCoroutine { continuation ->
-         db.collection("Users").document(email).update(
-             hashMapOf<String, Any>(
-                 "newUser" to false
-             )
-         ).addOnSuccessListener {
-             continuation.resume(Result.success(UserModelResponse("","","","",null,false)))
-         }
-             .addOnFailureListener {
-                 // Manejar el error
-             }
-     }
- }
+    suspend fun userUpdate(email: String): Result<UserModelResponse> {
+        return suspendCoroutine { continuation ->
+            db.collection("Users").document(email).update(
+                hashMapOf<String, Any>(
+                    "newUser" to false
+                )
+            ).addOnSuccessListener {
+                continuation.resume(Result.success(UserModelResponse("", "", "", "", null, false)))
+            }
+                .addOnFailureListener {
+                    // Manejar el error
+                }
+        }
+    }
 
 }

@@ -33,21 +33,22 @@ class OnBoardingActivity : AppCompatActivity() {
     }
 
     private fun observer() {
-        viewModel.data.observe(this){
-            when(it){
-                is OnBoardingViewModelEvent.changeUser-> {
+        viewModel.data.observe(this) {
+            when (it) {
+                is OnBoardingViewModelEvent.changeUser -> {
                     goHome()
                 }
             }
         }
     }
 
-    private fun action(email: String){
+    private fun action(email: String) {
         binding.onboardFootprintBack.setOnClickListener {
             viewModel.changeUser(email)
         }
     }
-    private fun goHome(){
+
+    private fun goHome() {
         Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
     }
 
@@ -55,6 +56,7 @@ class OnBoardingActivity : AppCompatActivity() {
         Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
         finish()
     }
+
     private fun getViewModel() {
         viewModel = OnBoardingViewModelFactory().create(OnBoardingViewModel::class.java)
     }
