@@ -13,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityHomeBinding
+import com.example.refactoringlife4.ui.login.LoginActivity
+import com.example.refactoringlife4.utils.Utils
 
 class HomeActivity : AppCompatActivity() {
 
@@ -41,6 +43,10 @@ class HomeActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+    override fun onBackPressed() {
+        Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
+        finish()
+    }
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_home)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()

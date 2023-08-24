@@ -1,13 +1,9 @@
 package com.example.refactoringlife4.model.service
 
+import android.util.Log
 import com.example.refactoringlife4.model.dto.Result
 import com.example.refactoringlife4.model.dto.UserModelResponse
 import com.example.refactoringlife4.utils.DataModal
-import com.google.firebase.FirebaseNetworkException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -21,72 +17,77 @@ class UserFirebaseService {
         password: String
     ): Result<UserModelResponse> {
         return suspendCoroutine { continuation ->
-            FirebaseAuth.getInstance()
-                .createUserWithEmailAndPassword(
-                    email, password
-                )
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
+            db.collection("Users").document(email).get().addOnCompleteListener { documentSnapshot ->
+                if (documentSnapshot.isSuccessful) {
+                    val existingUser = documentSnapshot.result?.data
+                    if (existingUser != null) {
+                        continuation.resume(
+                            Result.error(
+                                UserModelResponse(
+                                    userName,
+                                    password,
+                                    email,
+                                    "denied",
+                                    DataModal.getEmailInUse(), true
+                                ), "existing email",
+                                Result.Status.ERROR_EMAIL_EXIST
+                            )
+                        )
+                    } else {
                         db.collection("Users").document(email)
                             .set(
                                 hashMapOf(
                                     "Email" to email,
                                     "Name" to userName,
                                     "pass" to password,
-                                    "type" to "fullAccess"
+                                    "type" to "fullAccess",
+                                    "newUser" to true
                                 )
-                            )
-                        continuation.resume(
-                            Result.success(
-                                UserModelResponse(
-                                    userName,
-                                    password, email, "fullAccess", null
-                                ), "ok"
-                            )
-                        )
-
-                    } else {
-                        try {
-                            throw it.exception!!
-                        } catch (userCollisionException: FirebaseAuthUserCollisionException) {
-                            val errorCode = userCollisionException.errorCode
-                            if (errorCode == "ERROR_EMAIL_ALREADY_IN_USE") {
-                                continuation.resume(
-                                    Result.error(
-                                        UserModelResponse(
-                                            userName,
-                                            password,
-                                            email,
-                                            "denied",
-                                            DataModal.getEmailInUse()
-                                        ), "existing email",
-                                        Result.Status.ERROR_EMAIL_EXIST
+                            ).addOnCompleteListener { setUserTask ->
+                                if (setUserTask.isSuccessful) {
+                                    continuation.resume(
+                                        Result.success(
+                                            UserModelResponse(
+                                                userName,
+                                                password,
+                                                email,
+                                                "fullAccess",
+                                                null, true
+                                            ), "ok"
+                                        )
                                     )
-                                )
+                                } else {
+                                    continuation.resume(
+                                        Result.error(
+                                            UserModelResponse(
+                                                userName,
+                                                password,
+                                                email,
+                                                "denied",
+                                                DataModal.getErrorGeneric(), true
+                                            ), "ERROR",
+                                            Result.Status.ERROR
+                                        )
+                                    )
+                                }
+
                             }
-                        } catch (networkException: FirebaseNetworkException) {
-                            continuation.resume(
-                                Result.error(
-                                    UserModelResponse(
-                                        userName,
-                                        password, email, "denied", DataModal.getFailConnection()
-                                    ), "connection lost",
-                                    Result.Status.ERROR_LOST_CONNECTION
-                                )
-                            )
-                        } catch (e: Exception) {
-                            continuation.resume(
-                                Result.error(
-                                    UserModelResponse(
-                                        userName,
-                                        password, email, "denied", DataModal.getErrorGeneric()
-                                    ), "ERROR",
-                                    Result.Status.ERROR
-                                )
-                            )
-                        }
                     }
+                } else {
+                    continuation.resume(
+                        Result.error(
+                            UserModelResponse(
+                                userName,
+                                password,
+                                email,
+                                "denied",
+                                DataModal.getErrorGeneric(), true
+                            ), "ERROR",
+                            Result.Status.ERROR
+                        )
+                    )
                 }
+            }
         }
     }
 
@@ -95,71 +96,70 @@ class UserFirebaseService {
         password: String
     ): Result<UserModelResponse> {
         return suspendCoroutine { continuation ->
-            FirebaseAuth.getInstance()
-                .signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        continuation.resume(
-                            Result.success(
-                                UserModelResponse(
-                                    "",
-                                    password, email, "fullAccess", null
-                                ), "ok"
+            db.collection("Users").document(email).get().addOnCompleteListener { documentSnapshot ->
+                if (documentSnapshot.isSuccessful) {
+                    val user = documentSnapshot.result?.data
+                    if (user != null) {
+                        val storedPassword = user["pass"] as? String
+                        if (password == storedPassword) {
+                            continuation.resume(
+                                Result.success(
+                                    UserModelResponse(
+                                        "",
+                                        password, email, "fullAccess", null, documentSnapshot.result.getBoolean("newUser")?: true
+                                    ), "ok"
+                                )
                             )
-                        )
-                    } else {
-                        try {
-                            throw it.exception!!
-                        } catch (invalidUserException: FirebaseAuthInvalidUserException) {
-                            val errorCode = invalidUserException.errorCode
-                            if (errorCode == "ERROR_USER_NOT_FOUND") {
-                                continuation.resume(
-                                    Result.error(
-                                        UserModelResponse(
-                                            "",
-                                            password, email, "denied", DataModal.getEmailNotExist()
-                                        ), "ERROR",
-                                        Result.Status.EMAIL_DONT_EXIST
-                                    )
-                                )
-                            }
-                        } catch (invalidCredentialsException: FirebaseAuthInvalidCredentialsException) {
-                            val errorCode =
-                                invalidCredentialsException.errorCode
-                            if (errorCode == "ERROR_WRONG_PASSWORD") {
-                                continuation.resume(
-                                    Result.error(
-                                        UserModelResponse(
-                                            "",
-                                            password, email, "denied", DataModal.getErrorPassword()
-                                        ), "ERROR",
-                                        Result.Status.ERROR_PASSWORD
-                                    )
-                                )
-                            }
-                        } catch (invalidCredentialsException: FirebaseNetworkException) {
+                        } else {
                             continuation.resume(
                                 Result.error(
                                     UserModelResponse(
                                         "",
-                                        password, email, "denied", DataModal.getFailConnection()
+                                        password, email, "denied", DataModal.getErrorPassword(), documentSnapshot.result.getBoolean("newUser")?: true
                                     ), "ERROR",
-                                    Result.Status.ERROR_LOST_CONNECTION
-                                )
-                            )
-                        } catch (e: Exception) {
-                            continuation.resume(
-                                Result.error(
-                                    UserModelResponse(
-                                        "",
-                                        password, email, "denied", DataModal.getErrorGeneric()
-                                    ), "ERROR",
-                                    Result.Status.ERROR
+                                    Result.Status.ERROR_PASSWORD
                                 )
                             )
                         }
+                    } else {
+                        continuation.resume(
+                            Result.error(
+                                UserModelResponse(
+                                    "",
+                                    password, email, "denied", DataModal.getEmailNotExist(), documentSnapshot.result.getBoolean("newUser")?: true
+                                ), "ERROR",
+                                Result.Status.EMAIL_DONT_EXIST
+                            )
+                        )
                     }
+                } else {
+                    continuation.resume(
+                        Result.error(
+                            UserModelResponse(
+                                "",
+                                password, email, "denied", DataModal.getErrorGeneric(), documentSnapshot.result.getBoolean("newUser")?: true
+                            ), "ERROR",
+                            Result.Status.ERROR
+                        )
+                    )
                 }
+            }
         }
     }
+
+ suspend fun userUpdate(email: String): Result<UserModelResponse> {
+     return suspendCoroutine { continuation ->
+         db.collection("Users").document(email).update(
+             hashMapOf<String, Any>(
+                 "newUser" to false
+             )
+         ).addOnSuccessListener {
+             continuation.resume(Result.success(UserModelResponse("","","","",null,false)))
+         }
+             .addOnFailureListener {
+                 // Manejar el error
+             }
+     }
+ }
+
 }
