@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.animation.AnimationUtils
+import androidx.appcompat.widget.AppCompatButton
 import com.example.refactoringlife4.R
+import com.example.refactoringlife4.databinding.FragmentHomeBinding
 
 object Utils {
     fun checkUserLogin(email: String, pass: String): Boolean {
@@ -32,5 +35,6 @@ object Utils {
         context.startActivity(intent)
         (context as? Activity)?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
+
 
 }
