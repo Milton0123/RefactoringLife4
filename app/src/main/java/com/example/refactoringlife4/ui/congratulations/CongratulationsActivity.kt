@@ -2,6 +2,7 @@ package com.example.refactoringlife4.ui.congratulations
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.refactoringlife4.databinding.ActivityCongratulationsBinding
 import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
 import com.example.refactoringlife4.utils.Utils
@@ -12,12 +13,17 @@ class CongratulationsActivity : AppCompatActivity() {
         binding = ActivityCongratulationsBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        goToOnboard()
+        val extras = intent.extras
+        val email = extras?.getString("email")
+        Log.i("MiTag", email.toString())
+        goToOnboard(email)
     }
 
-    private fun goToOnboard() {
+    private fun goToOnboard(email: String?) {
         binding.root.setOnClickListener {
-            Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, null)
+            val extras = Bundle()
+            extras.putString("email", email.toString())
+            Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, extras)
         }
     }
 }
