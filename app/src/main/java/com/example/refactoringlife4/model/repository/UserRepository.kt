@@ -8,10 +8,6 @@ import com.example.refactoringlife4.model.response.DogsResponse
 
 class UserRepository(private val userDataSource: UserDataSource = UserDataSource()) {
 
-    suspend fun getDogs(): Result<DogsResponse> {
-        return userDataSource.getDogs()
-    }
-
     suspend fun userLogin(email: String, password: String): Result<UserModelResponse> {
 
         return userDataSource.userLogin(email, password)
