@@ -24,12 +24,15 @@ class TermsAndConditionFragment : Fragment() {
 
     private fun Onclick() {
         binding.btBackBlackTermsAndConditions.setOnClickListener {
+            binding.btBackBlackTermsAndConditions.isEnabled = false
+
             binding.btBackBlackTermsAndConditions.animate().apply {
                 translationX(300f)
                 interpolator = AccelerateDecelerateInterpolator()
                 duration = 1000
                 withEndAction {
                     findNavController().popBackStack()
+                    binding.btBackBlackTermsAndConditions.isEnabled = true
                 }
             }
         }
