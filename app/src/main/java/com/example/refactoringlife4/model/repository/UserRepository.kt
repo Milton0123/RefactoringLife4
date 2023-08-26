@@ -9,7 +9,6 @@ import com.example.refactoringlife4.model.response.DogsResponse
 class UserRepository(private val userDataSource: UserDataSource = UserDataSource()) {
 
     suspend fun userLogin(email: String, password: String): Result<UserModelResponse> {
-
         return userDataSource.userLogin(email, password)
     }
 
@@ -22,5 +21,9 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
         val result = userDataSource.userRegister(email, userName, password)
         Log.i("registerResult", result.status.name)
         return result
+    }
+
+    suspend fun changeUser(email: String): Result<UserModelResponse> {
+        return userDataSource.changeUser(email = email)
     }
 }
