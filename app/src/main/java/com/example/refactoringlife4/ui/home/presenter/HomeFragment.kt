@@ -23,6 +23,9 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        getViewModel()
+        observer()
+        calls()
         return binding.root
     }
 
@@ -31,11 +34,11 @@ class HomeFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) {
             when (it) {
 
-                is HomeViewModelEvent.ShowSuccessView ->{
+                is HomeViewModelEvent.ShowSuccessView -> {
                     //recyclerview(it) respuesta de success , ingresar dentrod e showsucces el recyclerview
                 }
-                is HomeViewModelEvent.ShowError-> {
-                    showError500(it.toString())
+                is HomeViewModelEvent.ShowError -> {
+                    showError(it.toString())
                 }
                 else -> {
                     Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
@@ -52,18 +55,7 @@ class HomeFragment : Fragment() {
         //navegacion a siguiente fragment
     }
 
-
-    private fun showError404(msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-
-    }
-
-    private fun showError401(msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-
-    }
-
-    private fun showError500(msg: String) {
+    private fun showError(msg: String) {
         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
