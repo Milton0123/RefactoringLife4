@@ -5,9 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.refactoringlife4.databinding.ItemRvHomeDogsBinding
 import android.view.LayoutInflater
 import android.widget.Toast
-import com.example.refactoringlife4.model.dto.Dog
+import com.squareup.picasso.Picasso
 
-class HomeFragmentAdapter(private val listOfDogs: List<Dog>) : RecyclerView.Adapter<DogsHolder>() {
+class HomeFragmentAdapter(private val listOfDogs: List<String>) :
+    RecyclerView.Adapter<DogsHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogsHolder {
         val binding =
             ItemRvHomeDogsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,12 +27,11 @@ class HomeFragmentAdapter(private val listOfDogs: List<Dog>) : RecyclerView.Adap
 
 class DogsHolder(private val binding: ItemRvHomeDogsBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(dog: Dog) {
-        binding.ivPhotoDogs.setImageResource(dog.image)
+    fun bind(dog: String) {
+        Picasso.get().load(dog).into(binding.ivPhotoDogs)
 
         binding.ivPhotoDogs.setOnClickListener {
-            val context = binding.root.context
-            Toast.makeText(context, "Imagen de ${dog.name} clickeada", Toast.LENGTH_SHORT).show()
+            //funcion onclick
         }
     }
 }
