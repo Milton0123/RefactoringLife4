@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.refactoringlife4.model.dataSource.UserDataSource
 import com.example.refactoringlife4.model.dto.Result
 import com.example.refactoringlife4.model.dto.UserModelResponse
+import com.example.refactoringlife4.model.response.DogsResponse
 
 class UserRepository(private val userDataSource: UserDataSource = UserDataSource()) {
 
