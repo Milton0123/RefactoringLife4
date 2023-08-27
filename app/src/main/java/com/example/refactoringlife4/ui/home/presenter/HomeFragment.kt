@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.example.refactoringlife4.databinding.FragmentHomeBinding
 import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModel
 import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelEvent
 import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelFactory
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.refactoringlife4.databinding.FragmentHomeBinding
+import com.example.refactoringlife4.ui.home.adapter.HomeFragmentAdapter
 
 class HomeFragment : Fragment() {
 
@@ -35,7 +37,7 @@ class HomeFragment : Fragment() {
             when (it) {
 
                 is HomeViewModelEvent.ShowSuccessView -> {
-                    //recyclerview(it) respuesta de success , ingresar dentrod e showsucces el recyclerview
+                    initRecyclerView(it.images)
                 }
                 is HomeViewModelEvent.ShowError -> {
                     showError(it.toString())
@@ -61,5 +63,15 @@ class HomeFragment : Fragment() {
 
     private fun getViewModel() {
         viewModel = HomeViewModelFactory().create(HomeViewModel::class.java)
+    }
+
+    private fun initRecyclerView(listDogs:List<String>) {
+        val dogsAdapter = HomeFragmentAdapter(listDogs)
+
+        binding.homeRvDogs.apply {
+            adapter = dogsAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 }

@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@id/iv_fingerprint_black" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bt_back_white"
+        android:id="@+id/bt_back_white_terms_and_conditions"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginStart="50dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_terms" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/bt_back_black"
+        android:id="@+id/bt_back_black_terms_and_conditions"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_marginStart="50dp"
