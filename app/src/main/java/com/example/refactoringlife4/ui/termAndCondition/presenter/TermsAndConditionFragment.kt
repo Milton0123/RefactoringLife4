@@ -35,6 +35,7 @@ class TermsAndConditionFragment : Fragment() {
                     binding.btBackBlackTermsAndConditions.isEnabled = true
                 }
             }
+            binding.btBackWhiteTermsAndConditions.isEnabled = false
         }
 
     }
