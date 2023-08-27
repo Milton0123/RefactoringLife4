@@ -55,7 +55,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun actions() {
-        //navegacion a siguiente fragment
+        binding.errorView.root.setOnClickListener {
+            calls()
+        }
     }
 
     private fun showSuccess(images: List<String>){
@@ -69,6 +71,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showError() {
+        actions()
         binding.errorView.root.visibility = View.VISIBLE
         binding.loadingView.root.visibility = View.GONE
     }
