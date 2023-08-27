@@ -37,10 +37,10 @@ class HomeFragment : Fragment() {
             when (it) {
 
                 is HomeViewModelEvent.ShowSuccessView -> {
-                    initRecyclerView(it.images)
+                    showSuccess(it.images)
                 }
                 is HomeViewModelEvent.ShowError -> {
-                    showError(it.toString())
+                    showError()
                 }
                 else -> {
                     Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
@@ -50,6 +50,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun calls() {
+        showLoading()
         viewModel.getDogs()
     }
 
@@ -57,16 +58,29 @@ class HomeFragment : Fragment() {
         //navegacion a siguiente fragment
     }
 
-    private fun showError(msg: String) {
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+    private fun showSuccess(images: List<String>){
+        initRecyclerView(images)
+        binding.errorView.root.visibility = View.GONE
+        binding.loadingView.root.visibility = View.GONE
+    }
+    private fun showLoading(){
+        binding.loadingView.root.visibility = View.VISIBLE
+        binding.errorView.root.visibility = View.GONE
+    }
+
+    private fun showError() {
+        binding.errorView.root.visibility = View.VISIBLE
+        binding.loadingView.root.visibility = View.GONE
     }
 
     private fun getViewModel() {
-        viewModel = HomeViewModelFactory().create(HomeViewModel::class.java)
+        viewModel = HomeViewModelFactory(requireContext()).create(HomeViewModel::class.java)
     }
 
     private fun initRecyclerView(listDogs:List<String>) {
-        val dogsAdapter = HomeFragmentAdapter(listDogs)
+        val dogsAdapter = HomeFragmentAdapter(listDogs) {
+            //add function onClick
+        }
 
         binding.homeRvDogs.apply {
             adapter = dogsAdapter

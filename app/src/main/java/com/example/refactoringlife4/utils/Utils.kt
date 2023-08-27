@@ -3,6 +3,9 @@ package com.example.refactoringlife4.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.view.animation.AnimationUtils
 import androidx.appcompat.widget.AppCompatButton
@@ -35,6 +38,16 @@ object Utils {
         context.startActivity(intent)
         (context as? Activity)?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork
+            val capabilities = connectivityManager.getNetworkCapabilities(network)
+            return capabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        }
+
+        return false
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.refactoringlife4.ui.home.presenter.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val dogsUseCase: DogsUseCase = DogsUseCase()) : ViewModel() {
+class HomeViewModel(
+    private val context: Context,
+    private val dogsUseCase: DogsUseCase = DogsUseCase(context = context)
+) : ViewModel() {
 
     private val _data = MutableLiveData<HomeViewModelEvent>()
     val data: LiveData<HomeViewModelEvent> = _data
@@ -22,12 +26,10 @@ class HomeViewModel(private val dogsUseCase: DogsUseCase = DogsUseCase()) : View
         CoroutineScope(Dispatchers.IO).launch {
             val response = dogsUseCase.invoke()
 
-            response?.let{
-                if(it.isSuccessful){
-                    _data.postValue(HomeViewModelEvent.ShowSuccessView(it.images))
-                } else {
-                    _data.postValue(HomeViewModelEvent.ShowError(it.toString()))
-                }
+            if (response.isSuccessful) {
+                _data.postValue(HomeViewModelEvent.ShowSuccessView(response.images))
+            } else {
+                _data.postValue(HomeViewModelEvent.ShowError)
             }
         }
     }

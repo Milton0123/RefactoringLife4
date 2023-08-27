@@ -4,7 +4,5 @@ sealed class HomeViewModelEvent {
 
     data class ShowSuccessView(val images:List<String>) : HomeViewModelEvent()
 
-    data class ShowError(
-        val message: String
-    ) : HomeViewModelEvent()
+    object ShowError: HomeViewModelEvent()
 }
