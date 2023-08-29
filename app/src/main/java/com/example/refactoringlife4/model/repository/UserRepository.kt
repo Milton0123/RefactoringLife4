@@ -28,4 +28,8 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
     fun downloadUserCache(): String {
         return userDataSource.getUserServiceCache()
     }
+    suspend fun changeUser(email: String): Result<UserModelResponse> {
+        return userDataSource.changeUser(email = email)
+    }
+
 }

@@ -8,6 +8,7 @@ import android.view.View
 import androidx.core.widget.doAfterTextChanged
 import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
 import com.example.refactoringlife4.model.dto.UserModel
+import com.example.refactoringlife4.ui.home.presenter.HomeActivity
 import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
 import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModel
@@ -39,8 +40,12 @@ class LoginFireStoreActivity : AppCompatActivity() {
     private fun observer() {
         viewModel.data.observe(this) {
             when (it) {
-                is LoginFireStoreViewModelEvent.ShowSuccessView -> {
+                is LoginFireStoreViewModelEvent.ShowOnBoarding -> {
                     goToOnBoarding()
+                }
+
+                is LoginFireStoreViewModelEvent.ShowHome -> {
+                    goToHome()
                 }
 
                 is LoginFireStoreViewModelEvent.ShowModalError -> {
@@ -69,7 +74,13 @@ class LoginFireStoreActivity : AppCompatActivity() {
     }
 
     private fun goToOnBoarding() {
-        Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, null)
+        val extras = Bundle()
+        extras.putString("email", binding.etEmail.text.toString())
+        Utils.startActivityWithSlideToLeft(this, OnBoardingActivity::class.java, extras)
+    }
+
+    private fun goToHome() {
+        Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
     }
 
     private fun goToRegister() {

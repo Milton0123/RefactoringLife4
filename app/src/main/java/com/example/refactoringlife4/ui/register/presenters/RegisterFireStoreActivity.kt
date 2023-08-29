@@ -56,7 +56,9 @@ class RegisterFireStoreActivity : AppCompatActivity() {
     }
 
     private fun goToCongratulation() {
-        Utils.startActivityWithSlideToLeft(this, CongratulationsActivity::class.java, null)
+        val extras = Bundle()
+        extras.putString("email", binding.etRegisterEmail.text.toString())
+        Utils.startActivityWithSlideToLeft(this, CongratulationsActivity::class.java, extras)
     }
 
     private fun goToLogin() {
