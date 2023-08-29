@@ -26,6 +26,9 @@
     <string name="registrar">REGISTRAR</string>
     <string name="felicitaciones">felicitaciones!</string>
     <string name="has_finalizado_el_registro">Has finalizado el registro</string>
+
+    <string name="error_de_conexion">Error de conexion</string>
+
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -37,6 +40,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="term_and_condition">Terminos y condiciones</string>
     <string name="tv_home_search">Search</string>
     <string name="tv_home_friends">Friends</string>
     <string name="tv_home_adoptme">Adopt me</string>
