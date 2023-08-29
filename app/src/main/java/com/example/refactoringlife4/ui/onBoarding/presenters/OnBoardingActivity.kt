@@ -7,10 +7,11 @@ import android.view.animation.AnimationUtils
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityOnboardingBinding
 import com.example.refactoringlife4.ui.home.presenter.HomeActivity
-import com.example.refactoringlife4.ui.login.LoginActivity
+import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.ui.onBoarding.viewmodel.OnBoardingViewModel
 import com.example.refactoringlife4.ui.onBoarding.viewmodel.OnBoardingViewModelEvent
 import com.example.refactoringlife4.ui.onBoarding.viewmodel.OnBoardingViewModelFactory
+
 import com.example.refactoringlife4.utils.Utils
 
 
@@ -35,6 +36,7 @@ class OnBoardingActivity : AppCompatActivity() {
         getViewModel()
         observer()
     }
+
 
     private fun observer() {
         viewModel.data.observe(this) {

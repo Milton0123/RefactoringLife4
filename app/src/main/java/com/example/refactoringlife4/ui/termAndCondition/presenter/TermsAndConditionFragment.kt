@@ -23,6 +23,8 @@ class TermsAndConditionFragment : Fragment() {
     }
 
     private fun Onclick() {
+        binding.btBackWhiteTermsAndConditions.isEnabled = false
+        
         binding.btBackBlackTermsAndConditions.setOnClickListener {
             binding.btBackBlackTermsAndConditions.isEnabled = false
 
