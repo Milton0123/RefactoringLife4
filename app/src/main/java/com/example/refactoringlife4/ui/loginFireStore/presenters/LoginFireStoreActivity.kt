@@ -10,15 +10,16 @@ import com.example.refactoringlife4.databinding.ActivityLoginFireStoreBinding
 import com.example.refactoringlife4.model.dto.UserModel
 import com.example.refactoringlife4.ui.home.presenter.HomeActivity
 import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
-import com.example.refactoringlife4.ui.login.LoginActivity
+import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModel
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
+import com.example.refactoringlife4.ui.splash.viewModel.SplashViewModel
+import com.example.refactoringlife4.utils.CacheService
 import com.example.refactoringlife4.utils.Utils
 
 class LoginFireStoreActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityLoginFireStoreBinding
     private lateinit var viewModel: LoginFireStoreViewModel
 
