@@ -31,6 +31,11 @@ class UserDataSource(private val userFirebaseService: UserFirebaseService = User
         return cacheService.getNameUser().toString()
     }
 
+    fun deleteUserServiceCache() {
+        val cacheService = getInstance
+        cacheService.clearUser()
+    }
+
     suspend fun changeUser(email: String): Result<UserModelResponse> {
         return userFirebaseService.userUpdate(email = email)
     }

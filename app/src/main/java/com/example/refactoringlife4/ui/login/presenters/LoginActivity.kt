@@ -25,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
     private val GOOGLE_SING_IN = 100
     private lateinit var binding: ActivityLoginBinding
     private lateinit var viewModel: LoginViewModel
+    private var backPressedTime: Long = 0
+    private val backPressedInterval: Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,6 +110,18 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 Toast.makeText(this, "No se obtuvo un correo", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onBackPressed() {
+
+        val currentTime = System.currentTimeMillis()
+
+        if (currentTime - backPressedTime < backPressedInterval) {
+            finishAffinity()
+        } else {
+            Toast.makeText(this, "Presiona de nuevo para cerrar la app", Toast.LENGTH_SHORT).show()
+            backPressedTime = currentTime
         }
     }
 }
