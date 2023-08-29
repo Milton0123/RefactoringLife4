@@ -1,6 +1,7 @@
 package com.example.refactoringlife4.ui.home.presenter
 
 import android.os.Bundle
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -11,13 +12,19 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityHomeBinding
-import com.example.refactoringlife4.ui.login.LoginActivity
+import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModel
+import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelFactory
+import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.utils.Utils
+
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var viewModel: HomeViewModel
+    private var backPressedTime: Long = 0
+    private val backPressedInterval: Long = 2000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +47,34 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        getViewModel()
+        onClick()
+    }
+
+    private fun onClick() {
+        binding.logOut.setOnClickListener {
+            logOut()
+        }
+    }
+
+    private fun getViewModel() {
+        viewModel = HomeViewModelFactory(applicationContext).create(HomeViewModel::class.java)
     }
 
     override fun onBackPressed() {
+        val currentTime = System.currentTimeMillis()
+
+        if (currentTime - backPressedTime < backPressedInterval) {
+            logOut()
+        } else {
+            Toast.makeText(this, "Presiona de nuevo para LogOut", Toast.LENGTH_SHORT).show()
+            backPressedTime = currentTime
+        }
+    }
+
+    private fun logOut() {
+        viewModel.clearUserState()
         Utils.startActivityWithSlideToRight(this, LoginActivity::class.java, null)
         finish()
     }

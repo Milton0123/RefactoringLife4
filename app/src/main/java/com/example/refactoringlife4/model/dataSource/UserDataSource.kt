@@ -20,8 +20,6 @@ class UserDataSource(private val userFirebaseService: UserFirebaseService = User
         return userFirebaseService.register(email, userName, password)
     }
 
-    //registerUserCache pasamanos que la funcipon pida el context por parametros
-
     fun loadUserServiceCache(user: String) {
         val cacheService = getInstance
         Log.i("userStateData", user)
@@ -31,5 +29,14 @@ class UserDataSource(private val userFirebaseService: UserFirebaseService = User
     fun getUserServiceCache(): String {
         val cacheService = getInstance//reemplazar por el objeto chache
         return cacheService.getNameUser().toString()
+    }
+
+    fun deleteUserServiceCache() {
+        val cacheService = getInstance
+        cacheService.clearUser()
+    }
+
+    suspend fun changeUser(email: String): Result<UserModelResponse> {
+        return userFirebaseService.userUpdate(email = email)
     }
 }
