@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.ViewModelProvider
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityLoginBinding
+import com.example.refactoringlife4.ui.login.viewmodel.LoginViewModel
+import com.example.refactoringlife4.ui.login.viewmodel.LoginViewModelFactory
 import com.example.refactoringlife4.ui.loginFireStore.presenters.LoginFireStoreActivity
 import com.example.refactoringlife4.ui.onBoarding.presenters.OnBoardingActivity
 import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
+import com.example.refactoringlife4.utils.CacheService
 import com.example.refactoringlife4.utils.Utils
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -20,15 +24,19 @@ import com.google.firebase.auth.GoogleAuthProvider
 class LoginActivity : AppCompatActivity() {
     private val GOOGLE_SING_IN = 100
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val screenSplash = installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        getViewModel()
         setContentView(binding.root)
         setup()
-        screenSplash.setKeepOnScreenCondition { false }
+    }
+
+    fun getViewModel() {
+        viewModel = LoginViewModelFactory().create(LoginViewModel::class.java)
     }
 
     private fun setup() {
@@ -79,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
                         FirebaseAuth.getInstance().signInWithCredential(credential)
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
+                                    viewModel.loadCache(account.displayName.toString())
                                     goToOnBoarding()
                                 } else {
                                     Toast.makeText(
