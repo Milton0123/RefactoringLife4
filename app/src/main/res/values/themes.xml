@@ -20,6 +20,7 @@
         <item name="postSplashScreenTheme">@style/Theme.RefactoringLife4</item>
     </style>
 
+
     <style name="Theme.RefactoringLife4.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

@@ -21,4 +21,11 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
         return result
     }
 
+    fun loadUserCache(user: String) {
+        userDataSource.loadUserServiceCache(user)
+    }
+
+    fun downloadUserCache(): String {
+        return userDataSource.getUserServiceCache()
+    }
 }

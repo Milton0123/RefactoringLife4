@@ -15,22 +15,36 @@ object Utils {
         return email.verifyEmail() && pass.verifyPassword() && name.verifyName()
     }
 
-    fun  startActivityWithSlideToLeft(context: Context, destinationActivity: Class<*>, extras: Bundle? = null) {
+    fun startActivityWithSlideToLeft(
+        context: Context,
+        destinationActivity: Class<*>,
+        extras: Bundle? = null
+    ) {
         val intent = Intent(context, destinationActivity)
         extras?.let {
             intent.putExtras(extras)
         }
         context.startActivity(intent)
-        (context as? Activity)?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+        (context as? Activity)?.overridePendingTransition(
+            R.anim.slide_in_right,
+            R.anim.slide_out_left
+        )
     }
 
-    fun  startActivityWithSlideToRight(context: Context, destinationActivity: Class<*>,extras: Bundle? = null) {
+    fun startActivityWithSlideToRight(
+        context: Context,
+        destinationActivity: Class<*>,
+        extras: Bundle? = null
+    ) {
         val intent = Intent(context, destinationActivity)
         extras?.let {
             intent.putExtras(extras)
         }
         context.startActivity(intent)
-        (context as? Activity)?.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        (context as? Activity)?.overridePendingTransition(
+            R.anim.slide_in_left,
+            R.anim.slide_out_right
+        )
     }
 
 }

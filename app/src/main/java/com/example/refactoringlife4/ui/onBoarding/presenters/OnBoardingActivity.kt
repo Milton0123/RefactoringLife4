@@ -22,7 +22,7 @@ class OnBoardingActivity : AppCompatActivity() {
         action()
     }
 
-    private fun action(){
+    private fun action() {
         binding.onboardFootprintBack.setOnClickListener {
             Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
         }

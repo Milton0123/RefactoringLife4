@@ -6,8 +6,8 @@ import com.example.refactoringlife4.model.repository.UserRepository
 
 class LoginUseCase(private val userRepository: UserRepository = UserRepository()) {
 
-    suspend fun invoke (email:String, password:String): UserModel {
-        val call = userRepository.userLogin(email,password)
+    suspend fun invoke(email: String, password: String): UserModel {
+        val call = userRepository.userLogin(email, password)
         return call.toUserModel()
     }
 }
