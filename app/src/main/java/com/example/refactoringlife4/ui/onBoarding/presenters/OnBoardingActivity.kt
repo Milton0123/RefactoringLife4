@@ -28,9 +28,9 @@ class OnBoardingActivity : AppCompatActivity() {
 
         val moveArrowAnimation = AnimationUtils.loadAnimation(this, R.anim.mov_arrow)
         binding.onboardArrow.startAnimation(moveArrowAnimation)
-        if (email != null){
+        if (email != null) {
             action(email = email)
-        }else{
+        } else {
             goHomeGoogle()
         }
         getViewModel()
@@ -50,17 +50,19 @@ class OnBoardingActivity : AppCompatActivity() {
 
     private fun action(email: String) {
         binding.onboardFootprintBack.setOnClickListener {
-            viewModel.changeUser( email = email)
+            viewModel.changeUser(email = email)
         }
     }
 
     private fun goHome() {
         Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
+        finish()
     }
 
     private fun goHomeGoogle() {
         binding.onboardFootprintBack.setOnClickListener {
-        Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
+            Utils.startActivityWithSlideToLeft(this, HomeActivity::class.java, null)
+            finish()
         }
     }
 
