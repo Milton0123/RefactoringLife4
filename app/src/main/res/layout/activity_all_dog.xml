@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.all_dog.presenters.AllDogActivity">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_0_04"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_0_1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_0_18"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.18" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_0_84"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.84" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_0_99"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.99" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_0_95"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_0_05"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+
+    <TextView
+        android:id="@+id/tv_home_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_black"
+        android:shadowColor="@color/gray_lite"
+        android:shadowDy="14"
+        android:shadowRadius="5"
+        android:text="@string/tv_home_search"
+        android:textColor="@color/orange"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/guideline_vertical_0_1"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_0_04" />
+
+    <TextView
+        android:id="@+id/tv_home_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/roboto_black"
+        android:shadowColor="@color/gray_lite"
+        android:shadowDy="14"
+        android:shadowRadius="5"
+        android:text="@string/tv_home_friends"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/tv_home_search"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizontal_0_04" />
+
+    <ImageView
+        android:id="@+id/all_dog_footprint"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_footprint_black"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_0_18"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_0_95" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/all_dog_rv_random_dogs"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_horizontal_0_84"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vertical_0_95"
+        app:layout_constraintStart_toStartOf="@id/guideline_vertical_0_05"
+        app:layout_constraintTop_toTopOf="@id/guideline_horizontal_0_18"
+        app:spanCount="3"
+        tools:listitem="@layout/item_rv_all_dogs" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_back_white_terms_and_conditions"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/back_bt_white_round"
+        android:drawableEnd="@drawable/arrow_left"
+        android:paddingHorizontal="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal_0_99"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_back_black_terms_and_conditions"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="150dp"
+        android:background="@drawable/back_bt_black_round"
+        android:paddingHorizontal="20dp"
+        android:text="@string/string_button_back_terms"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/bt_back_white_terms_and_conditions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
