@@ -17,4 +17,5 @@
     <color name="title_hello_orange">#e97f01</color>
     <color name="description_gray">#838383</color>
     <color name="home_circle_grey">#D5D5D5</color>
+    <color name="home_header_backgroud">#E97F01</color>
 </resources>
