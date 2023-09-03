@@ -121,7 +121,7 @@
         android:paddingHorizontal="30dp"
         app:layout_constraintBottom_toBottomOf="@+id/guideline_horizontal_0_99"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_back_black_terms_and_conditions"

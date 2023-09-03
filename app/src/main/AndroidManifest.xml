@@ -21,7 +21,7 @@
             android:exported="false" />
         <activity
             android:name=".SearchDogActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.login.presenters.LoginActivity"
             android:exported="false" />
