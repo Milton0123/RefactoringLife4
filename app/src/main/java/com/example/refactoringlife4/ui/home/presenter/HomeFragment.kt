@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
 
     private fun calls() {
         showLoading()
-        viewModel.getDogs()
+        viewModel.  getDogs()
     }
 
     private fun actions() {
