@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.refactoringlife4.databinding.FragmentHomeBinding
 import com.example.refactoringlife4.ui.all_dog.presenters.AllDogActivity
 import com.example.refactoringlife4.ui.home.adapter.HomeFragmentAdapter
+import com.example.refactoringlife4.ui.randomDog.presents.RandomDogActivity
 
 class HomeFragment : Fragment() {
 
@@ -55,6 +56,10 @@ class HomeFragment : Fragment() {
     private fun onClick(){
         binding.btHomeDog.setOnClickListener{
             startActivity(Intent(requireContext(), AllDogActivity::class.java))
+        }
+
+        binding.btHomeRandom.setOnClickListener {
+            startActivity(Intent(requireContext(),RandomDogActivity::class.java))
         }
     }
 

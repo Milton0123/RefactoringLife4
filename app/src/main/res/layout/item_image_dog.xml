@@ -6,11 +6,10 @@
     app:cardCornerRadius="30dp"
     app:cardElevation="4dp">
 
-        <ImageView
-            android:id="@+id/iv_photo_dog"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/img_dog_adoptme" />
+    <ImageView
+        android:id="@+id/iv_photo_dog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY" />
 
 </androidx.cardview.widget.CardView>

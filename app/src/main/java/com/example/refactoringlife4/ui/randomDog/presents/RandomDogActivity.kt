@@ -1,5 +1,6 @@
 package com.example.refactoringlife4.ui.randomDog.presents
 
+import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,7 @@ import com.example.refactoringlife4.databinding.ActivityRandomDogBinding
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModel
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModelEvent
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModelFactory
+import com.squareup.picasso.Picasso
 
 class RandomDogActivity : AppCompatActivity() {
 
@@ -19,9 +21,8 @@ class RandomDogActivity : AppCompatActivity() {
 
         binding = ActivityRandomDogBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        observer()
         getViewModel()
+        observer()
         actions()
         onclick()
     }
@@ -31,9 +32,9 @@ class RandomDogActivity : AppCompatActivity() {
             when (it) {
 
                 is RandomDogViewModelEvent.ShowSuccessView -> {
-                    it.image
-                    binding.errorView.root.visibility = View.GONE
-                    binding.loadingView.root.visibility = View.GONE
+                    Picasso.get().load(it.image).into(binding.incImage.ivPhotoDog)
+                    binding.incError.root.visibility = View.GONE
+                    binding.incLoading.root.visibility = View.GONE
                 }
                 is RandomDogViewModelEvent.ShowError -> {
                     showError()
@@ -48,17 +49,23 @@ class RandomDogActivity : AppCompatActivity() {
     private fun actions() {
         showLoading()
         viewModel.getRandomDog()
+
+        binding.imChange.setOnClickListener {
+            animateFootprint()
+            showLoading()
+            viewModel.getRandomDog()
+        }
     }
 
     private fun showLoading() {
-        binding.loadingView.root.visibility = View.VISIBLE
-        binding.errorView.root.visibility = View.GONE
+        binding.incLoading.root.visibility = View.VISIBLE
+        binding.incError.root.visibility = View.GONE
     }
 
     private fun showError() {
         actions()
-        binding.errorView.root.visibility = View.VISIBLE
-        binding.loadingView.root.visibility = View.GONE
+        binding.incError.root.visibility = View.VISIBLE
+        binding.incLoading.root.visibility = View.GONE
     }
 
     private fun getViewModel() {
@@ -76,10 +83,21 @@ class RandomDogActivity : AppCompatActivity() {
                 interpolator = AccelerateDecelerateInterpolator()
                 duration = 1000
                 withEndAction {
+                    finish()
                     binding.btBackBlackTermsAndConditions.isEnabled = true
                 }
             }
             binding.btBackWhiteTermsAndConditions.isEnabled = false
         }
+    }
+
+    private fun animateFootprint() {
+        val animator = ValueAnimator.ofFloat(0f, 360f)
+        animator.addUpdateListener { valueAnimator ->
+            val animatedValue = valueAnimator.animatedValue as Float
+            binding.imChange.rotationY = animatedValue
+        }
+        animator.duration = 1000
+        animator.start()
     }
 }
