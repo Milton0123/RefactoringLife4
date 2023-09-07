@@ -8,15 +8,26 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AboutUsViewModel(private val usUseCase: UsUseCase = UsUseCase()): ViewModel() {
-    private val _data = MutableLiveData<AboutUsViewModelEvent>()
-    val data: LiveData<AboutUsViewModelEvent> = _data
+class AboutUsViewModel(private val usUseCase: UsUseCase = UsUseCase()) : ViewModel() {
+    private val _dataUs = MutableLiveData<AboutUsViewModelEvent>()
+    val dataUs: LiveData<AboutUsViewModelEvent> = _dataUs
+    private val _dataMembers = MutableLiveData<AboutUsViewModelEvent>()
+    val dataMembers: LiveData<AboutUsViewModelEvent> = _dataMembers
 
-    fun getUs(){
+
+    fun getUs() {
         CoroutineScope(Dispatchers.IO).launch {
             val response = usUseCase.invokeUs()
 
-            _data.postValue(AboutUsViewModelEvent.ShowSuccessView(response.images))
+            _dataUs.postValue(AboutUsViewModelEvent.ShowSuccessView(response.images))
+        }
+    }
+
+    fun getMembers() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = usUseCase.invokeMembers()
+
+            _dataMembers.postValue(AboutUsViewModelEvent.ShowSuccessView(response.images))
         }
     }
 }

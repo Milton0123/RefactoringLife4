@@ -16,7 +16,7 @@
             android:id="@+id/iv_photo_about_us"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/rv_us_about_us" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

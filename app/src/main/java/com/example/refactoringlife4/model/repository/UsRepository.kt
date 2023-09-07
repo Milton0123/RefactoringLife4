@@ -7,11 +7,11 @@ import com.example.refactoringlife4.model.response.UsResponse
 
 class UsRepository(private val usDataSource: UsDataSource = UsDataSource()) {
 
-    suspend fun getUs(): UsResponse{
+    suspend fun getUs(): UsResponse {
         return usDataSource.getUs()
     }
 
-    suspend fun getMembers(): MembersResponse{
+    suspend fun getMembers(): MembersResponse {
         return usDataSource.getMembers()
     }
 }

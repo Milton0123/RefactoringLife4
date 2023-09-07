@@ -5,7 +5,7 @@ data class UsResponse(
     val statusUs: String
 )
 
-data class MembersResponse (
+data class MembersResponse(
     val imageMembers: List<String>,
     val statusMembers: String
 )

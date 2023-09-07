@@ -97,4 +97,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_about_us"
         tools:listitem="@layout/item_rv_us_about_us" />
 
+    <ImageView
+        android:visibility="gone"
+        android:background="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:id="@+id/iv_zoom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 </androidx.constraintlayout.widget.ConstraintLayout>

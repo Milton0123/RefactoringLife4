@@ -1,6 +1,5 @@
 package com.example.refactoringlife4.ui.home.presenter
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +11,10 @@ import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModelFactory
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.refactoringlife4.databinding.FragmentHomeBinding
+import com.example.refactoringlife4.ui.aboutUs.presenter.AboutUsActivity
 import com.example.refactoringlife4.ui.all_dog.presenters.AllDogActivity
 import com.example.refactoringlife4.ui.home.adapter.HomeFragmentAdapter
+import com.example.refactoringlife4.utils.Utils
 
 class HomeFragment : Fragment() {
 
@@ -29,8 +30,8 @@ class HomeFragment : Fragment() {
 
         getViewModel()
         observer()
-        onClick()
         calls()
+        onClick()
         return binding.root
     }
 
@@ -42,9 +43,11 @@ class HomeFragment : Fragment() {
                 is HomeViewModelEvent.ShowSuccessView -> {
                     showSuccess(it.images)
                 }
+
                 is HomeViewModelEvent.ShowError -> {
                     showError()
                 }
+
                 else -> {
                     Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 }
@@ -52,9 +55,12 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onClick(){
-        binding.btHomeDog.setOnClickListener{
-            startActivity(Intent(requireContext(), AllDogActivity::class.java))
+    private fun onClick() {
+        binding.btHomeUs.setOnClickListener {
+            goToAboutUs()
+        }
+        binding.btHomeDog.setOnClickListener {
+            goToAllDogs()
         }
     }
 
@@ -69,12 +75,21 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showSuccess(images: List<String>){
+    private fun goToAllDogs() {
+        Utils.startActivityWithSlideToLeft(requireContext(), AllDogActivity::class.java, null)
+    }
+
+    private fun goToAboutUs() {
+        Utils.startActivityWithSlideToLeft(requireContext(), AboutUsActivity::class.java, null)
+    }
+
+    private fun showSuccess(images: List<String>) {
         initRecyclerView(images)
         binding.errorView.root.visibility = View.GONE
         binding.loadingView.root.visibility = View.GONE
     }
-    private fun showLoading(){
+
+    private fun showLoading() {
         binding.loadingView.root.visibility = View.VISIBLE
         binding.errorView.root.visibility = View.GONE
     }
@@ -89,7 +104,7 @@ class HomeFragment : Fragment() {
         viewModel = HomeViewModelFactory(requireContext()).create(HomeViewModel::class.java)
     }
 
-    private fun initRecyclerView(listDogs:List<String>) {
+    private fun initRecyclerView(listDogs: List<String>) {
         val dogsAdapter = HomeFragmentAdapter(listDogs) {
             //add function onClick
         }

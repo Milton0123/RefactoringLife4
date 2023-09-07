@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.refactoringlife4.databinding.ItemRvUsAboutUsBinding
+import com.example.refactoringlife4.utils.OnAboutUsClickListener
 import com.squareup.picasso.Picasso
 
-class UsAdapter(private val listOfUs: List<String>, private val onClick: (Int)-> Any) :
+class UsAdapter(private val listOfUs: List<String>, private val listener: OnAboutUsClickListener) :
     RecyclerView.Adapter<UsHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsHolder {
         val binding =
@@ -20,17 +21,17 @@ class UsAdapter(private val listOfUs: List<String>, private val onClick: (Int)->
 
     override fun onBindViewHolder(holder: UsHolder, position: Int) {
         val us = listOfUs[position]
-        holder.bind(us, onClick)
+        holder.bind(us, listener)
     }
 }
 
 class UsHolder(private val binding: ItemRvUsAboutUsBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(us: String, onClick: (Int)-> Any) {
+    fun bind(us: String, listener: OnAboutUsClickListener) {
         Picasso.get().load(us).into(binding.ivPhotoAboutUs)
 
         binding.ivPhotoAboutUs.setOnClickListener {
-            onClick(adapterPosition)
+            listener.onMemberClick(us)
         }
     }
 }
