@@ -1,16 +1,18 @@
 package com.example.refactoringlife4.ui.home.presenter
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModel
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelEvent
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelFactory
+import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModel
+import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModelEvent
+import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModelFactory
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.refactoringlife4.databinding.FragmentHomeBinding
+import com.example.refactoringlife4.ui.all_dog.presenters.AllDogActivity
 import com.example.refactoringlife4.ui.home.adapter.HomeFragmentAdapter
 
 class HomeFragment : Fragment() {
@@ -27,6 +29,7 @@ class HomeFragment : Fragment() {
 
         getViewModel()
         observer()
+        onClick()
         calls()
         return binding.root
     }
@@ -46,6 +49,12 @@ class HomeFragment : Fragment() {
                     Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun onClick(){
+        binding.btHomeDog.setOnClickListener{
+            startActivity(Intent(requireContext(), AllDogActivity::class.java))
         }
     }
 

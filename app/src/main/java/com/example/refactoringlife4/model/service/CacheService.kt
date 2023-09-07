@@ -1,4 +1,4 @@
-package com.example.refactoringlife4.utils
+package com.example.refactoringlife4.model.service
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.refactoringlife4.model.dto.Result
 import com.example.refactoringlife4.model.usesCases.UserUsesCase
-import com.example.refactoringlife4.utils.CacheService
 import com.example.refactoringlife4.utils.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

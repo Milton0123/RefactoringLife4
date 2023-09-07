@@ -24,7 +24,7 @@
         android:background="@drawable/icon_footprint_back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_search_friends" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_search_friends" />
 
     <ImageView
         android:id="@+id/iv_fingerprint_white"
@@ -33,8 +33,8 @@
         android:background="@drawable/ic_footprint_pet"
         android:layout_margin="9dp"
         app:layout_constraintEnd_toEndOf="@+id/iv_fingerprint_black"
-        app:layout_constraintStart_toStartOf="@id/iv_fingerprint_black"
-        app:layout_constraintTop_toTopOf="@id/iv_fingerprint_black" />
+        app:layout_constraintStart_toStartOf="@+id/iv_fingerprint_black"
+        app:layout_constraintTop_toTopOf="@+id/iv_fingerprint_black" />
 
 
     <TextView
@@ -51,7 +51,7 @@
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_fingerprint_black" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_fingerprint_black" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_back_white_terms_and_conditions"
@@ -61,11 +61,11 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/back_bt_white_round"
         android:drawableEnd="@drawable/arrow_left"
-        android:paddingEnd="30dp"
+        android:paddingVertical="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_terms" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_terms" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_back_black_terms_and_conditions"
@@ -74,14 +74,14 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="150dp"
         android:background="@drawable/back_bt_black_round"
-        android:paddingStart="20dp"
+        android:paddingVertical="20dp"
         android:text="volver"
         android:textAlignment="textStart"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_terms" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_terms" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
