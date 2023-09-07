@@ -57,7 +57,7 @@
             android:hint="@string/et_register_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:padding="15dp"
+            android:padding="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_register_name"

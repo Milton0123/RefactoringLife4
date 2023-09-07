@@ -15,8 +15,6 @@ import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreVi
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelEvent
 import com.example.refactoringlife4.ui.loginFireStore.viewmodel.LoginFireStoreViewModelFactory
 import com.example.refactoringlife4.ui.register.presenters.RegisterFireStoreActivity
-import com.example.refactoringlife4.ui.splash.viewModel.SplashViewModel
-import com.example.refactoringlife4.utils.CacheService
 import com.example.refactoringlife4.utils.Utils
 
 class LoginFireStoreActivity : AppCompatActivity() {
