@@ -5,11 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.example.refactoringlife4.databinding.ActivityRandomDogBinding
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModel
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelEvent
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelFactory
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModel
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModelEvent
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModelFactory

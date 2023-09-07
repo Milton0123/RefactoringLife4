@@ -10,7 +10,6 @@ class DogsUseCase(
     private val context: Context,
     private val dogsRepository: DogsRepository = DogsRepository(context = context)
 ) {
-
     suspend fun invoke(): DogsModel {
         val call = dogsRepository.getDogs()
         return when (call.status) {

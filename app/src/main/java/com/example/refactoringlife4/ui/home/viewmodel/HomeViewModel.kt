@@ -1,16 +1,11 @@
-package com.example.refactoringlife4.ui.home.presenter.viewmodel
+package com.example.refactoringlife4.ui.home.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.refactoringlife4.model.dto.Result
-import com.example.refactoringlife4.model.response.DogsResponse
 import com.example.refactoringlife4.model.usesCases.DogsUseCase
 import com.example.refactoringlife4.model.usesCases.UserUsesCase
-import com.example.refactoringlife4.utils.CodesError.CODE_401
-import com.example.refactoringlife4.utils.CodesError.CODE_500
-import com.example.refactoringlife4.utils.CodesError.SUCCESS_200
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
