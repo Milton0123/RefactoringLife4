@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Details.DetailsActivity">
+
+    <!-- Imagen de arriba -->
+
+    <ImageView
+        android:id="@+id/iv_details_background"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/img_details_dog" />
+
+    <!-- Cardview abajo -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_details_white"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="280dp"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Linear adopme y icono perro -->
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tv_details_adopt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:fontFamily="@font/roboto_black"
+                    android:text="@string/tv_details_adoptme"
+                    android:textColor="@color/black"
+                    android:textSize="36sp" />
+
+                <ImageView
+                    android:id="@+id/iv_details_dog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_details_dog" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- 4 botones con imagen -->
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_details_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tv_home_search">
+
+                <!-- Botón 1 -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_details_circle_dog_food"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/details_circle_grey"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_details_dog_food" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Botón 2 -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_details_circle_doc"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_details_doc" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Botón 3 -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_details_circle_home"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_details_home" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Botón 4 -->
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_details_circle_dog_paw"
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="10dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="16dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_details_dog_paw" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <!-- Texto con descripcion de botones -->
+
+            <TextView
+                android:id="@+id/tv_details_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/man_rope_regular"
+                android:padding="20dp"
+                android:textColor="@color/description_gray"
+                tools:text="@string/tv_details_text" />
+
+            <!-- botones volver -->
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginHorizontal="20dp">
+
+                <!-- Botón blanco -->
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_back_white_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/back_bt_white_round"
+                    android:drawableEnd="@drawable/arrow_left"
+                    android:paddingEnd="30dp"
+                    tools:ignore="RtlSymmetry" />
+
+                <!-- Botón negro (superpuesto) -->
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bt_back_black_details"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/back_bt_black_round"
+                    android:paddingStart="20dp"
+                    android:text="@string/bt_details_text_return"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/white"
+                    tools:ignore="RtlSymmetry" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
