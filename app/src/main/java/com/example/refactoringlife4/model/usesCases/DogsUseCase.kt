@@ -8,7 +8,7 @@ import com.example.refactoringlife4.model.repository.DogsRepository
 import com.example.refactoringlife4.model.repository.UserRepository
 import com.example.refactoringlife4.model.response.DogsResponse
 
-class DogsUseCase(private val context: Context, private val dogsRepository: DogsRepository = DogsRepository(context = context)) {
+class DogsUseCase(private val context: Context , private val dogsRepository: DogsRepository = DogsRepository(context = context)) {
 
     suspend fun invoke(): DogsModel {
         val call = dogsRepository.getDogs()

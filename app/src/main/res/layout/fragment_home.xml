@@ -40,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/tv_home_search">
+        app:layout_constraintTop_toBottomOf="@id/tv_home_search"
+        app:layout_constraintStart_toStartOf="parent" >
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_home_random"
@@ -58,8 +59,8 @@
             android:id="@+id/bt_home_dog"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:layout_margin="10dp"
             android:background="@drawable/bt_circle_black"
             android:elevation="10dp"
             android:fontFamily="@font/roboto_regular"
@@ -71,8 +72,8 @@
             android:id="@+id/bt_home_us"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:layout_margin="10dp"
             android:background="@drawable/bt_circle_white"
             android:elevation="10dp"
             android:fontFamily="@font/roboto_regular"
@@ -83,8 +84,8 @@
             android:id="@+id/bt_home_search"
             android:layout_width="0dp"
             android:layout_height="80dp"
-            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:layout_margin="10dp"
             android:background="@drawable/bt_circle_orange"
             android:elevation="10dp"
             android:fontFamily="@font/roboto_regular"

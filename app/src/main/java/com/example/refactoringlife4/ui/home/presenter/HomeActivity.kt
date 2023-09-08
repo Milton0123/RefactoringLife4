@@ -12,8 +12,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityHomeBinding
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModel
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelFactory
+import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModel
+import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModelFactory
 import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.utils.Utils
 

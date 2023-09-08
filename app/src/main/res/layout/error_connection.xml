@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -39,7 +38,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="250dp"
         android:background="@drawable/image_change"
-        app:layout_constraintBottom_toTopOf="@id/tv_tex_error_connection"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tex_error_connection"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_dog_error_connection"
         app:layout_constraintTop_toTopOf="parent" />
