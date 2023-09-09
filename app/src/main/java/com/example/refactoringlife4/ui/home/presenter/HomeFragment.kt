@@ -30,11 +30,8 @@ class HomeFragment : Fragment() {
 
         getViewModel()
         observer()
-<<<<<<< HEAD
         onClicks()
-=======
         onClick()
->>>>>>> b97a766f04d7da66e2f3b25c6e310adc066ca86a
         calls()
 
         return binding.root
@@ -66,7 +63,7 @@ class HomeFragment : Fragment() {
 
     private fun calls() {
         showLoading()
-        viewModel.  getDogs()
+        viewModel.getDogs()
     }
 
     private fun actions() {
