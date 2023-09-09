@@ -30,8 +30,8 @@
         android:id="@+id/iv_fingerprint_white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_footprint_pet"
         android:layout_margin="9dp"
+        android:background="@drawable/ic_footprint_pet"
         app:layout_constraintEnd_toEndOf="@+id/iv_fingerprint_black"
         app:layout_constraintStart_toStartOf="@+id/iv_fingerprint_black"
         app:layout_constraintTop_toTopOf="@+id/iv_fingerprint_black" />
@@ -42,8 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
         android:fontFamily="@font/roboto_regular"
         android:text="@string/terms_and_conditions_tv_terms_and_conditions"
         android:textAlignment="textStart"
@@ -61,7 +61,8 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/back_bt_white_round"
         android:drawableEnd="@drawable/arrow_left"
-        android:paddingVertical="30dp"
+        android:enabled="false"
+        android:paddingHorizontal="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,7 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="150dp"
         android:background="@drawable/back_bt_black_round"
-        android:paddingVertical="20dp"
+        android:paddingHorizontal="20dp"
         android:text="volver"
         android:textAlignment="textStart"
         android:textColor="@color/white"
@@ -82,6 +83,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_terms" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

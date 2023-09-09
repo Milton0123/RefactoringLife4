@@ -50,4 +50,7 @@
     <string name="bt_home_random">Random</string>
     <string name="terms_and_conditions_tv_terms_and_conditions">Lorem ipsum dolor sit amet consectetur adipiscing elit, conubia lacinia curabitur ac ligula gravida, odio nibh arcu fringilla litora congue. Condimentum ligula curabitur urna feugiat dictumst rutrum nullam orci fringilla, natoque hac eleifend nam felis pretium dapibus vehicula commodo maecenas, quis varius tellus semper cubilia dis mus eget. Libero mollis egestas volutpat dictum fusce curae commodo odio, sodales malesuada vehicula pretium cubilia felis ad ridiculus facilisis, bibendum vivamus et aenean sagittis pellentesque sapien. \n\nFusce hendrerit suspendisse mi laoreet ridiculus purus curabitur aenean integer, ornare mattis vehicula rhoncus fringilla hac diam mollis, inceptos congue natoque elementum conubia interdum commodo potenti. Sociis facilisi nunc nec morbi ultricies praesent ultrices, aliquam ligula consequat vehicula vitae. Blandit etiam nunc fringilla accumsan turpis curabitur sociis aenean bibendum, sagittis libero lectus dui arcu sem at tortor, fusce varius nulla ligula in cum elementum tempor.</string>
     <string name="string_button_back_terms">VOLVER</string>
+
+    <string name="tv_members">Members</string>
+    <string name="tv_about_us">About Us</string>
 </resources>
