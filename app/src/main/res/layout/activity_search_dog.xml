@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchDogActivity">
+    tools:context=".ui.searchDog.presenter.SearchDogActivity">
 
     <ImageView
         android:id="@+id/iv_search_friend_search_gog"
@@ -26,15 +26,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_search_friend_search_gog"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/iv_image_dog_search_dog"
+    <include
+        android:id="@+id/ic_image_one_dog_search"
+        layout="@layout/item_one_dog"
         android:layout_width="350dp"
-        android:layout_height="400dp"
+        android:layout_height="430dp"
         android:layout_marginTop="40dp"
-        tools:listitem="@layout/item_one_dog"
-        app:layout_constraintTop_toBottomOf="@id/sv_search_search_dog"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/sv_search_search_dog" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_back_white_terms_and_conditions"

@@ -1,5 +1,6 @@
 package com.example.refactoringlife4.ui.home.presenter
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelEve
 import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelFactory
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.refactoringlife4.ui.searchDog.presenter.SearchDogActivity
 import com.example.refactoringlife4.databinding.FragmentHomeBinding
 import com.example.refactoringlife4.ui.home.adapter.HomeFragmentAdapter
 
@@ -27,7 +29,9 @@ class HomeFragment : Fragment() {
 
         getViewModel()
         observer()
+        onClicks()
         calls()
+
         return binding.root
     }
 
@@ -58,6 +62,13 @@ class HomeFragment : Fragment() {
         binding.errorView.root.setOnClickListener {
             calls()
         }
+    }
+    private fun onClicks(){
+        binding.btHomeSearch.setOnClickListener {
+            startActivity(Intent(requireContext(), SearchDogActivity::class.java))
+
+        }
+
     }
 
     private fun showSuccess(images: List<String>){

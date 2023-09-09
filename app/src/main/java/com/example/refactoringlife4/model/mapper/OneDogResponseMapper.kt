@@ -7,6 +7,6 @@ import com.example.refactoringlife4.model.response.OneDogResponse
 
 
 fun Result<OneDogResponse>.toOneDogModel(state: Boolean): OneDogModel {
-    return OneDogModel((this.data?.image ?: emptyList()), state)
+    return OneDogModel((this.data?.image ?: String()), state)
 }
 

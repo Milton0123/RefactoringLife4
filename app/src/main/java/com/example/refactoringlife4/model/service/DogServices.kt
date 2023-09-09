@@ -11,6 +11,6 @@ interface DogServices {
     @GET("breeds/image/random/50")
     suspend fun getDogs(): Response<DogsResponse>
 
-    @GET("breed/{breed}/images")
-    suspend fun getOneDog(@Path("breed") breed: String): Response<OneDogResponse>
+    @GET("breed/{african}/images/random")
+    suspend fun getOneDog(@Path("african") id: String): Response<OneDogResponse>
 }
