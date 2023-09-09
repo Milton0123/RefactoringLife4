@@ -20,6 +20,9 @@
             android:name=".ui.all_dog.presenters.AllDogActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.aboutUs.presenter.AboutUsActivity"
+            android:exported="false" />
+        <activity
             android:name=".SearchDogActivity"
             android:exported="false" />
         <activity

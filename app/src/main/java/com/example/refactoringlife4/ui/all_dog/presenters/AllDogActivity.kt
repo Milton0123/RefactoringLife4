@@ -11,6 +11,8 @@ import com.example.refactoringlife4.ui.all_dog.adapter.AllDogAdapter
 import com.example.refactoringlife4.ui.all_dog.viewmodel.AllDogsViewModel
 import com.example.refactoringlife4.ui.all_dog.viewmodel.AllDogsViewModelEvent
 import com.example.refactoringlife4.ui.all_dog.viewmodel.AllDogsViewModelFactory
+import com.example.refactoringlife4.ui.home.presenter.HomeActivity
+import com.example.refactoringlife4.utils.Utils
 
 class AllDogActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAllDogBinding
@@ -49,12 +51,20 @@ class AllDogActivity : AppCompatActivity() {
                 interpolator = AccelerateDecelerateInterpolator()
                 duration = 1000
                 withEndAction {
+                    goToHome()
                     finish()
                     binding.btBackBlackTermsAndConditions.isEnabled = true
                 }
             }
             binding.btBackWhiteTermsAndConditions.isEnabled = false
         }
+    }
+
+    private fun goToHome(){
+        Utils.startActivityWithSlideToRight(this, HomeActivity::class.java, null)
+    }
+    private fun goToBack() {
+        Utils.startActivityWithSlideToRight(this, HomeActivity::class.java, null)
     }
 
     private fun observe() {
@@ -83,6 +93,10 @@ class AllDogActivity : AppCompatActivity() {
         }
         animator.duration = 1000
         animator.start()
+    }
+
+    override fun onBackPressed() {
+        goToBack()
     }
 
 }
