@@ -63,6 +63,9 @@ class AllDogActivity : AppCompatActivity() {
     private fun goToHome(){
         Utils.startActivityWithSlideToRight(this, HomeActivity::class.java, null)
     }
+    private fun goToBack() {
+        Utils.startActivityWithSlideToRight(this, HomeActivity::class.java, null)
+    }
 
     private fun observe() {
         viewModel.data.observe(this) {
@@ -90,6 +93,10 @@ class AllDogActivity : AppCompatActivity() {
         }
         animator.duration = 1000
         animator.start()
+    }
+
+    override fun onBackPressed() {
+        goToBack()
     }
 
 }
