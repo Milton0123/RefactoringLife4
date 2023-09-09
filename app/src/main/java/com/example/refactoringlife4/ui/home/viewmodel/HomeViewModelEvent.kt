@@ -1,4 +1,4 @@
-package com.example.refactoringlife4.ui.home.presenter.viewmodel
+package com.example.refactoringlife4.ui.home.viewmodel
 
 sealed class HomeViewModelEvent {
 

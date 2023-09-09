@@ -10,8 +10,6 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.refactoringlife4.ui.searchDog.viewModel.SearchOneDogViewModel
 import com.example.refactoringlife4.ui.searchDog.viewModel.SearchViewModelEvent
 import com.example.refactoringlife4.databinding.ActivitySearchDogBinding
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModel
-import com.example.refactoringlife4.ui.home.presenter.viewmodel.HomeViewModelFactory
 import com.example.refactoringlife4.ui.searchDog.viewModel.SearchViewModelFactory
 import com.squareup.picasso.Picasso
 
