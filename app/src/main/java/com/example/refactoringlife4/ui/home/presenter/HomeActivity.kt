@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityHomeBinding
 import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModel
+import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModelEvent
 import com.example.refactoringlife4.ui.home.viewmodel.HomeViewModelFactory
 import com.example.refactoringlife4.ui.login.presenters.LoginActivity
 import com.example.refactoringlife4.utils.Utils
@@ -25,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var viewModel: HomeViewModel
     private var backPressedTime: Long = 0
     private val backPressedInterval: Long = 2000
+    private lateinit var images: List<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +52,13 @@ class HomeActivity : AppCompatActivity() {
 
         getViewModel()
         onClick()
+
+        // Inicializa 'images' aquí, por ejemplo, cuando se obtengan del ViewModel.
+        viewModel.data.observe(this) { event ->
+            if (event is HomeViewModelEvent.ShowSuccessView) {
+                images = event.images
+            }
+        }
     }
 
     private fun onClick() {
