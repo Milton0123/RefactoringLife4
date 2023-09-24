@@ -17,6 +17,7 @@ import com.example.refactoringlife4.ui.aboutUs.presenter.AboutUsActivity
 import com.example.refactoringlife4.ui.all_dog.presenters.AllDogActivity
 import com.example.refactoringlife4.ui.details.presenter.DetailsActivity
 import com.example.refactoringlife4.ui.home.adapter.HomeFragmentAdapter
+import com.example.refactoringlife4.ui.randomDog.presents.RandomDogActivity
 import com.example.refactoringlife4.utils.Utils
 
 class HomeFragment : Fragment() {
@@ -86,6 +87,10 @@ class HomeFragment : Fragment() {
         binding.btHomeSearch.setOnClickListener {
             startActivity(Intent(requireContext(), SearchDogActivity::class.java))
 
+        }
+
+        binding.btHomeRandom.setOnClickListener {
+            startActivity(Intent(requireContext(),RandomDogActivity::class.java))
         }
     }
 

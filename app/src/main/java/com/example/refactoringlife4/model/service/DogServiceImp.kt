@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
 import com.example.refactoringlife4.model.dto.Result
+import com.example.refactoringlife4.model.response.RandomDogResponse
 import com.example.refactoringlife4.model.response.OneDogResponse
 import retrofit2.converter.gson.GsonConverterFactory
 import com.example.refactoringlife4.utils.CodesError.CODE_401
@@ -46,7 +47,29 @@ class DogServiceImp {
         }
     }
 
-    suspend fun getOneDogForBreed(breed:String): Result<OneDogResponse> {
+    suspend fun getRandomDog(): Result<RandomDogResponse> {
+        val call: Response<RandomDogResponse> = serviceImp.getRandomDog()
+        Log.i("HTTP_random_dog", call.code().toString())
+        return when (call.code()) {
+            200 -> {
+                Result.success(call.body())
+            }
+            401 -> {
+                Result.error(null, message = CODE_401, status = Result.Status.ERROR_CODE)
+            }
+            500 -> {
+                Result.errorCode(message = CODE_500)
+            }
+            404 -> {
+                Result.errorCode(message = CODE_404)
+            }
+            else -> {
+                Result.errorCode(message = CODE_404)
+            }
+        }
+    }
+
+    suspend fun getOneDogForBreed(breed: String): Result<OneDogResponse> {
         val call: Response<OneDogResponse> = serviceImp.getOneDog(breed)
         Log.i("HTTP", call.code().toString())
         return when (call.code()) {
@@ -67,5 +90,4 @@ class DogServiceImp {
             }
         }
     }
-
 }
