@@ -1,5 +1,6 @@
 package com.example.refactoringlife4.ui.searchDog.presenter
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -10,6 +11,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.refactoringlife4.ui.searchDog.viewModel.SearchOneDogViewModel
 import com.example.refactoringlife4.ui.searchDog.viewModel.SearchViewModelEvent
 import com.example.refactoringlife4.databinding.ActivitySearchDogBinding
+import com.example.refactoringlife4.ui.details.presenter.DetailsActivity
 import com.example.refactoringlife4.ui.searchDog.viewModel.SearchViewModelFactory
 import com.squareup.picasso.Picasso
 
@@ -29,6 +31,7 @@ class SearchDogActivity : AppCompatActivity() {
     }
 
     private fun onClicks() {
+
         binding.btBackBlackTermsAndConditions.setOnClickListener {
             binding.btBackBlackTermsAndConditions.isEnabled = false
 
@@ -55,6 +58,7 @@ class SearchDogActivity : AppCompatActivity() {
             when (it) {
                 is SearchViewModelEvent.ShowSuccessView -> {
                     Picasso.get().load(it.image).into(binding.icImageOneDogSearch.ivImageOneDog)
+                    onItemClick(it.image)
                 }
                 is SearchViewModelEvent.ShowError -> {
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
@@ -85,5 +89,11 @@ class SearchDogActivity : AppCompatActivity() {
 
         })
     }
-
+    private fun onItemClick(value: String) {
+        binding.icImageOneDogSearch.ivImageOneDog.setOnClickListener {
+            val intent = Intent(this, DetailsActivity::class.java)
+            intent.putExtra("imageUrl", value)
+            startActivity(intent)
+        }
+    }
 }

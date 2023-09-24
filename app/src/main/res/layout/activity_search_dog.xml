@@ -19,6 +19,7 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/sv_search_search_dog"
         android:layout_width="350dp"
+        android:focusable="auto"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/search_radius"
