@@ -52,4 +52,14 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="string_button_back_terms">VOLVER</string>
+
+    <string name="tv_members">Members</string>
+    <string name="tv_about_us">About Us</string>
+
+    <string name="tv_details_food">Any diet must be appropriate for the dog. years. Clean, fresh water must be available at all times.</string>
+    <string name="tv_details_doc">Learn how to care for your furry best friends health with expert veterinary advice.</string>
+    <string name="tv_details_home">Explore tips on making your home a safe and welcoming place for your pet.</string>
+    <string name="tv_details_dog_paw">Find out more about the additional care your pet deserves for a fulfilling and active life.</string>
+    <string name="bt_details_text_return">Return</string>
+    <string name="tv_details_adoptme">Adoptme</string>
 </resources>

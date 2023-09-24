@@ -1,12 +1,14 @@
 package com.example.refactoringlife4.ui.randomDog.presents
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import com.example.refactoringlife4.databinding.ActivityRandomDogBinding
+import com.example.refactoringlife4.ui.details.presenter.DetailsActivity
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModel
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModelEvent
 import com.example.refactoringlife4.ui.randomDog.viewModel.RandomDogViewModelFactory
@@ -35,6 +37,7 @@ class RandomDogActivity : AppCompatActivity() {
                     Picasso.get().load(it.image).into(binding.incImage.ivPhotoDog)
                     binding.incError.root.visibility = View.GONE
                     binding.incLoading.root.visibility = View.GONE
+                    onItemClick(it.image)
                 }
                 is RandomDogViewModelEvent.ShowError -> {
                     showError()
@@ -46,7 +49,9 @@ class RandomDogActivity : AppCompatActivity() {
         }
     }
 
+
     private fun actions() {
+
         showLoading()
         viewModel.getRandomDog()
 
@@ -99,5 +104,13 @@ class RandomDogActivity : AppCompatActivity() {
         }
         animator.duration = 1000
         animator.start()
+    }
+
+    private fun onItemClick(value: String) {
+        binding.incImage.ivPhotoDog.setOnClickListener {
+            val intent = Intent(this, DetailsActivity::class.java)
+            intent.putExtra("imageUrl", value)
+            startActivity(intent)
+        }
     }
 }
