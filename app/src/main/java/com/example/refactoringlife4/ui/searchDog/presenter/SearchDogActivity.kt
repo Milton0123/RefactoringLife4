@@ -89,6 +89,7 @@ class SearchDogActivity : AppCompatActivity() {
 
         })
     }
+
     private fun onItemClick(value: String) {
         binding.icImageOneDogSearch.ivImageOneDog.setOnClickListener {
             val intent = Intent(this, DetailsActivity::class.java)
@@ -96,4 +97,5 @@ class SearchDogActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }
