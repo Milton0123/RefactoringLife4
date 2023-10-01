@@ -40,6 +40,8 @@
 
             <!-- Linear adopme y icono perro -->
 
+            <!-- 4 botones con imagen -->
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -65,8 +67,6 @@
                     android:src="@drawable/ic_details_dog" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <!-- 4 botones con imagen -->
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll_details_options"

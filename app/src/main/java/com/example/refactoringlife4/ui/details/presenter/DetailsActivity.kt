@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.animation.AccelerateDecelerateInterpolator
 import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ActivityDetailsBinding
+import com.example.refactoringlife4.ui.adoptDog.presenters.AdoptDogActivity
+import com.example.refactoringlife4.utils.Utils
 import com.squareup.picasso.Picasso
 
 class DetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
     private var currentDescription: String = ""
     private var selectedButtonId: Int = R.id.cv_details_circle_dog_food
+    private var imageUrl : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +26,7 @@ class DetailsActivity : AppCompatActivity() {
         selectButton(selectedButtonId)
 
         // Obtener la URL de la imagen del Intent
-        val imageUrl = intent.getStringExtra("imageUrl")
+        imageUrl = intent.getStringExtra("imageUrl").toString()
 
         // Verificar si la URL no es nula y cargar la imagen con Picasso
         if (imageUrl != null) {
@@ -69,6 +72,12 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun onClicks() {
+        binding.tvDetailsAdopt.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putString("imageUrl", imageUrl)
+            Utils.startActivityWithSlideToLeft(this, AdoptDogActivity::class.java, bundle)
+            finish()
+        }
         binding.btBackWhiteDetails.isEnabled = false
 
         binding.btBackBlackDetails.setOnClickListener {
