@@ -1,9 +1,11 @@
 package com.example.refactoringlife4.ui.all_dog.presenters
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.telecom.Call
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import com.example.refactoringlife4.databinding.ActivityAllDogBinding
@@ -11,6 +13,7 @@ import com.example.refactoringlife4.ui.all_dog.adapter.AllDogAdapter
 import com.example.refactoringlife4.ui.all_dog.viewmodel.AllDogsViewModel
 import com.example.refactoringlife4.ui.all_dog.viewmodel.AllDogsViewModelEvent
 import com.example.refactoringlife4.ui.all_dog.viewmodel.AllDogsViewModelFactory
+import com.example.refactoringlife4.ui.details.presenter.DetailsActivity
 import com.example.refactoringlife4.ui.home.presenter.HomeActivity
 import com.example.refactoringlife4.utils.Utils
 
@@ -60,9 +63,10 @@ class AllDogActivity : AppCompatActivity() {
         }
     }
 
-    private fun goToHome(){
+    private fun goToHome() {
         Utils.startActivityWithSlideToRight(this, HomeActivity::class.java, null)
     }
+
     private fun goToBack() {
         Utils.startActivityWithSlideToRight(this, HomeActivity::class.java, null)
     }
@@ -81,8 +85,15 @@ class AllDogActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView(listRandomDogs: List<String>) {
-        val adapter = AllDogAdapter(listRandomDogs)
+        val adapter = AllDogAdapter(listRandomDogs, clickItem = { goToDetails(it) })
         binding.allDogRvRandomDogs.adapter = adapter
+    }
+
+    private fun goToDetails(item: String) {
+        val bundle = Bundle()
+        bundle.putString("imageUrl", item)
+        Utils.startActivityWithSlideToLeft(this, DetailsActivity::class.java, bundle)
+        finish()
     }
 
     private fun animateFootprint() {

@@ -23,7 +23,7 @@ class SearchDogActivity : AppCompatActivity() {
         binding = ActivitySearchDogBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getViewModel()
-        calls("pitbull")
+        calls("labrador")
         onClicks()
         observe()
         searchDog()
@@ -31,7 +31,9 @@ class SearchDogActivity : AppCompatActivity() {
     }
 
     private fun onClicks() {
-
+        binding.svSearchSearchDog.setOnClickListener {
+            binding.svSearchSearchDog.isIconified = false
+        }
         binding.btBackBlackTermsAndConditions.setOnClickListener {
             binding.btBackBlackTermsAndConditions.isEnabled = false
 
@@ -49,7 +51,7 @@ class SearchDogActivity : AppCompatActivity() {
 
     }
 
-    fun calls(imageDog: String) {
+    private fun calls(imageDog: String) {
         viewModel.getOneDog(imageDog)
     }
 
@@ -57,8 +59,14 @@ class SearchDogActivity : AppCompatActivity() {
         viewModel.data.observe(this) {
             when (it) {
                 is SearchViewModelEvent.ShowSuccessView -> {
-                    Picasso.get().load(it.image).into(binding.icImageOneDogSearch.ivImageOneDog)
-                    onItemClick(it.image)
+                    if (it.image.isNullOrEmpty()) {
+                        viewModel.getOneDog(
+                            binding.svSearchSearchDog.query.toString()
+                        )
+                    } else {
+                        Picasso.get().load(it.image).into(binding.icImageOneDogSearch.ivImageOneDog)
+                        onItemClick(it.image)
+                    }
                 }
                 is SearchViewModelEvent.ShowError -> {
                     Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
@@ -89,6 +97,7 @@ class SearchDogActivity : AppCompatActivity() {
 
         })
     }
+
     private fun onItemClick(value: String) {
         binding.icImageOneDogSearch.ivImageOneDog.setOnClickListener {
             val intent = Intent(this, DetailsActivity::class.java)
@@ -96,4 +105,5 @@ class SearchDogActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }

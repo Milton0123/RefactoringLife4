@@ -8,8 +8,10 @@ import com.example.refactoringlife4.R
 import com.example.refactoringlife4.databinding.ItemRvAllDogsBinding
 import com.squareup.picasso.Picasso
 
-class AllDogAdapter(private val randomListDogs: List<String>) :
-    RecyclerView.Adapter<AllDogHolder>() {
+class AllDogAdapter(
+    private val randomListDogs: List<String>,
+    private val clickItem: (String) -> Any
+) : RecyclerView.Adapter<AllDogHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllDogHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.item_rv_all_dogs, parent, false)
@@ -17,7 +19,7 @@ class AllDogAdapter(private val randomListDogs: List<String>) :
     }
 
     override fun onBindViewHolder(holder: AllDogHolder, position: Int) {
-        holder.render(randomListDogs[position])
+        holder.render(randomListDogs[position], clickItem)
     }
 
     override fun getItemCount(): Int {
@@ -27,8 +29,9 @@ class AllDogAdapter(private val randomListDogs: List<String>) :
 
 class AllDogHolder(view: View) : RecyclerView.ViewHolder(view) {
     val binding = ItemRvAllDogsBinding.bind(view)
-    fun render(value: String) {
+    fun render(value: String, clickItem: (String) -> Any) {
         Picasso.get().load(value).into(binding.imageRandomDogs)
+        binding.root.setOnClickListener { clickItem(value) }
     }
 
 }
