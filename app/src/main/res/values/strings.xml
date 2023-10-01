@@ -62,4 +62,6 @@
     <string name="tv_details_dog_paw">Find out more about the additional care your pet deserves for a fulfilling and active life.</string>
     <string name="bt_details_text_return">Return</string>
     <string name="tv_details_adoptme">Adoptme</string>
+    <string name="bt_home">volver al inicio</string>
+    <string name="title_adopt_me">Gracias por elegirnos y adoptar a uno de nuestros perritos</string>
 </resources>
