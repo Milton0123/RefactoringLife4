@@ -90,9 +90,10 @@ class AllDogActivity : AppCompatActivity() {
     }
 
     private fun goToDetails(item: String) {
-        val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra("imageUrl", item)
-        startActivity(intent)
+        val bundle = Bundle()
+        bundle.putString("imageUrl", item)
+        Utils.startActivityWithSlideToLeft(this, DetailsActivity::class.java, bundle)
+        finish()
     }
 
     private fun animateFootprint() {

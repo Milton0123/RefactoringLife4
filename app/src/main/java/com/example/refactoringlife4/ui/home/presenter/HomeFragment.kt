@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.btHomeRandom.setOnClickListener {
-            startActivity(Intent(requireContext(),RandomDogActivity::class.java))
+            startActivity(Intent(requireContext(), RandomDogActivity::class.java))
         }
     }
 
