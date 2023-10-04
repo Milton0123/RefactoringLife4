@@ -24,6 +24,7 @@ class RegisterFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUs
                 Result.Status.SUCCESS -> {
                     _data.postValue(RegisterViewModelEvent.ShowSuccessView)
                 }
+
                 Result.Status.ERROR_EMAIL_EXIST -> {
                     _data.postValue(
                         response.modalDialog?.let {
@@ -33,6 +34,7 @@ class RegisterFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUs
                         }
                     )
                 }
+
                 Result.Status.ERROR_LOST_CONNECTION -> {
                     _data.postValue(
                         response.modalDialog?.let {
@@ -42,6 +44,7 @@ class RegisterFireStoreViewModel(private val userUsesCase: UserUsesCase = UserUs
                         }
                     )
                 }
+
                 else -> {
                     _data.postValue(
                         response.modalDialog?.let {

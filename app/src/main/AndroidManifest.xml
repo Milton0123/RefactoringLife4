@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".utils.AppInstanceCache"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,6 +16,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RefactoringLife4"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.adoptDog.presenters.AdoptDogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.randomDog.presents.RandomDogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.details.presenter.DetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.all_dog.presenters.AllDogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.aboutUs.presenter.AboutUsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.searchDog.presenter.SearchDogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.login.presenters.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.presenter.HomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.RefactoringLife4.NoActionBar" />
         <activity
             android:name=".ui.congratulations.CongratulationsActivity"
             android:exported="false" />
@@ -28,7 +55,7 @@
             android:name=".ui.register.presenters.RegisterFireStoreActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ui.splash.presenters.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashScreen">
             <intent-filter>

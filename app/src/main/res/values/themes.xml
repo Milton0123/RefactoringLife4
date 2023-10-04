@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.RefactoringLife4" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -19,4 +19,14 @@
         <item name="android:windowSplashscreenContent">@drawable/icon_rf4</item>
         <item name="postSplashScreenTheme">@style/Theme.RefactoringLife4</item>
     </style>
+
+
+    <style name="Theme.RefactoringLife4.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.RefactoringLife4.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.RefactoringLife4.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

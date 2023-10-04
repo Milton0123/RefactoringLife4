@@ -8,7 +8,6 @@ import com.example.refactoringlife4.model.dto.UserModelResponse
 class UserRepository(private val userDataSource: UserDataSource = UserDataSource()) {
 
     suspend fun userLogin(email: String, password: String): Result<UserModelResponse> {
-
         return userDataSource.userLogin(email, password)
     }
 
@@ -17,9 +16,25 @@ class UserRepository(private val userDataSource: UserDataSource = UserDataSource
         userName: String,
         password: String
     ): Result<UserModelResponse> {
-
         val result = userDataSource.userRegister(email, userName, password)
         Log.i("registerResult", result.status.name)
         return result
     }
+
+    fun loadUserCache(user: String) {
+        userDataSource.loadUserServiceCache(user)
+    }
+
+    fun downloadUserCache(): String {
+        return userDataSource.getUserServiceCache()
+    }
+
+    fun clearUserCache() {
+        userDataSource.deleteUserServiceCache()
+    }
+
+    suspend fun changeUser(email: String): Result<UserModelResponse> {
+        return userDataSource.changeUser(email = email)
+    }
+
 }
